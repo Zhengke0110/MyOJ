@@ -1,7 +1,7 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import BasicLayout from "@/layouts/BasicLayout";
+</script>
 
 <template>
-  <RouterView />
+  <BasicLayout />
 </template>
-
-<style scoped></style>
