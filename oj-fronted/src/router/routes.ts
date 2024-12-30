@@ -21,8 +21,21 @@ export const routes: RouteRecordRaw[] = [
     component: () => import("@/views/Home.vue"),
   },
   {
+    path: "/admit",
+    name: "Admit",
+    meta: {
+      access: "CanAdmit",
+    },
+    component: () => import("@/views/Admit.vue"),
+  },
+  {
+    path: "/noauth",
+    name: "NoAuth",
+    component: () => import("@/views/NoAuth.vue"),
+  },
+  {
     path: "/:pathMatch(.*)*",
-    name: "error",
+    name: "Error",
     component: () => import("@/views/Error.vue"),
   },
 ];

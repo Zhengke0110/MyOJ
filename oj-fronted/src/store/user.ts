@@ -2,16 +2,19 @@ import { defineStore } from "pinia";
 // Link:https://pinia.vuejs.org/zh/
 
 interface State {
-  loginInfo: { userName: string };
+  loginInfo: { userName: string; role: string };
 }
 
 export const useUserStore = defineStore("user", {
   state: (): State => ({
-    loginInfo: { userName: "未登录" },
+    loginInfo: { userName: "未登录", role: "admit" },
   }),
   getters: {
     getUserName(): string {
       return this.loginInfo.userName;
+    },
+    getRole(): string {
+      return this.loginInfo.role;
     },
   },
   actions: {

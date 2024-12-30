@@ -37,7 +37,10 @@ import { useUserStore } from "@/store/user";
 // filter routes
 const filteredRoutes = computed(() => {
   return routes.filter(
-    (route) => !route.redirect && route.path !== "/:pathMatch(.*)*" // 排除包含 redirect 属性的路由和通配符路由
+    (route) =>
+      !route.redirect &&
+      route.path !== "/:pathMatch(.*)*" &&
+      route.path != "/noauth" // 排除包含 redirect 属性的路由和通配符路由
   );
 });
 
@@ -46,10 +49,7 @@ const selectKey = ref<string[]>(["/"]);
 
 // 路由跳转时，更新选中的菜单项
 const router = useRouter();
-const menuClick = (path: string) => {
-  console.log(path);
-  router.push(path);
-};
+const menuClick = (path: string) => router.push(path);
 router.afterEach((to) => (selectKey.value = [to.path]));
 
 // 状态管理 Pinia
