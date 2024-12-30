@@ -1,6 +1,10 @@
 <template>
   <div>
-    <a-menu mode="horizontal" :default-selected-keys="['1']">
+    <a-menu
+      mode="horizontal"
+      :selected-keys="selectKey"
+      @menu-item-click="menuClick"
+    >
       <a-menu-item
         key="0"
         :style="{ padding: 0, marginRight: '38px' }"
@@ -11,14 +15,34 @@
           <div class="ml-[16px] text-slate-600">🐶 OJ</div>
         </div>
       </a-menu-item>
-      <a-menu-item key="1">Home</a-menu-item>
-      <a-menu-item key="2">Solution</a-menu-item>
-      <a-menu-item key="3">Cloud Service</a-menu-item>
-      <a-menu-item key="4">Cooperation</a-menu-item>
+      <a-menu-item v-for="item in filteredRoutes" :key="item.path">{{
+        item.name
+      }}</a-menu-item>
     </a-menu>
   </div>
 </template>
 
 <script setup lang="ts">
+import { computed, ref } from "vue";
+import { useRouter } from "vue-router";
 import { LogoPath } from "@/config";
+import { routes } from "@/router/routes";
+
+// filter routes
+const filteredRoutes = computed(() => {
+  return routes.filter(
+    (route) => !route.redirect && route.path !== "/:pathMatch(.*)*" // 排除包含 redirect 属性的路由和通配符路由
+  );
+});
+
+// 默认主页
+const selectKey = ref<string[]>(["/"]);
+
+// 路由跳转时，更新选中的菜单项
+const router = useRouter();
+const menuClick = (path: string) => {
+  console.log(path);
+  router.push(path);
+};
+router.afterEach((to) => (selectKey.value = [to.path]));
 </script>
