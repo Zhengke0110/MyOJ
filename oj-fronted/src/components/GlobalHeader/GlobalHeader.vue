@@ -1,5 +1,5 @@
 <template>
-  <a-row style="margin-bottom: 16px" align="center">
+  <a-row align="center" :wrap="false">
     <a-col flex="auto">
       <a-menu
         mode="horizontal"
@@ -13,7 +13,7 @@
         >
           <div class="flex items-center text-base">
             <img class="h-[48px]" :src="LogoPath" alt="" />
-            <div class="ml-[16px] text-slate-600">🐶 OJ</div>
+            <div class="ml-[16px] text-slate-600">D OJ</div>
           </div>
         </a-menu-item>
         <a-menu-item v-for="item in filteredRoutes" :key="item.path">{{
@@ -22,7 +22,7 @@
       </a-menu>
     </a-col>
     <a-col flex="100px">
-      <div>{{ useStore.getUserName }}</div>
+      <div>{{ LoginUserInfo.userName }}</div>
     </a-col>
   </a-row>
 </template>
@@ -33,15 +33,24 @@ import { useRouter } from "vue-router";
 import { LogoPath } from "@/config";
 import { routes } from "@/router/routes";
 import { useUserStore } from "@/store/user";
+import { ACCESSENUM, CheckACCESS } from "@/access";
+
+// 状态管理 Pinia
+const userStore = useUserStore();
+const LoginUserInfo = userStore.getLoginInfo;
 
 // filter routes
 const filteredRoutes = computed(() => {
-  return routes.filter(
-    (route) =>
+  return routes.filter((route) => {
+    const NeedACCESS: ACCESSENUM =
+      (route.meta?.access as ACCESSENUM) ?? ACCESSENUM.NOLOGIN;
+    return (
       !route.redirect &&
       route.path !== "/:pathMatch(.*)*" &&
-      route.path != "/noauth" // 排除包含 redirect 属性的路由和通配符路由
-  );
+      route.path != "/noauth" &&
+      CheckACCESS(LoginUserInfo.role, NeedACCESS)
+    ); // 排除包含 redirect 属性的路由和通配符路由
+  });
 });
 
 // 默认主页
@@ -51,7 +60,4 @@ const selectKey = ref<string[]>(["/"]);
 const router = useRouter();
 const menuClick = (path: string) => router.push(path);
 router.afterEach((to) => (selectKey.value = [to.path]));
-
-// 状态管理 Pinia
-const useStore = useUserStore();
 </script>

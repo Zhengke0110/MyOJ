@@ -1,4 +1,5 @@
 import type { RouteRecordRaw } from "vue-router";
+import { ACCESSENUM } from "@/access";
 
 export const routes: RouteRecordRaw[] = [
   {
@@ -21,12 +22,12 @@ export const routes: RouteRecordRaw[] = [
     component: () => import("@/views/Home.vue"),
   },
   {
-    path: "/admit",
-    name: "Admit",
+    path: "/admin",
+    name: "Admin",
     meta: {
-      access: "CanAdmit",
+      access: ACCESSENUM.ADMIN,
     },
-    component: () => import("@/views/Admit.vue"),
+    component: () => import("@/views/Admin.vue"),
   },
   {
     path: "/noauth",

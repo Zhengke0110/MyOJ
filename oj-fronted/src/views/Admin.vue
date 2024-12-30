@@ -1,5 +1,5 @@
 <template>
-  <div>admit</div>
+  <div>admin</div>
 </template>
 
 <script setup lang="ts"></script>
