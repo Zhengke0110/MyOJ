@@ -1,9 +1,9 @@
 <template>
   <a-layout>
-    <a-layout-header class="mb-8 bg-cyan"><GlobalHeader /></a-layout-header>
+    <a-layout-header class="mb-6"><GlobalHeader /></a-layout-header>
     <!-- Content -->
-    <a-layout-content class="mb-8 bg-fuchsia">
-      <RouterView />
+    <a-layout-content class="mb-6 block bg-fuchsia">
+      <RouterView class="min-h-[500px]" />
     </a-layout-content>
     <!-- Footer -->
     <a-layout-footer class="flex justify-center">

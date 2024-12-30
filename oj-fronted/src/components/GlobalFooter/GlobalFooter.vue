@@ -1,5 +1,7 @@
 <template>
-  <div class="mt-10 mb-6 p-[16px] prose m-auto opacity-50 flex">
+  <div
+    class="mt-6 mb-6 p-[16px] sticky bottom-0 left-0 right-0 prose m-auto opacity-50 flex"
+  >
     <span class="text-sm">
       <a
         target="_blank"
