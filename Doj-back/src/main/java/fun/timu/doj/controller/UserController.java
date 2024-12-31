@@ -4,12 +4,14 @@ import fun.timu.doj.common.BaseResponse;
 import fun.timu.doj.common.ErrorCode;
 import fun.timu.doj.common.ResultUtils;
 import fun.timu.doj.exception.BusinessException;
+import fun.timu.doj.model.dto.user.UserLoginRequest;
 import fun.timu.doj.model.dto.user.UserRegisterRequest;
+import fun.timu.doj.model.vo.LoginUserVO;
 import fun.timu.doj.service.UserService;
 import jakarta.annotation.Resource;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @Slf4j
@@ -26,14 +28,21 @@ public class UserController {
         String userAccount = userRegisterRequest.getUserAccount();
         String userPassword = userRegisterRequest.getUserPassword();
         String checkPassword = userRegisterRequest.getCheckPassword();
-        if (StringUtils.isAnyBlank(userAccount, userPassword, checkPassword)) {
-            return null;
-        }
+        if (StringUtils.isAnyBlank(userAccount, userPassword, checkPassword)) return null;
         long result = userService.userRegister(userAccount, userPassword, checkPassword);
         return ResultUtils.success(result);
     }
-//    @PostMapping("/login")
-//    public BaseResponse<LoginUserVO> userLogin(@RequestBody UserLoginRequest userLoginRequest, HttpServletRequest request) {
+
+    @PostMapping("/login")
+    public BaseResponse<LoginUserVO> userLogin(@RequestBody UserLoginRequest userLoginRequest, HttpServletRequest request) {
+        if (userLoginRequest == null) throw new BusinessException(ErrorCode.PARAMS_ERROR);
+
+        String userAccount = userLoginRequest.getUserAccount();
+        String userPassword = userLoginRequest.getUserPassword();
+        if (StringUtils.isAnyBlank(userAccount, userPassword)) throw new BusinessException(ErrorCode.PARAMS_ERROR);
+        LoginUserVO loginUserVO = userService.userLogin(userAccount, userPassword, request);
+        return ResultUtils.success(loginUserVO);
+    }
 
 //    @PostMapping("/logout")
 //    public BaseResponse<Boolean> userLogout(HttpServletRequest request) {}
@@ -74,5 +83,5 @@ public BaseResponse<Long> addUser(@RequestBody UserAddRequest userAddRequest, Ht
 //    @PostMapping("/update/my")
 //    public BaseResponse<Boolean> updateMyUser(@RequestBody UserUpdateMyRequest userUpdateMyRequest,
 //                                              HttpServletRequest request) {
-
 }
+

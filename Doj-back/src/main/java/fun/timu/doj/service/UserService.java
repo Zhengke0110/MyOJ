@@ -2,6 +2,11 @@ package fun.timu.doj.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import fun.timu.doj.model.entity.User;
+import fun.timu.doj.model.vo.LoginUserVO;
+import fun.timu.doj.model.vo.UserVO;
+import jakarta.servlet.http.HttpServletRequest;
+
+import java.util.List;
 
 
 public interface UserService extends IService<User> {
@@ -15,16 +20,16 @@ public interface UserService extends IService<User> {
      */
     long userRegister(String userAccount, String userPassword, String checkPassword);
 
-//    /**
-//     * 用户登录
-//     *
-//     * @param userAccount  用户账户
-//     * @param userPassword 用户密码
-//     * @param request
-//     * @return 脱敏后的用户信息
-//     */
-//    LoginUserVO userLogin(String userAccount, String userPassword, HttpServletRequest request);
-//
+    /**
+     * 用户登录
+     *
+     * @param userAccount  用户账户
+     * @param userPassword 用户密码
+     * @param request
+     * @return 脱敏后的用户信息
+     */
+    LoginUserVO userLogin(String userAccount, String userPassword, HttpServletRequest request);
+
 //    /**
 //     * 用户登录（微信开放平台）
 //     *
@@ -74,29 +79,30 @@ public interface UserService extends IService<User> {
 //     */
 //    boolean userLogout(HttpServletRequest request);
 //
-//    /**
-//     * 获取脱敏的已登录用户信息
-//     *
-//     * @return
-//     */
-//    LoginUserVO getLoginUserVO(User user);
-//
-//    /**
-//     * 获取脱敏的用户信息
-//     *
-//     * @param user
-//     * @return
-//     */
-//    UserVO getUserVO(User user);
-//
-//    /**
-//     * 获取脱敏的用户信息
-//     *
-//     * @param userList
-//     * @return
-//     */
-//    List<UserVO> getUserVO(List<User> userList);
-//
+
+    /**
+     * 获取脱敏的已登录用户信息
+     *
+     * @return
+     */
+    LoginUserVO getLoginUserVO(User user);
+
+    /**
+     * 获取脱敏的用户信息
+     *
+     * @param user
+     * @return
+     */
+    UserVO getUserVO(User user);
+
+    /**
+     * 获取脱敏的用户信息
+     *
+     * @param userList
+     * @return
+     */
+    List<UserVO> getUserVO(List<User> userList);
+
 //    /**
 //     * 获取查询条件
 //     *
