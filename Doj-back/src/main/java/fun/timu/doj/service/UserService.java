@@ -1,6 +1,8 @@
 package fun.timu.doj.service;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.IService;
+import fun.timu.doj.model.dto.user.UserQueryRequest;
 import fun.timu.doj.model.entity.User;
 import fun.timu.doj.model.vo.LoginUserVO;
 import fun.timu.doj.model.vo.UserVO;
@@ -95,12 +97,12 @@ public interface UserService extends IService<User> {
      */
     List<UserVO> getUserVO(List<User> userList);
 
-//    /**
-//     * 获取查询条件
-//     *
-//     * @param userQueryRequest
-//     * @return
-//     */
-//    QueryWrapper<User> getQueryWrapper(UserQueryRequest userQueryRequest);
+    /**
+     * 获取查询条件
+     *
+     * @param userQueryRequest
+     * @return
+     */
+    QueryWrapper<User> getQueryWrapper(UserQueryRequest userQueryRequest);
 
 }

@@ -1,5 +1,7 @@
 package fun.timu.doj.model.dto.user;
 
+import fun.timu.doj.common.PageRequest;
+
 import lombok.Data;
 
 import java.io.Serializable;
@@ -11,7 +13,7 @@ import java.io.Serializable;
  * @date 2024年12月31日
  */
 @Data
-public class UserQueryRequest implements Serializable {
+public class UserQueryRequest extends PageRequest implements Serializable {
     /**
      * id
      */

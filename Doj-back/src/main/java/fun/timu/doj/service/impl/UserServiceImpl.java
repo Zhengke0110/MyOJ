@@ -4,12 +4,16 @@ import cn.hutool.core.collection.CollUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import fun.timu.doj.common.ErrorCode;
+import fun.timu.doj.constant.CommonConstant;
 import fun.timu.doj.exception.BusinessException;
 import fun.timu.doj.mapper.UserMapper;
+import fun.timu.doj.model.dto.user.UserQueryRequest;
 import fun.timu.doj.model.entity.User;
+import fun.timu.doj.model.enums.UserRoleEnum;
 import fun.timu.doj.model.vo.LoginUserVO;
 import fun.timu.doj.model.vo.UserVO;
 import fun.timu.doj.service.UserService;
+import fun.timu.doj.utils.SqlUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -29,7 +33,7 @@ import static fun.timu.doj.constant.UserConstant.USER_LOGIN_STATE;
 @Slf4j
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
     public static final String SALT = "Doj";// 盐值，混淆密码
-    private Lock lock = new ReentrantLock(); // 读写锁
+    private Lock lock = new ReentrantLock(); // 锁
 
     @Override
     public long userRegister(String userAccount, String userPassword, String checkPassword) {
@@ -121,17 +125,27 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Override
     public User getLoginUserPermitNull(HttpServletRequest request) {
-        return null;
+        // 1. 先判断是否已登录
+        Object userObj = request.getSession().getAttribute(USER_LOGIN_STATE);
+        User currentUser = (User) userObj;
+        if (currentUser == null || currentUser.getId() == null) return null;
+
+        // TODO 从数据库查询（追求性能的话可以注释，直接走缓存）
+        long userId = currentUser.getId();
+        return this.getById(userId);
     }
 
     @Override
     public boolean isAdmin(HttpServletRequest request) {
-        return false;
+        // TODO 仅管理员可查询
+        Object userObj = request.getSession().getAttribute(USER_LOGIN_STATE);
+        User user = (User) userObj;
+        return isAdmin(user);
     }
 
     @Override
     public boolean isAdmin(User user) {
-        return false;
+        return user != null && UserRoleEnum.ADMIN.getValue().equals(user.getUserRole());
     }
 
     @Override
@@ -165,5 +179,28 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     public List<UserVO> getUserVO(List<User> userList) {
         if (CollUtil.isEmpty(userList)) return new ArrayList<>();
         return userList.stream().map(this::getUserVO).collect(Collectors.toList());
+    }
+
+    @Override
+    public QueryWrapper<User> getQueryWrapper(UserQueryRequest userQueryRequest) {
+        if (userQueryRequest == null) throw new BusinessException(ErrorCode.PARAMS_ERROR, "请求参数为空");
+
+        Long id = userQueryRequest.getId();
+        String unionId = userQueryRequest.getUnionId();
+        String mpOpenId = userQueryRequest.getMpOpenId();
+        String userName = userQueryRequest.getUserName();
+        String userProfile = userQueryRequest.getUserProfile();
+        String userRole = userQueryRequest.getUserRole();
+        String sortField = userQueryRequest.getSortField();
+        String sortOrder = userQueryRequest.getSortOrder();
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq(id != null, "id", id);
+        queryWrapper.eq(StringUtils.isNotBlank(unionId), "unionId", unionId);
+        queryWrapper.eq(StringUtils.isNotBlank(mpOpenId), "mpOpenId", mpOpenId);
+        queryWrapper.eq(StringUtils.isNotBlank(userRole), "userRole", userRole);
+        queryWrapper.like(StringUtils.isNotBlank(userProfile), "userProfile", userProfile);
+        queryWrapper.like(StringUtils.isNotBlank(userName), "userName", userName);
+        queryWrapper.orderBy(SqlUtils.validSortField(sortField), sortOrder.equals(CommonConstant.SORT_ORDER_ASC), sortField);
+        return queryWrapper;
     }
 }
