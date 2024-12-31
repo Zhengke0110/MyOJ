@@ -6,6 +6,7 @@ import fun.timu.doj.common.ResultUtils;
 import fun.timu.doj.exception.BusinessException;
 import fun.timu.doj.model.dto.user.UserLoginRequest;
 import fun.timu.doj.model.dto.user.UserRegisterRequest;
+import fun.timu.doj.model.entity.User;
 import fun.timu.doj.model.vo.LoginUserVO;
 import fun.timu.doj.service.UserService;
 import jakarta.annotation.Resource;
@@ -71,8 +72,18 @@ public class UserController {
         return ResultUtils.success(result);
     }
 
-//    @GetMapping("/get/login")
-//    public BaseResponse<LoginUserVO> getLoginUser(HttpServletRequest request) {
+    /**
+     * 获取当前登录用户
+     *
+     * @param request
+     * @return
+     */
+    @GetMapping("/get/login")
+    public BaseResponse<LoginUserVO> getLoginUser(HttpServletRequest request) {
+        User user = userService.getLoginUser(request);
+        System.out.println("getLoginUser user=>"+user.toString());
+        return ResultUtils.success(userService.getLoginUserVO(user));
+    }
 
     /*
 @PostMapping("/add")
