@@ -4,6 +4,9 @@ import fun.timu.doj.common.ErrorCode;
 
 /**
  * 抛异常工具类
+ *
+ * @author zhengke
+ * @date 2024年12月31日
  */
 public class ThrowUtils {
 

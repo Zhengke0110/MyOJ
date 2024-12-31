@@ -39,6 +39,8 @@ public class UserController {
      *
      * @param userRegisterRequest
      * @return
+     * @author zhengke
+     * @date 2024年12月31日
      */
     @PostMapping("/register")
     public BaseResponse<Long> userRegister(@RequestBody UserRegisterRequest userRegisterRequest) {
@@ -57,6 +59,8 @@ public class UserController {
      * @param userLoginRequest
      * @param request
      * @return
+     * @author zhengke
+     * @date 2024年12月31日
      */
     @PostMapping("/login")
     public BaseResponse<LoginUserVO> userLogin(@RequestBody UserLoginRequest userLoginRequest, HttpServletRequest request) {
@@ -74,6 +78,8 @@ public class UserController {
      *
      * @param request
      * @return
+     * @author zhengke
+     * @date 2024年12月31日
      */
     @PostMapping("/logout")
     public BaseResponse<Boolean> userLogout(HttpServletRequest request) {
@@ -88,6 +94,8 @@ public class UserController {
      *
      * @param request
      * @return
+     * @author zhengke
+     * @date 2024年12月31日
      */
     @GetMapping("/get/login")
     public BaseResponse<LoginUserVO> getLoginUser(HttpServletRequest request) {
@@ -102,6 +110,8 @@ public class UserController {
      * @param userAddRequest
      * @param request
      * @return
+     * @author zhengke
+     * @date 2024年12月31日
      */
     @PostMapping("/add")
     @AuthCheck(mustRole = UserConstant.ADMIN_ROLE)
@@ -126,6 +136,8 @@ public class UserController {
      * @param deleteRequest
      * @param request
      * @return
+     * @author zhengke
+     * @date 2024年12月31日
      */
     @PostMapping("/delete")
     @AuthCheck(mustRole = UserConstant.ADMIN_ROLE)
@@ -141,6 +153,8 @@ public class UserController {
      * @param userUpdateRequest
      * @param request
      * @return
+     * @author zhengke
+     * @date 2024年12月31日
      */
     @PostMapping("/update")
     @AuthCheck(mustRole = UserConstant.ADMIN_ROLE)
@@ -161,6 +175,8 @@ public class UserController {
      * @param id
      * @param request
      * @return
+     * @author zhengke
+     * @date 2024年12月31日
      */
     @GetMapping("/get")
     @AuthCheck(mustRole = UserConstant.ADMIN_ROLE)
@@ -178,6 +194,8 @@ public class UserController {
      * @param id
      * @param request
      * @return
+     * @author zhengke
+     * @date 2024年12月31日
      */
     @GetMapping("/get/vo")
     public BaseResponse<UserVO> getUserVOById(long id, HttpServletRequest request) {
@@ -192,6 +210,8 @@ public class UserController {
      * @param userQueryRequest
      * @param request
      * @return
+     * @author zhengke
+     * @date 2024年12月31日
      */
     @PostMapping("/list/page")
     @AuthCheck(mustRole = UserConstant.ADMIN_ROLE)
@@ -208,11 +228,12 @@ public class UserController {
      * @param userQueryRequest
      * @param request
      * @return
+     * @author zhengke
+     * @date 2024年12月31日
      */
     @PostMapping("/list/page/vo")
     public BaseResponse<Page<UserVO>> listUserVOByPage(@RequestBody UserQueryRequest userQueryRequest, HttpServletRequest request) {
         if (userQueryRequest == null) throw new BusinessException(ErrorCode.PARAMS_ERROR);
-
         long current = userQueryRequest.getCurrent();
         long size = userQueryRequest.getPageSize();
         // 限制爬虫
@@ -230,11 +251,12 @@ public class UserController {
      * @param userUpdateMyRequest
      * @param request
      * @return
+     * @author zhengke
+     * @date 2024年12月31日
      */
     @PostMapping("/update/my")
     public BaseResponse<Boolean> updateMyUser(@RequestBody UserUpdateMyRequest userUpdateMyRequest, HttpServletRequest request) {
         if (userUpdateMyRequest == null) throw new BusinessException(ErrorCode.PARAMS_ERROR);
-
         User loginUser = userService.getLoginUser(request);
         User user = new User();
         BeanUtils.copyProperties(userUpdateMyRequest, user);

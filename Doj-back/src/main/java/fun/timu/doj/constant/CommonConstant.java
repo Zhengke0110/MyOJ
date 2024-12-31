@@ -2,6 +2,9 @@ package fun.timu.doj.constant;
 
 /**
  * 通用常量
+ *
+ * @author zhengke
+ * @date 2024年12月31日
  */
 public interface CommonConstant {
 
@@ -14,5 +17,5 @@ public interface CommonConstant {
      * 降序
      */
     String SORT_ORDER_DESC = " descend";
-    
+
 }

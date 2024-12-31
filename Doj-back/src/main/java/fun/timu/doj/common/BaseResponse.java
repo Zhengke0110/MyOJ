@@ -6,6 +6,9 @@ import java.io.Serializable;
 
 /**
  * 通用返回类
+ *
+ * @author zhengke
+ * @date 2024年12月31日
  */
 @Data
 public class BaseResponse<T> implements Serializable {

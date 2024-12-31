@@ -4,6 +4,9 @@ import org.apache.commons.lang3.StringUtils;
 
 /**
  * SQL 工具
+ *
+ * @author zhengke
+ * @date 2024年12月31日
  */
 public class SqlUtils {
     /**

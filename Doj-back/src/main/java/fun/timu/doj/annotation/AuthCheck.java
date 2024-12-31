@@ -7,6 +7,9 @@ import java.lang.annotation.Target;
 
 /**
  * 权限校验
+ *
+ * @author zhengke
+ * @date 2024年12月31日
  */
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)

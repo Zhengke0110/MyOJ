@@ -8,6 +8,9 @@ import java.util.stream.Collectors;
 
 /**
  * 用户角色枚举
+ *
+ * @author zhengke
+ * @date 2024年12月31日
  */
 public enum UserRoleEnum {
 

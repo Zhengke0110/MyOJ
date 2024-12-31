@@ -2,6 +2,9 @@ package fun.timu.doj.common;
 
 /**
  * 返回工具类
+ *
+ * @author zhengke
+ * @date 2024年12月31日
  */
 public class ResultUtils {
 

@@ -2,6 +2,9 @@ package fun.timu.doj.constant;
 
 /**
  * 用户常量
+ *
+ * @author zhengke
+ * @date 2024年12月31日
  */
 public interface UserConstant {
 

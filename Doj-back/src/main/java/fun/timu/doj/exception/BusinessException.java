@@ -5,6 +5,9 @@ import fun.timu.doj.common.ErrorCode;
 
 /**
  * 自定义异常类
+ *
+ * @author zhengke
+ * @date 2024年12月31日
  */
 public class BusinessException extends RuntimeException {
 

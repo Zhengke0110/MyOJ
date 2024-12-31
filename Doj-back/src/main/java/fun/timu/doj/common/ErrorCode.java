@@ -2,6 +2,9 @@ package fun.timu.doj.common;
 
 /**
  * 自定义错误码
+ *
+ * @author zhengke
+ * @date 2024年12月31日
  */
 public enum ErrorCode {
 
