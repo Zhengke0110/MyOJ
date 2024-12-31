@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: Doj
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/Doj
+    username: root
+    password: 123456
