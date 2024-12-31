@@ -48,7 +48,7 @@ const filteredRoutes = computed(() => {
       !route.redirect &&
       route.path !== "/:pathMatch(.*)*" &&
       route.path != "/noauth" &&
-      CheckACCESS(LoginUserInfo.role, NeedACCESS)
+      CheckACCESS(LoginUserInfo.userRole, NeedACCESS)
     ); // 排除包含 redirect 属性的路由和通配符路由
   });
 });

@@ -4,7 +4,7 @@ import { ACCESSENUM } from "@/access";
 
 interface UserInfo {
   userName: string;
-  role: ACCESSENUM;
+  userRole: ACCESSENUM;
 }
 interface State {
   loginInfo: UserInfo;
@@ -12,14 +12,14 @@ interface State {
 
 export const useUserStore = defineStore("user", {
   state: (): State => ({
-    loginInfo: { userName: "未登录", role: ACCESSENUM.NOLOGIN },
+    loginInfo: { userName: "未登录", userRole: ACCESSENUM.NOLOGIN },
   }),
   getters: {
     getUserName(): string {
       return this.loginInfo.userName;
     },
-    getRole(): ACCESSENUM {
-      return this.loginInfo.role;
+    getUserRole(): ACCESSENUM {
+      return this.loginInfo.userRole;
     },
     getLoginInfo(): UserInfo {
       return this.loginInfo;
@@ -30,9 +30,9 @@ export const useUserStore = defineStore("user", {
       // TODO: 后续需要对接登录接口
       this.loginInfo.userName = username;
     },
-    setLoginInfo(userName: string, role: ACCESSENUM) {
+    setLoginInfo(userName: string, userRole: ACCESSENUM) {
       this.loginInfo.userName = userName;
-      this.loginInfo.role = role;
+      this.loginInfo.userRole = userRole;
     },
   },
 });

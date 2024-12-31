@@ -10,7 +10,7 @@ const userStore = useUserStore();
 const router = useRouter();
 router.beforeEach((to, from, next) => {
   if (to.meta?.access === ACCESSENUM.ADMIN) {
-    if (userStore.getRole !== ACCESSENUM.ADMIN) {
+    if (userStore.getUserRole !== ACCESSENUM.ADMIN) {
       next("/noauth");
       return;
     }
@@ -18,7 +18,7 @@ router.beforeEach((to, from, next) => {
   next();
 });
 
-// TODO 模拟登录
+// TODO 全局初始化函数
 setTimeout(() => {
   userStore.setLoginInfo("Doj~", ACCESSENUM.ADMIN);
 }, 3000);
