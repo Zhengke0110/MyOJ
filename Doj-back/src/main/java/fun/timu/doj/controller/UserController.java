@@ -22,6 +22,12 @@ public class UserController {
     @Resource
     private UserService userService;
 
+    /**
+     * 用户注册
+     *
+     * @param userRegisterRequest
+     * @return
+     */
     @PostMapping("/register")
     public BaseResponse<Long> userRegister(@RequestBody UserRegisterRequest userRegisterRequest) {
         if (userRegisterRequest == null) throw new BusinessException(ErrorCode.PARAMS_ERROR);
@@ -33,6 +39,13 @@ public class UserController {
         return ResultUtils.success(result);
     }
 
+    /**
+     * 用户登录
+     *
+     * @param userLoginRequest
+     * @param request
+     * @return
+     */
     @PostMapping("/login")
     public BaseResponse<LoginUserVO> userLogin(@RequestBody UserLoginRequest userLoginRequest, HttpServletRequest request) {
         if (userLoginRequest == null) throw new BusinessException(ErrorCode.PARAMS_ERROR);
@@ -44,8 +57,19 @@ public class UserController {
         return ResultUtils.success(loginUserVO);
     }
 
-//    @PostMapping("/logout")
-//    public BaseResponse<Boolean> userLogout(HttpServletRequest request) {}
+    /**
+     * 用户登出
+     *
+     * @param request
+     * @return
+     */
+    @PostMapping("/logout")
+    public BaseResponse<Boolean> userLogout(HttpServletRequest request) {
+        System.out.println("request=>" + request.toString());
+        if (request == null) throw new BusinessException(ErrorCode.PARAMS_ERROR);
+        boolean result = userService.userLogout(request);
+        return ResultUtils.success(result);
+    }
 
 //    @GetMapping("/get/login")
 //    public BaseResponse<LoginUserVO> getLoginUser(HttpServletRequest request) {
