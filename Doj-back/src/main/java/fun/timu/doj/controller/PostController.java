@@ -1,21 +1,31 @@
 package fun.timu.doj.controller;
 
+import cn.hutool.json.JSONUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import fun.timu.doj.annotation.AuthCheck;
 import fun.timu.doj.common.BaseResponse;
 import fun.timu.doj.common.DeleteRequest;
+import fun.timu.doj.common.ErrorCode;
+import fun.timu.doj.common.ResultUtils;
+import fun.timu.doj.exception.BusinessException;
 import fun.timu.doj.constant.UserConstant;
+import fun.timu.doj.exception.ThrowUtils;
 import fun.timu.doj.model.dto.post.PostAddRequest;
 import fun.timu.doj.model.dto.post.PostEditRequest;
 import fun.timu.doj.model.dto.post.PostQueryRequest;
 import fun.timu.doj.model.dto.post.PostUpdateRequest;
 import fun.timu.doj.model.entity.Post;
+import fun.timu.doj.model.entity.User;
 import fun.timu.doj.model.vo.PostVO;
 import fun.timu.doj.service.PostService;
+import fun.timu.doj.service.UserService;
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @Slf4j
@@ -24,6 +34,8 @@ import org.springframework.web.bind.annotation.*;
 public class PostController {
     @Resource
     private PostService postService;
+    @Resource
+    private UserService userService;
 
     /**
      * 创建
@@ -34,7 +46,24 @@ public class PostController {
      */
     @PostMapping("/add")
     public BaseResponse<Long> addPost(@RequestBody PostAddRequest postAddRequest, HttpServletRequest request) {
-        return null;
+        System.out.println("addPost=>" + postAddRequest.toString());
+        if (postAddRequest == null) throw new BusinessException(ErrorCode.PARAMS_ERROR);
+
+        Post post = new Post();
+        BeanUtils.copyProperties(postAddRequest, post);
+        List<String> tags = postAddRequest.getTags();
+        if (tags != null) post.setTags(JSONUtil.toJsonStr(tags));
+
+        postService.validPost(post, true); // 参数校验
+
+        User loginUser = userService.getLoginUser(request);
+        post.setUserId(loginUser.getId());
+        post.setFavourNum(0);
+        post.setThumbNum(0);
+        boolean result = postService.save(post);
+        ThrowUtils.throwIf(!result, ErrorCode.OPERATION_ERROR);
+        long newPostId = post.getId();
+        return ResultUtils.success(newPostId);
     }
 
     /**
@@ -46,7 +75,21 @@ public class PostController {
      */
     @PostMapping("/delete")
     public BaseResponse<Boolean> deletePost(@RequestBody DeleteRequest deleteRequest, HttpServletRequest request) {
-        return null;
+        if (deleteRequest == null || deleteRequest.getId() <= 0) throw new BusinessException(ErrorCode.PARAMS_ERROR);
+
+        User user = userService.getLoginUser(request);
+        long id = deleteRequest.getId();
+
+        // 判断是否存在
+        Post oldPost = postService.getById(id);
+        ThrowUtils.throwIf(oldPost == null, ErrorCode.NOT_FOUND_ERROR);
+
+        // 仅本人或管理员可删除
+        if (!oldPost.getUserId().equals(user.getId()) && !userService.isAdmin(request))
+            throw new BusinessException(ErrorCode.NO_AUTH_ERROR);
+
+        boolean b = postService.removeById(id);
+        return ResultUtils.success(b);
     }
 
     /**
@@ -58,7 +101,23 @@ public class PostController {
     @PostMapping("/update")
     @AuthCheck(mustRole = UserConstant.ADMIN_ROLE)
     public BaseResponse<Boolean> updatePost(@RequestBody PostUpdateRequest postUpdateRequest) {
-        return null;
+        if (postUpdateRequest == null || postUpdateRequest.getId() <= 0)
+            throw new BusinessException(ErrorCode.PARAMS_ERROR);
+
+        Post post = new Post();
+        BeanUtils.copyProperties(postUpdateRequest, post);
+        List<String> tags = postUpdateRequest.getTags();
+        if (tags != null) post.setTags(JSONUtil.toJsonStr(tags));
+
+        // 参数校验
+        postService.validPost(post, false);
+        long id = postUpdateRequest.getId();
+
+        // 判断是否存在
+        Post oldPost = postService.getById(id);
+        ThrowUtils.throwIf(oldPost == null, ErrorCode.NOT_FOUND_ERROR);
+        boolean result = postService.updateById(post);
+        return ResultUtils.success(result);
     }
 
     /**
@@ -70,7 +129,10 @@ public class PostController {
      */
     @GetMapping("/get/vo")
     public BaseResponse<PostVO> getPostVOById(long id, HttpServletRequest request) {
-        return null;
+        if (id <= 0) throw new BusinessException(ErrorCode.PARAMS_ERROR);
+        Post post = postService.getById(id);
+        if (post == null) throw new BusinessException(ErrorCode.NOT_FOUND_ERROR);
+        return ResultUtils.success(postService.getPostVO(post, request));
     }
 
     /**
@@ -82,7 +144,10 @@ public class PostController {
     @PostMapping("/list/page")
     @AuthCheck(mustRole = UserConstant.ADMIN_ROLE)
     public BaseResponse<Page<Post>> listPostByPage(@RequestBody PostQueryRequest postQueryRequest) {
-        return null;
+        long current = postQueryRequest.getCurrent();
+        long size = postQueryRequest.getPageSize();
+        Page<Post> postPage = postService.page(new Page<>(current, size), postService.getQueryWrapper(postQueryRequest));
+        return ResultUtils.success(postPage);
     }
 
     /**
@@ -94,7 +159,14 @@ public class PostController {
      */
     @PostMapping("/list/page/vo")
     public BaseResponse<Page<PostVO>> listPostVOByPage(@RequestBody PostQueryRequest postQueryRequest, HttpServletRequest request) {
-        return null;
+
+        long current = postQueryRequest.getCurrent();
+        long size = postQueryRequest.getPageSize();
+
+        // 限制爬虫
+        ThrowUtils.throwIf(size > 20, ErrorCode.PARAMS_ERROR);
+        Page<Post> postPage = postService.page(new Page<>(current, size), postService.getQueryWrapper(postQueryRequest));
+        return ResultUtils.success(postService.getPostVOPage(postPage, request));
     }
 
     /**
@@ -106,11 +178,21 @@ public class PostController {
      */
     @PostMapping("/my/list/page/vo")
     public BaseResponse<Page<PostVO>> listMyPostVOByPage(@RequestBody PostQueryRequest postQueryRequest, HttpServletRequest request) {
-        return null;
+        if (postQueryRequest == null) throw new BusinessException(ErrorCode.PARAMS_ERROR);
+
+        User loginUser = userService.getLoginUser(request);
+        postQueryRequest.setUserId(loginUser.getId());
+        long current = postQueryRequest.getCurrent();
+        long size = postQueryRequest.getPageSize();
+
+        // 限制爬虫
+        ThrowUtils.throwIf(size > 20, ErrorCode.PARAMS_ERROR);
+        Page<Post> postPage = postService.page(new Page<>(current, size), postService.getQueryWrapper(postQueryRequest));
+        return ResultUtils.success(postService.getPostVOPage(postPage, request));
     }
 
     /**
-     * 分页搜索（从 ES 查询，封装类）
+     * 分页搜索（从 ES 查询，封装类）未开发
      *
      * @param postQueryRequest
      * @param request
@@ -130,6 +212,29 @@ public class PostController {
      */
     @PostMapping("/edit")
     public BaseResponse<Boolean> editPost(@RequestBody PostEditRequest postEditRequest, HttpServletRequest request) {
-        return null;
+        if (postEditRequest == null || postEditRequest.getId() <= 0)
+            throw new BusinessException(ErrorCode.PARAMS_ERROR);
+
+        Post post = new Post();
+        BeanUtils.copyProperties(postEditRequest, post);
+        List<String> tags = postEditRequest.getTags();
+        if (tags != null) post.setTags(JSONUtil.toJsonStr(tags));
+
+        // 参数校验
+        postService.validPost(post, false);
+        User loginUser = userService.getLoginUser(request);
+        long id = postEditRequest.getId();
+
+        // 判断是否存在
+        Post oldPost = postService.getById(id);
+        ThrowUtils.throwIf(oldPost == null, ErrorCode.NOT_FOUND_ERROR);
+
+        // 仅本人或管理员可编辑
+        if (!oldPost.getUserId().equals(loginUser.getId()) && !userService.isAdmin(loginUser)) {
+            throw new BusinessException(ErrorCode.NO_AUTH_ERROR);
+        }
+
+        boolean result = postService.updateById(post);
+        return ResultUtils.success(result);
     }
 }
