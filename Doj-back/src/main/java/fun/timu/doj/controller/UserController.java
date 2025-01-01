@@ -26,6 +26,7 @@ import java.util.List;
 
 import static fun.timu.doj.service.impl.UserServiceImpl.SALT;
 
+
 @Slf4j
 @RestController
 @RequestMapping("/user")
