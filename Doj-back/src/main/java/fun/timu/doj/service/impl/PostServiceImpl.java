@@ -8,9 +8,13 @@ import fun.timu.doj.common.ErrorCode;
 import fun.timu.doj.constant.CommonConstant;
 import fun.timu.doj.exception.BusinessException;
 import fun.timu.doj.exception.ThrowUtils;
+import fun.timu.doj.mapper.PostFavourMapper;
 import fun.timu.doj.mapper.PostMapper;
+import fun.timu.doj.mapper.PostThumbMapper;
 import fun.timu.doj.model.dto.post.PostQueryRequest;
 import fun.timu.doj.model.entity.Post;
+import fun.timu.doj.model.entity.PostFavour;
+import fun.timu.doj.model.entity.PostThumb;
 import fun.timu.doj.model.entity.User;
 import fun.timu.doj.model.vo.PostVO;
 import fun.timu.doj.model.vo.UserVO;
@@ -35,6 +39,12 @@ import java.util.stream.Collectors;
 public class PostServiceImpl extends ServiceImpl<PostMapper, Post> implements PostService {
     @Resource
     private UserService userService;
+
+    @Resource
+    private PostThumbMapper postThumbMapper;
+
+    @Resource
+    private PostFavourMapper postFavourMapper;
 
     @Override
     public void validPost(Post post, boolean add) {
@@ -104,12 +114,21 @@ public class PostServiceImpl extends ServiceImpl<PostMapper, Post> implements Po
         UserVO userVO = userService.getUserVO(user);
         postVO.setUser(userVO);
 
-
         // 2. 已登录，获取用户点赞、收藏状态
         User loginUser = userService.getLoginUserPermitNull(request);
         if (loginUser != null) {
-            // TODO 获取点赞
-            // TODO 获取收藏
+            // 获取点赞
+            QueryWrapper<PostThumb> postThumbQueryWrapper = new QueryWrapper<>();
+            postThumbQueryWrapper.in("postId", postId);
+            postThumbQueryWrapper.eq("userId", loginUser.getId());
+            PostThumb postThumb = postThumbMapper.selectOne(postThumbQueryWrapper);
+            postVO.setHasThumb(postThumb != null);
+            // 获取收藏
+            QueryWrapper<PostFavour> postFavourQueryWrapper = new QueryWrapper<>();
+            postFavourQueryWrapper.in("postId", postId);
+            postFavourQueryWrapper.eq("userId", loginUser.getId());
+            PostFavour postFavour = postFavourMapper.selectOne(postFavourQueryWrapper);
+            postVO.setHasFavour(postFavour != null);
         }
         return postVO;
     }
@@ -132,8 +151,19 @@ public class PostServiceImpl extends ServiceImpl<PostMapper, Post> implements Po
         if (loginUser != null) {
             Set<Long> postIdSet = postList.stream().map(Post::getId).collect(Collectors.toSet());
             loginUser = userService.getLoginUser(request);
-            // TODO 获取点赞
-            // TODO 获取收藏
+            //  获取点赞
+            QueryWrapper<PostThumb> postThumbQueryWrapper = new QueryWrapper<>();
+            postThumbQueryWrapper.in("postId", postIdSet);
+            postThumbQueryWrapper.eq("userId", loginUser.getId());
+            List<PostThumb> postPostThumbList = postThumbMapper.selectList(postThumbQueryWrapper);
+            postPostThumbList.forEach(postPostThumb -> postIdHasThumbMap.put(postPostThumb.getPostId(), true));
+
+            // 获取收藏
+            QueryWrapper<PostFavour> postFavourQueryWrapper = new QueryWrapper<>();
+            postFavourQueryWrapper.in("postId", postIdSet);
+            postFavourQueryWrapper.eq("userId", loginUser.getId());
+            List<PostFavour> postFavourList = postFavourMapper.selectList(postFavourQueryWrapper);
+            postFavourList.forEach(postFavour -> postIdHasFavourMap.put(postFavour.getPostId(), true));
         }
 
         // 3. 填充信息
