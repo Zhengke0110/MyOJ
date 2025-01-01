@@ -116,10 +116,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         User currentUser = (User) userObj;
         if (currentUser == null || currentUser.getId() == null) throw new BusinessException(ErrorCode.NOT_LOGIN_ERROR);
 
-        // 2. 从数据库查询
-        long userId = currentUser.getId();
-        currentUser = this.getById(userId);
-        if (currentUser == null) throw new BusinessException(ErrorCode.NOT_LOGIN_ERROR);
+
+        // 2. 从数据库查询（通过走session的方式 优化性能）
+//        long userId = currentUser.getId();
+//        currentUser = this.getById(userId);
+//        if (currentUser == null) throw new BusinessException(ErrorCode.NOT_LOGIN_ERROR);
         return currentUser;
     }
 
@@ -130,14 +131,21 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         User currentUser = (User) userObj;
         if (currentUser == null || currentUser.getId() == null) return null;
 
-        // TODO 从数据库查询（追求性能的话可以注释，直接走缓存）
-        long userId = currentUser.getId();
-        return this.getById(userId);
+
+        if (currentUser.getId() == null) {
+            // 如果ID为空，同样抛出未登录异常（尽管这种情况不太可能发生）
+            throw new BusinessException(ErrorCode.NOT_LOGIN_ERROR, "用户信息不完整");
+        }
+
+        // 从数据库查询（追求性能的话，直接走缓存，不查数据库）
+//        long userId = currentUser.getId();
+//        return this.getById(userId);
+        return currentUser;
     }
 
     @Override
     public boolean isAdmin(HttpServletRequest request) {
-        // TODO 仅管理员可查询
+        // 仅管理员可查询
         Object userObj = request.getSession().getAttribute(USER_LOGIN_STATE);
         User user = (User) userObj;
         return isAdmin(user);

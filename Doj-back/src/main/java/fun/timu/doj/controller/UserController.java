@@ -100,7 +100,6 @@ public class UserController {
     @GetMapping("/get/login")
     public BaseResponse<LoginUserVO> getLoginUser(HttpServletRequest request) {
         User user = userService.getLoginUser(request);
-        System.out.println("getLoginUser user=>" + user.toString());
         return ResultUtils.success(userService.getLoginUserVO(user));
     }
 
