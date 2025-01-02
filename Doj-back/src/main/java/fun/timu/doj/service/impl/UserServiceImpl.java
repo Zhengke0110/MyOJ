@@ -29,8 +29,8 @@ import java.util.stream.Collectors;
 
 import static fun.timu.doj.constant.UserConstant.USER_LOGIN_STATE;
 
-@Service
 @Slf4j
+@Service
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
     public static final String SALT = "Doj";// 盐值，混淆密码
     private Lock lock = new ReentrantLock(); // 锁

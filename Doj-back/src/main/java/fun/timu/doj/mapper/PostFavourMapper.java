@@ -7,13 +7,11 @@ import com.baomidou.mybatisplus.core.toolkit.Constants;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import fun.timu.doj.model.entity.Post;
 import fun.timu.doj.model.entity.PostFavour;
-import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 /**
  * 收藏数据库操作
  */
-@Mapper
 public interface PostFavourMapper extends BaseMapper<PostFavour> {
     /**
      * 分页查询收藏帖子列表
