@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 // Link:https://pinia.vuejs.org/zh/
-import { ACCESSENUM } from "@/access";
+import { ACCESSENUM, NOLOGIN } from "@/access";
 import { DefaultService } from "@/generated";
 interface UserInfo {
   userName: string;
@@ -12,7 +12,7 @@ interface State {
 
 export const useUserStore = defineStore("user", {
   state: (): State => ({
-    loginInfo: { userName: "未登录", userRole: ACCESSENUM.NOLOGIN },
+    loginInfo: { userName: NOLOGIN, userRole: ACCESSENUM.NOLOGIN },
   }),
   getters: {
     getUserName(): string {
@@ -36,7 +36,7 @@ export const useUserStore = defineStore("user", {
         this.loginInfo.userName = data.userName as string;
         this.loginInfo.userRole = data.userRole as ACCESSENUM;
       } else {
-        this.loginInfo.userName = this.getUserName;
+        this.loginInfo.userName = NOLOGIN;
         this.loginInfo.userRole = ACCESSENUM.NOLOGIN;
       }
     },
