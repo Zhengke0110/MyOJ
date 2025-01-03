@@ -9,6 +9,9 @@ import "virtual:uno.css";
 import "normalize.css";
 import "@arco-design/web-vue/dist/arco.css";
 
+// Plugins
+import "@/utils/axios";
+
 const pinia = createPinia();
 
 createApp(App).use(pinia).use(ArcoVue).use(router).mount("#app");
