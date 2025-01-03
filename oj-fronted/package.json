@@ -1,13 +1,14 @@
 {
-  "name": "Doj",
-  "description": "oj前端项目",
+  "name": "doj",
+  "description": "doj前端项目",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc -b && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "generate-api": "openapi --input ./OPENAPI/Doj.openapi.json --output ./src/generated --client axios"
   },
   "dependencies": {
     "axios": "^1.7.9",
@@ -21,6 +22,7 @@
     "@vitejs/plugin-vue": "^5.2.1",
     "@vue/tsconfig": "^0.7.0",
     "normalize.css": "^8.0.1",
+    "openapi-typescript-codegen": "^0.29.0",
     "typescript": "~5.6.2",
     "unocss": "^0.65.3",
     "vite": "^6.0.5",
