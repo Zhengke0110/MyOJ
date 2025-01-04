@@ -3,6 +3,23 @@ import { ACCESSENUM } from "@/access";
 
 export const routes: RouteRecordRaw[] = [
   {
+    path: "/user",
+    name: "用户",
+    component: () => import("@/layouts/UserLayout"),
+    children: [
+      {
+        path: "/user/login",
+        name: "用户登录",
+        component: () => import("@/views/Login.vue"),
+      },
+      {
+        path: "/user/register",
+        name: "用户注册",
+        component: () => import("@/views/Register.vue"),
+      },
+    ],
+  },
+  {
     path: "/",
     redirect: "/home",
   },

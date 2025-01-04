@@ -29,7 +29,7 @@ router.beforeEach(async (to, _, next) => {
     // 如果没登陆，跳转到登录页面
     if (userName === NOLOGIN || userRole === ACCESSENUM.NOLOGIN) {
       // TODO 加弹窗
-      next(`/user/login?redirect=${to.fullPath}`);
+      next(`/login?redirect=${to.fullPath}`);
       return;
     }
 

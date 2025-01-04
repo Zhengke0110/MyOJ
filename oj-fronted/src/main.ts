@@ -11,8 +11,19 @@ import "@arco-design/web-vue/dist/arco.css";
 
 // Plugins
 import "@/utils/axios";
+import Particles from "@tsparticles/vue3";
+import { loadSlim } from "@tsparticles/slim";
 // import "@/access";
 
 const pinia = createPinia();
 
-createApp(App).use(pinia).use(ArcoVue).use(router).mount("#app");
+createApp(App)
+  .use(pinia)
+  .use(ArcoVue)
+  .use(router)
+  .use(Particles, {
+    init: async (engine) => {
+      await loadSlim(engine);
+    },
+  })
+  .mount("#app");
