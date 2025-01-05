@@ -29,7 +29,7 @@
 
     <div class="grid gap-4 [&:not(:last-child)]:mb-6">
       <p class="m-0 leading-normal text-[#656976] text-sm font-medium">
-        Don’t have a SupaAuth account?
+        Don’t have a Doj account?
       </p>
 
       <RouterLink to="/user/register">
@@ -59,7 +59,6 @@ const form = reactive<{ userAccount: string; userPassword: string }>({
 });
 const handleSubmit = async () => {
   const { code, data, message } = await UserLogin(form);
-  console.log("code=>", code, "data=>", data, "message=>", message);
   if (code === 0 && data) {
     Message.success("登录成功, 3秒后跳转到首页");
     setTimeout(() => router.push("/"), 3000);

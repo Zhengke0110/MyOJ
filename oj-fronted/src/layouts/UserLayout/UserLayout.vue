@@ -6,6 +6,7 @@
       <div
         class="relative min-h-screen flex justify-center items-center box-border"
       >
+        <AppBackToLogin />
         <div class="relative flex-grow">
           <div class="max-w-100 w-full my-0 mx-auto py-0 px-5 box-border">
             <RouterView />
@@ -43,4 +44,5 @@
 <script setup lang="ts">
 import { RouterView } from "vue-router";
 import { particles } from "./bg-config.ts";
+import AppBackToLogin from "@/components/AppBackToLogin";
 </script>

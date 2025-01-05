@@ -23,6 +23,7 @@ import org.springframework.util.DigestUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.stream.Collectors;
@@ -65,6 +66,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             // 3. 插入数据
             User user = new User();
             user.setUserAccount(userAccount);
+            user.setUserName("普通用户" + UUID.randomUUID().toString());
+
             user.setUserPassword(encryptPassword);
             boolean saveResult = this.save(user);
             if (!saveResult) {

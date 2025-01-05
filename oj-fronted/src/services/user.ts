@@ -22,3 +22,20 @@ export const UserLogin = async (form: {
     userPassword: form.userPassword,
   });
 };
+
+/**
+ * 用户注册
+ * @param form
+ * @returns
+ */
+export const UserRegister = async (form: {
+  userAccount: string;
+  userPassword: string;
+  checkPassword: string;
+}) => {
+  return await DefaultService.postUserRegister({
+    userAccount: form.userAccount,
+    userPassword: form.userPassword,
+    checkPassword: form.checkPassword,
+  });
+};
