@@ -1,13 +1,13 @@
 <template>
   <vue-particles class="z-0" id="tsparticles" :options="particles" />
 
-  <div class="z-9999 bg-fcfcfc text-12161e h-full">
+  <div class="bg-fcfcfc text-12161e h-full">
     <div class="bg-fcfcfc text-12161e h-screen overflow-y-auto relative">
       <div
         class="relative min-h-screen flex justify-center items-center box-border"
       >
         <div class="relative flex-grow">
-          <div class="max-w-75 w-full my-0 mx-auto py-0 px-5 box-border">
+          <div class="max-w-100 w-full my-0 mx-auto py-0 px-5 box-border">
             <RouterView />
           </div>
         </div>

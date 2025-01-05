@@ -11,7 +11,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class CorsConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-        System.out.println("addCorsMappings=>> " + registry.toString());
         // 覆盖所有请求
         registry.addMapping("/**")
                 // 允许发送 Cookie
