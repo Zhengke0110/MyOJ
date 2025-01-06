@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="fun.timu.doj.mapper.QuestionSubmitMapper">
+  <resultMap id="BaseResultMap" type="fun.timu.doj.model.entity.QuestionSubmit">
+    <!--@mbg.generated-->
+    <!--@Table question_submit-->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="language" jdbcType="VARCHAR" property="language" />
+    <result column="code" jdbcType="LONGVARCHAR" property="code" />
+    <result column="judgeInfo" jdbcType="LONGVARCHAR" property="judgeinfo" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="questionId" jdbcType="BIGINT" property="questionid" />
+    <result column="userId" jdbcType="BIGINT" property="userid" />
+    <result column="createTime" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="updateTime" jdbcType="TIMESTAMP" property="updatetime" />
+    <result column="isDelete" jdbcType="TINYINT" property="isdelete" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, `language`, code, judgeInfo, `status`, questionId, userId, createTime, updateTime, 
+    isDelete
+  </sql>
+</mapper>
