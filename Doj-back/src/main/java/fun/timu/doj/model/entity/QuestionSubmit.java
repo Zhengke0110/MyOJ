@@ -1,6 +1,9 @@
 package fun.timu.doj.model.entity;
 
-import com.baomidou.mybatisplus.annotation.*;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -8,14 +11,15 @@ import java.util.Date;
 
 /**
  * 题目提交
+ * @TableName question_submit
  */
-@TableName(value = "question_submit")
+@TableName(value ="question_submit")
 @Data
 public class QuestionSubmit implements Serializable {
     /**
      * id
      */
-    @TableId(type = IdType.ASSIGN_ID)
+    @TableId(type = IdType.AUTO)
     private Long id;
 
     /**
@@ -61,7 +65,6 @@ public class QuestionSubmit implements Serializable {
     /**
      * 是否删除
      */
-    @TableLogic
     private Integer isDelete;
 
     @TableField(exist = false)
