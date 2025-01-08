@@ -3,8 +3,13 @@ package fun.timu.doj.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import fun.timu.doj.common.BaseResponse;
+import fun.timu.doj.common.ErrorCode;
+import fun.timu.doj.common.ResultUtils;
+import fun.timu.doj.exception.BusinessException;
 import fun.timu.doj.model.dto.questionsubmit.QuestionSubmitAddRequest;
 import fun.timu.doj.model.dto.questionsubmit.QuestionSubmitQueryRequest;
+import fun.timu.doj.model.entity.QuestionSubmit;
+import fun.timu.doj.model.entity.User;
 import fun.timu.doj.model.vo.QuestionSubmitVO;
 import fun.timu.doj.service.QuestionSubmitService;
 import fun.timu.doj.service.UserService;
@@ -32,13 +37,21 @@ public class QuestionSubmitController {
 
     /**
      * 提交题目
+     *
      * @param questionSubmitAddRequest
      * @param request
      * @return
      */
     @PostMapping("/")
     public BaseResponse<Long> doQuestionSubmit(@RequestBody QuestionSubmitAddRequest questionSubmitAddRequest, HttpServletRequest request) {
-        return null;
+        if (questionSubmitAddRequest == null || questionSubmitAddRequest.getQuestionId() <= 0) {
+            throw new BusinessException(ErrorCode.PARAMS_ERROR);
+        }
+
+        // 登录才能提交
+        final User loginUser = userService.getLoginUser(request);
+        long questionSubmitId = questionSubmitService.doQuestionSubmit(questionSubmitAddRequest, loginUser);
+        return ResultUtils.success(questionSubmitId);
     }
 
     /**
@@ -50,7 +63,12 @@ public class QuestionSubmitController {
      */
     @PostMapping("/list/page")
     public BaseResponse<Page<QuestionSubmitVO>> listQuestionSubmitByPage(@RequestBody QuestionSubmitQueryRequest questionSubmitQueryRequest, HttpServletRequest request) {
-        return null;
+        long current = questionSubmitQueryRequest.getCurrent();
+        long size = questionSubmitQueryRequest.getPageSize();
+        // 从数据库中查询原始的题目提交分页信息
+        Page<QuestionSubmit> questionSubmitPage = questionSubmitService.page(new Page<>(current, size), questionSubmitService.getQueryWrapper(questionSubmitQueryRequest));
+        final User loginUser = userService.getLoginUser(request);
+        // 返回脱敏信息
+        return ResultUtils.success(questionSubmitService.getQuestionSubmitVOPage(questionSubmitPage, loginUser));
     }
-
 }

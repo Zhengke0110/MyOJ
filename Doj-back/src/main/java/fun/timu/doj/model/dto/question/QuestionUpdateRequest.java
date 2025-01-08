@@ -1,8 +1,11 @@
 package fun.timu.doj.model.dto.question;
 
+import lombok.Data;
+
 import java.io.Serializable;
 import java.util.List;
 
+@Data
 public class QuestionUpdateRequest implements Serializable {
     /**
      * id
