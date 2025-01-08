@@ -3,7 +3,7 @@
   "info": {
     "title": "Doj",
     "description": "",
-    "version": "1.0.0"
+    "version": "1.0.1"
   },
   "tags": [],
   "paths": {
@@ -1433,6 +1433,665 @@
         },
         "security": []
       }
+    },
+    "/question/add": {
+      "post": {
+        "summary": "创建",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/QuestionAddRequest",
+                "description": ""
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseResponseLong",
+                  "description": ""
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": {
+                      "code": 0,
+                      "data": 0,
+                      "message": ""
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/question/delete": {
+      "post": {
+        "summary": "删除",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DeleteRequest",
+                "description": ""
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseResponseBoolean",
+                  "description": ""
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": {
+                      "code": 0,
+                      "data": false,
+                      "message": ""
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/question/update": {
+      "post": {
+        "summary": "更新（仅管理员)",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/QuestionUpdateRequest",
+                "description": ""
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseResponseBoolean",
+                  "description": ""
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": {
+                      "code": 0,
+                      "data": false,
+                      "message": ""
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/question/get/vo": {
+      "get": {
+        "summary": "根据 id 获取",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseResponseQuestionVO",
+                  "description": ""
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": {
+                      "code": 0,
+                      "data": {
+                        "id": 0,
+                        "title": "",
+                        "content": "",
+                        "tags": [
+                          ""
+                        ],
+                        "submitNum": 0,
+                        "acceptedNum": 0,
+                        "judgeConfig": {
+                          "timeLimit": 0,
+                          "memoryLimit": 0,
+                          "stackLimit": 0
+                        },
+                        "thumbNum": 0,
+                        "favourNum": 0,
+                        "userId": 0,
+                        "createTime": "",
+                        "updateTime": "",
+                        "userVO": {
+                          "id": 0,
+                          "userName": "",
+                          "userAvatar": "",
+                          "userProfile": "",
+                          "userRole": "",
+                          "createTime": ""
+                        }
+                      },
+                      "message": ""
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/question/list/page/vo": {
+      "post": {
+        "summary": "分页获取列表（封装类）",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/QuestionQueryRequest",
+                "description": ""
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseResponsePageQuestionVO",
+                  "description": ""
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": {
+                      "code": 0,
+                      "data": {
+                        "records": [
+                          {
+                            "id": 0,
+                            "title": "",
+                            "content": "",
+                            "tags": [
+                              ""
+                            ],
+                            "submitNum": 0,
+                            "acceptedNum": 0,
+                            "judgeConfig": {
+                              "timeLimit": 0,
+                              "memoryLimit": 0,
+                              "stackLimit": 0
+                            },
+                            "thumbNum": 0,
+                            "favourNum": 0,
+                            "userId": 0,
+                            "createTime": "",
+                            "updateTime": "",
+                            "userVO": {
+                              "id": 0,
+                              "userName": "",
+                              "userAvatar": "",
+                              "userProfile": "",
+                              "userRole": "",
+                              "createTime": ""
+                            }
+                          }
+                        ],
+                        "total": 0,
+                        "size": 0,
+                        "current": 0,
+                        "orders": [
+                          {
+                            "column": "",
+                            "asc": false
+                          }
+                        ],
+                        "optimizeCountSql": false,
+                        "searchCount": false,
+                        "optimizeJoinOfCountSql": false,
+                        "maxLimit": 0,
+                        "countId": ""
+                      },
+                      "message": ""
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/question/my/list/page/vo": {
+      "post": {
+        "summary": "分页获取当前用户创建的资源列表",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/QuestionQueryRequest",
+                "description": ""
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseResponsePageQuestionVO",
+                  "description": ""
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": {
+                      "code": 0,
+                      "data": {
+                        "records": [
+                          {
+                            "id": 0,
+                            "title": "",
+                            "content": "",
+                            "tags": [
+                              ""
+                            ],
+                            "submitNum": 0,
+                            "acceptedNum": 0,
+                            "judgeConfig": {
+                              "timeLimit": 0,
+                              "memoryLimit": 0,
+                              "stackLimit": 0
+                            },
+                            "thumbNum": 0,
+                            "favourNum": 0,
+                            "userId": 0,
+                            "createTime": "",
+                            "updateTime": "",
+                            "userVO": {
+                              "id": 0,
+                              "userName": "",
+                              "userAvatar": "",
+                              "userProfile": "",
+                              "userRole": "",
+                              "createTime": ""
+                            }
+                          }
+                        ],
+                        "total": 0,
+                        "size": 0,
+                        "current": 0,
+                        "orders": [
+                          {
+                            "column": "",
+                            "asc": false
+                          }
+                        ],
+                        "optimizeCountSql": false,
+                        "searchCount": false,
+                        "optimizeJoinOfCountSql": false,
+                        "maxLimit": 0,
+                        "countId": ""
+                      },
+                      "message": ""
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/question/list/page": {
+      "post": {
+        "summary": "分页获取题目列表（仅管理员）",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/QuestionQueryRequest",
+                "description": ""
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseResponsePageQuestion",
+                  "description": ""
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": {
+                      "code": 0,
+                      "data": {
+                        "records": [
+                          {
+                            "id": 0,
+                            "title": "",
+                            "content": "",
+                            "tags": "",
+                            "answer": "",
+                            "submitNum": 0,
+                            "acceptedNum": 0,
+                            "judgeCase": "",
+                            "judgeConfig": "",
+                            "thumbNum": 0,
+                            "favourNum": 0,
+                            "userId": 0,
+                            "createTime": "",
+                            "updateTime": "",
+                            "isDelete": 0
+                          }
+                        ],
+                        "total": 0,
+                        "size": 0,
+                        "current": 0,
+                        "orders": [
+                          {
+                            "column": "",
+                            "asc": false
+                          }
+                        ],
+                        "optimizeCountSql": false,
+                        "searchCount": false,
+                        "optimizeJoinOfCountSql": false,
+                        "maxLimit": 0,
+                        "countId": ""
+                      },
+                      "message": ""
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/question/edit": {
+      "post": {
+        "summary": "编辑（用户）",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/QuestionEditRequest",
+                "description": ""
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseResponseBoolean",
+                  "description": ""
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": {
+                      "code": 0,
+                      "data": false,
+                      "message": ""
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/question_submit/": {
+      "post": {
+        "summary": "提交题目",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/QuestionSubmitAddRequest",
+                "description": ""
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseResponseLong",
+                  "description": ""
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": {
+                      "code": 0,
+                      "data": 0,
+                      "message": ""
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/question_submit/list/page": {
+      "post": {
+        "summary": "分页获取题目提交列表（除了管理员外，普通用户只能看到非答案、提交代码等公开信息）",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/QuestionSubmitQueryRequest",
+                "description": ""
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseResponsePageQuestionSubmitVO",
+                  "description": ""
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": {
+                      "code": 0,
+                      "data": {
+                        "records": [
+                          {
+                            "id": 0,
+                            "language": "",
+                            "code": "",
+                            "judgeInfo": {
+                              "message": "",
+                              "memory": 0,
+                              "time": 0
+                            },
+                            "status": 0,
+                            "questionId": 0,
+                            "userId": 0,
+                            "createTime": "",
+                            "updateTime": "",
+                            "userVO": {
+                              "id": 0,
+                              "userName": "",
+                              "userAvatar": "",
+                              "userProfile": "",
+                              "userRole": "",
+                              "createTime": ""
+                            },
+                            "questionVO": {
+                              "id": 0,
+                              "title": "",
+                              "content": "",
+                              "tags": [
+                                ""
+                              ],
+                              "submitNum": 0,
+                              "acceptedNum": 0,
+                              "judgeConfig": {
+                                "timeLimit": 0,
+                                "memoryLimit": 0,
+                                "stackLimit": 0
+                              },
+                              "thumbNum": 0,
+                              "favourNum": 0,
+                              "userId": 0,
+                              "createTime": "",
+                              "updateTime": "",
+                              "userVO": {
+                                "id": 0,
+                                "userName": "",
+                                "userAvatar": "",
+                                "userProfile": "",
+                                "userRole": "",
+                                "createTime": ""
+                              }
+                            }
+                          }
+                        ],
+                        "total": 0,
+                        "size": 0,
+                        "current": 0,
+                        "orders": [
+                          {
+                            "column": "",
+                            "asc": false
+                          }
+                        ],
+                        "optimizeCountSql": false,
+                        "searchCount": false,
+                        "optimizeJoinOfCountSql": false,
+                        "maxLimit": 0,
+                        "countId": ""
+                      },
+                      "message": ""
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
     }
   },
   "components": {
@@ -1529,6 +2188,37 @@
           }
         }
       },
+      "JudgeCase": {
+        "type": "object",
+        "properties": {
+          "input": {
+            "type": "string",
+            "description": "输入用例"
+          },
+          "output": {
+            "type": "string",
+            "description": "输出用例"
+          }
+        }
+      },
+      "QuestionSubmitAddRequest": {
+        "type": "object",
+        "properties": {
+          "language": {
+            "type": "string",
+            "description": "编程语言"
+          },
+          "code": {
+            "type": "string",
+            "description": "用户代码"
+          },
+          "questionId": {
+            "type": "integer",
+            "description": "题目 id",
+            "format": "int64"
+          }
+        }
+      },
       "LoginUserVO": {
         "type": "object",
         "properties": {
@@ -1563,6 +2253,45 @@
           }
         }
       },
+      "JudgeConfig": {
+        "type": "object",
+        "properties": {
+          "timeLimit": {
+            "type": "integer",
+            "description": "时间限制（ms）",
+            "format": "int64"
+          },
+          "memoryLimit": {
+            "type": "integer",
+            "description": "内存限制（KB）",
+            "format": "int64"
+          },
+          "stackLimit": {
+            "type": "integer",
+            "description": "堆栈限制（KB）",
+            "format": "int64"
+          }
+        }
+      },
+      "JudgeInfo": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "程序执行信息"
+          },
+          "memory": {
+            "type": "integer",
+            "description": "消耗内存",
+            "format": "int64"
+          },
+          "time": {
+            "type": "integer",
+            "description": "消耗时间（KB）",
+            "format": "int64"
+          }
+        }
+      },
       "BaseResponseLoginUserVO": {
         "type": "object",
         "properties": {
@@ -1577,6 +2306,42 @@
           "message": {
             "type": "string",
             "description": ""
+          }
+        }
+      },
+      "QuestionAddRequest": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "标题"
+          },
+          "content": {
+            "type": "string",
+            "description": "内容"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "标签列表"
+          },
+          "answer": {
+            "type": "string",
+            "description": "题目答案"
+          },
+          "judgeCase": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/JudgeCase",
+              "description": "题目用例"
+            },
+            "description": "判题用例"
+          },
+          "judgeConfig": {
+            "$ref": "#/components/schemas/JudgeConfig",
+            "description": "判题配置"
           }
         }
       },
@@ -1711,6 +2476,99 @@
           "hasFavour": {
             "type": "boolean",
             "description": "是否已收藏"
+          }
+        }
+      },
+      "QuestionUpdateRequest": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "id",
+            "format": "int64"
+          },
+          "title": {
+            "type": "string",
+            "description": "标题"
+          },
+          "content": {
+            "type": "string",
+            "description": "内容"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "标签列表"
+          },
+          "answer": {
+            "type": "string",
+            "description": "题目答案"
+          },
+          "judgeCase": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/JudgeCase",
+              "description": "题目用例"
+            },
+            "description": "判题用例"
+          },
+          "judgeConfig": {
+            "$ref": "#/components/schemas/JudgeConfig",
+            "description": "判题配置"
+          }
+        }
+      },
+      "QuestionSubmitVO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "id",
+            "format": "int64"
+          },
+          "language": {
+            "type": "string",
+            "description": "编程语言"
+          },
+          "code": {
+            "type": "string",
+            "description": "用户代码"
+          },
+          "judgeInfo": {
+            "$ref": "#/components/schemas/JudgeInfo",
+            "description": "判题信息"
+          },
+          "status": {
+            "type": "integer",
+            "description": "判题状态（0 - 待判题、1 - 判题中、2 - 成功、3 - 失败）"
+          },
+          "questionId": {
+            "type": "integer",
+            "description": "题目 id",
+            "format": "int64"
+          },
+          "userId": {
+            "type": "integer",
+            "description": "创建用户 id",
+            "format": "int64"
+          },
+          "createTime": {
+            "type": "string",
+            "description": "创建时间"
+          },
+          "updateTime": {
+            "type": "string",
+            "description": "更新时间"
+          },
+          "userVO": {
+            "$ref": "#/components/schemas/UserVO",
+            "description": "创建人信息"
+          },
+          "questionVO": {
+            "$ref": "#/components/schemas/QuestionVO",
+            "description": "对应题目信息"
           }
         }
       },
@@ -1849,6 +2707,125 @@
           }
         }
       },
+      "QuestionVO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "id",
+            "format": "int64"
+          },
+          "title": {
+            "type": "string",
+            "description": "标题"
+          },
+          "content": {
+            "type": "string",
+            "description": "内容"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "标签列表"
+          },
+          "submitNum": {
+            "type": "integer",
+            "description": "题目提交数"
+          },
+          "acceptedNum": {
+            "type": "integer",
+            "description": "题目通过数"
+          },
+          "judgeConfig": {
+            "$ref": "#/components/schemas/JudgeConfig",
+            "description": "判题配置"
+          },
+          "thumbNum": {
+            "type": "integer",
+            "description": "点赞数"
+          },
+          "favourNum": {
+            "type": "integer",
+            "description": "收藏数"
+          },
+          "userId": {
+            "type": "integer",
+            "description": "创建用户 id",
+            "format": "int64"
+          },
+          "createTime": {
+            "type": "string",
+            "description": "创建时间"
+          },
+          "updateTime": {
+            "type": "string",
+            "description": "更新时间"
+          },
+          "userVO": {
+            "$ref": "#/components/schemas/UserVO",
+            "description": "创建人信息"
+          }
+        }
+      },
+      "PageQuestionSubmitVO": {
+        "type": "object",
+        "properties": {
+          "records": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/QuestionSubmitVO",
+              "description": "题目提交封装类"
+            },
+            "description": ""
+          },
+          "total": {
+            "type": "integer",
+            "description": "",
+            "format": "int64"
+          },
+          "size": {
+            "type": "integer",
+            "description": "",
+            "format": "int64"
+          },
+          "current": {
+            "type": "integer",
+            "description": "",
+            "format": "int64"
+          },
+          "orders": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OrderItem",
+              "description": "com.baomidou.mybatisplus.core.metadata.OrderItem"
+            },
+            "description": ""
+          },
+          "optimizeCountSql": {
+            "type": "boolean",
+            "description": ""
+          },
+          "searchCount": {
+            "type": "boolean",
+            "description": ""
+          },
+          "optimizeJoinOfCountSql": {
+            "type": "boolean",
+            "description": ""
+          },
+          "maxLimit": {
+            "type": "integer",
+            "description": "",
+            "format": "int64"
+          },
+          "countId": {
+            "type": "string",
+            "description": ""
+          }
+        }
+      },
       "User": {
         "type": "object",
         "properties": {
@@ -1900,6 +2877,40 @@
           "isDelete": {
             "type": "integer",
             "description": "是否删除"
+          }
+        }
+      },
+      "BaseResponseQuestionVO": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "description": ""
+          },
+          "data": {
+            "$ref": "#/components/schemas/QuestionVO",
+            "description": "对应题目信息"
+          },
+          "message": {
+            "type": "string",
+            "description": ""
+          }
+        }
+      },
+      "BaseResponsePageQuestionSubmitVO": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "description": ""
+          },
+          "data": {
+            "$ref": "#/components/schemas/PageQuestionSubmitVO",
+            "description": ""
+          },
+          "message": {
+            "type": "string",
+            "description": ""
           }
         }
       },
@@ -1977,6 +2988,50 @@
           }
         }
       },
+      "QuestionSubmitQueryRequest": {
+        "type": "object",
+        "properties": {
+          "current": {
+            "type": "integer",
+            "description": "当前页号",
+            "format": "int64",
+            "default": 1
+          },
+          "pageSize": {
+            "type": "integer",
+            "description": "页面大小",
+            "format": "int64",
+            "default": 10
+          },
+          "sortField": {
+            "type": "string",
+            "description": "排序字段"
+          },
+          "sortOrder": {
+            "type": "string",
+            "description": "排序顺序（默认升序）",
+            "default": "ascend"
+          },
+          "language": {
+            "type": "string",
+            "description": "编程语言"
+          },
+          "status": {
+            "type": "integer",
+            "description": "提交状态"
+          },
+          "questionId": {
+            "type": "integer",
+            "description": "题目 id",
+            "format": "int64"
+          },
+          "userId": {
+            "type": "integer",
+            "description": "用户 id",
+            "format": "int64"
+          }
+        }
+      },
       "UserVO": {
         "type": "object",
         "properties": {
@@ -2019,6 +3074,63 @@
             "description": ""
           },
           "message": {
+            "type": "string",
+            "description": ""
+          }
+        }
+      },
+      "PageQuestionVO": {
+        "type": "object",
+        "properties": {
+          "records": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/QuestionVO",
+              "description": "对应题目信息"
+            },
+            "description": ""
+          },
+          "total": {
+            "type": "integer",
+            "description": "",
+            "format": "int64"
+          },
+          "size": {
+            "type": "integer",
+            "description": "",
+            "format": "int64"
+          },
+          "current": {
+            "type": "integer",
+            "description": "",
+            "format": "int64"
+          },
+          "orders": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OrderItem",
+              "description": "com.baomidou.mybatisplus.core.metadata.OrderItem"
+            },
+            "description": ""
+          },
+          "optimizeCountSql": {
+            "type": "boolean",
+            "description": ""
+          },
+          "searchCount": {
+            "type": "boolean",
+            "description": ""
+          },
+          "optimizeJoinOfCountSql": {
+            "type": "boolean",
+            "description": ""
+          },
+          "maxLimit": {
+            "type": "integer",
+            "description": "",
+            "format": "int64"
+          },
+          "countId": {
             "type": "string",
             "description": ""
           }
@@ -2113,6 +3225,23 @@
           }
         }
       },
+      "BaseResponsePageQuestionVO": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "description": ""
+          },
+          "data": {
+            "$ref": "#/components/schemas/PageQuestionVO",
+            "description": ""
+          },
+          "message": {
+            "type": "string",
+            "description": ""
+          }
+        }
+      },
       "OrderItem": {
         "type": "object",
         "properties": {
@@ -2180,6 +3309,61 @@
           "countId": {
             "type": "string",
             "description": ""
+          }
+        }
+      },
+      "QuestionQueryRequest": {
+        "type": "object",
+        "properties": {
+          "current": {
+            "type": "integer",
+            "description": "当前页号",
+            "format": "int64",
+            "default": 1
+          },
+          "pageSize": {
+            "type": "integer",
+            "description": "页面大小",
+            "format": "int64",
+            "default": 10
+          },
+          "sortField": {
+            "type": "string",
+            "description": "排序字段"
+          },
+          "sortOrder": {
+            "type": "string",
+            "description": "排序顺序（默认升序）",
+            "default": "ascend"
+          },
+          "id": {
+            "type": "integer",
+            "description": "id",
+            "format": "int64"
+          },
+          "title": {
+            "type": "string",
+            "description": "标题"
+          },
+          "content": {
+            "type": "string",
+            "description": "内容"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "标签列表"
+          },
+          "answer": {
+            "type": "string",
+            "description": "题目答案"
+          },
+          "userId": {
+            "type": "integer",
+            "description": "创建用户 id",
+            "format": "int64"
           }
         }
       },
@@ -2257,6 +3441,73 @@
           }
         }
       },
+      "Question": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "id",
+            "format": "int64"
+          },
+          "title": {
+            "type": "string",
+            "description": "标题"
+          },
+          "content": {
+            "type": "string",
+            "description": "内容"
+          },
+          "tags": {
+            "type": "string",
+            "description": "标签列表（json 数组）"
+          },
+          "answer": {
+            "type": "string",
+            "description": "题目答案"
+          },
+          "submitNum": {
+            "type": "integer",
+            "description": "题目提交数"
+          },
+          "acceptedNum": {
+            "type": "integer",
+            "description": "题目通过数"
+          },
+          "judgeCase": {
+            "type": "string",
+            "description": "判题用例（json 数组）"
+          },
+          "judgeConfig": {
+            "type": "string",
+            "description": "判题配置（json 对象）"
+          },
+          "thumbNum": {
+            "type": "integer",
+            "description": "点赞数"
+          },
+          "favourNum": {
+            "type": "integer",
+            "description": "收藏数"
+          },
+          "userId": {
+            "type": "integer",
+            "description": "创建用户 id",
+            "format": "int64"
+          },
+          "createTime": {
+            "type": "string",
+            "description": "创建时间"
+          },
+          "updateTime": {
+            "type": "string",
+            "description": "更新时间"
+          },
+          "isDelete": {
+            "type": "integer",
+            "description": "是否删除"
+          }
+        }
+      },
       "BaseResponsePageUser": {
         "type": "object",
         "properties": {
@@ -2296,6 +3547,63 @@
               "type": "string"
             },
             "description": "标签列表"
+          }
+        }
+      },
+      "PageQuestion": {
+        "type": "object",
+        "properties": {
+          "records": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Question",
+              "description": "题目"
+            },
+            "description": ""
+          },
+          "total": {
+            "type": "integer",
+            "description": "",
+            "format": "int64"
+          },
+          "size": {
+            "type": "integer",
+            "description": "",
+            "format": "int64"
+          },
+          "current": {
+            "type": "integer",
+            "description": "",
+            "format": "int64"
+          },
+          "orders": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OrderItem",
+              "description": "com.baomidou.mybatisplus.core.metadata.OrderItem"
+            },
+            "description": ""
+          },
+          "optimizeCountSql": {
+            "type": "boolean",
+            "description": ""
+          },
+          "searchCount": {
+            "type": "boolean",
+            "description": ""
+          },
+          "optimizeJoinOfCountSql": {
+            "type": "boolean",
+            "description": ""
+          },
+          "maxLimit": {
+            "type": "integer",
+            "description": "",
+            "format": "int64"
+          },
+          "countId": {
+            "type": "string",
+            "description": ""
           }
         }
       },
@@ -2347,6 +3655,23 @@
           "userRole": {
             "type": "string",
             "description": "用户角色：user/admin/ban"
+          }
+        }
+      },
+      "BaseResponsePageQuestion": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "description": ""
+          },
+          "data": {
+            "$ref": "#/components/schemas/PageQuestion",
+            "description": ""
+          },
+          "message": {
+            "type": "string",
+            "description": ""
           }
         }
       },
@@ -2407,6 +3732,47 @@
           }
         }
       },
+      "QuestionEditRequest": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "id",
+            "format": "int64"
+          },
+          "title": {
+            "type": "string",
+            "description": "标题"
+          },
+          "content": {
+            "type": "string",
+            "description": "内容"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "标签列表"
+          },
+          "answer": {
+            "type": "string",
+            "description": "题目答案"
+          },
+          "judgeCase": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/JudgeCase",
+              "description": "题目用例"
+            },
+            "description": "判题用例"
+          },
+          "judgeConfig": {
+            "$ref": "#/components/schemas/JudgeConfig",
+            "description": "判题配置"
+          }
+        }
+      },
       "BaseResponsePageUserVO": {
         "type": "object",
         "properties": {
@@ -2444,5 +3810,10 @@
     },
     "securitySchemes": {}
   },
-  "servers": []
+  "servers": [
+    {
+      "url": "http://127.0.0.1:8080/api",
+      "description": "开发环境"
+    }
+  ]
 }

@@ -2,9 +2,10 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { PagePost } from "./PagePost";
+import type { PagePost } from './PagePost';
 export type BaseResponsePagePost = {
-  code?: number;
-  data?: PagePost;
-  message?: string;
+    code?: number;
+    data?: PagePost;
+    message?: string;
 };
+

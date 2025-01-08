@@ -3,9 +3,9 @@
 /* tslint:disable */
 /* eslint-disable */
 import type { OrderItem } from './OrderItem';
-import type { PostVO } from './PostVO';
-export type PagePostVO = {
-    records?: Array<PostVO>;
+import type { QuestionSubmitVO } from './QuestionSubmitVO';
+export type PageQuestionSubmitVO = {
+    records?: Array<QuestionSubmitVO>;
     total?: number;
     size?: number;
     current?: number;

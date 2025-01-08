@@ -2,9 +2,10 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { PagePostVO } from "./PagePostVO";
+import type { PagePostVO } from './PagePostVO';
 export type BaseResponsePagePostVO = {
-  code?: number;
-  data?: PagePostVO;
-  message?: string;
+    code?: number;
+    data?: PagePostVO;
+    message?: string;
 };
+

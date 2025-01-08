@@ -2,13 +2,18 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { UserVO } from './UserVO';
-export type BaseResponseUserVO = {
-    code?: number;
+export type JudgeInfo = {
     /**
-     * 创建人信息
+     * 程序执行信息
      */
-    data?: UserVO;
     message?: string;
+    /**
+     * 消耗内存
+     */
+    memory?: number;
+    /**
+     * 消耗时间（KB）
+     */
+    time?: number;
 };
 

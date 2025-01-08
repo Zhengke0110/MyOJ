@@ -2,9 +2,10 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { PageUserVO } from "./PageUserVO";
+import type { PageUserVO } from './PageUserVO';
 export type BaseResponsePageUserVO = {
-  code?: number;
-  data?: PageUserVO;
-  message?: string;
+    code?: number;
+    data?: PageUserVO;
+    message?: string;
 };
+

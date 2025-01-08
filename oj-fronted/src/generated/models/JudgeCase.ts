@@ -2,10 +2,14 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type DeleteRequest = {
+export type JudgeCase = {
     /**
-     * id
+     * 输入用例
      */
-    id?: number;
+    input?: string;
+    /**
+     * 输出用例
+     */
+    output?: string;
 };
 
