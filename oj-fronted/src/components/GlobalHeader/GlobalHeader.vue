@@ -30,7 +30,7 @@
 <script setup lang="ts">
 import { computed, ref } from "vue";
 import { useRouter } from "vue-router";
-import { LogoPath } from "@/config";
+import { LogoPath, LayoutMenu } from "@/config";
 import { routes } from "@/router/routes";
 import { useUserStore } from "@/store/user";
 import { ACCESSENUM, CheckACCESS } from "@/access";
@@ -46,8 +46,7 @@ const filteredRoutes = computed(() => {
       (route.meta?.access as ACCESSENUM) ?? ACCESSENUM.NOLOGIN;
     return (
       !route.redirect &&
-      route.path !== "/:pathMatch(.*)*" &&
-      route.path != "/noauth" &&
+      route.meta?.layout === LayoutMenu.BasicLayout &&
       CheckACCESS(LoginUserInfo.userRole, NeedACCESS)
     ); // 排除包含 redirect 属性的路由和通配符路由
   });
