@@ -17,25 +17,28 @@
 
 <script setup lang="ts">
 import { IconLeft } from "@arco-design/web-vue/es/icon";
-import { reactive, watch } from "vue";
+import { reactive, watch, onMounted } from "vue";
 import { useRoute } from "vue-router";
 
 const route = useRoute();
 
 const currentPath = reactive({ patch: "/user/register", text: "Register" });
 
+const setCurrentPath = () => {
+  if (route.path.includes("register")) {
+    currentPath.patch = "/user/login";
+    currentPath.text = "Login";
+  } else {
+    currentPath.patch = "/user/register";
+    currentPath.text = "Register";
+  }
+};
+
 watch(
   () => route.path,
-  () => {
-    if (route.path.includes("register")) {
-      currentPath.patch = "/user/login";
-      currentPath.text = "Login";
-    } else {
-      currentPath.patch = "/user/register";
-      currentPath.text = "Register";
-    }
-  }
+  () => setCurrentPath()
 );
+onMounted(() => setCurrentPath());
 </script>
 
 <style scoped></style>

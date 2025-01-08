@@ -20,7 +20,7 @@
           <a
             class="no-underline transition duration-200 text-[#a3a5ab] hover:text-[#656976]"
             target="_blank"
-            href="https://supabase.com/privacy"
+            href="#"
             rel="noreferrer"
           >
             Privacy Policy
@@ -29,7 +29,7 @@
           <a
             class="no-underline transition duration-200 text-[#a3a5ab] hover:text-[#656976]"
             target="_blank"
-            href="https://supabase.com/terms"
+            href="#"
             rel="noreferrer"
           >
             Terms of Service
