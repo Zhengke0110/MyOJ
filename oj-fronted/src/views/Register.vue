@@ -6,31 +6,97 @@
       Create an account
     </h1>
     <!-- TODO 表单 -->
-    <a-form :model="form" class="w-full" layout="vertical">
-      <a-form-item field="name" label="Account">
-        <a-input
-          v-model="form.userAccount"
+
+    <div class="w-full">
+      <div class="my-4">
+        <label class="block text-sm text-left text-gray-500 dark:text-gray-300"
+          >Account</label
+        >
+
+        <input
+          type="text"
           placeholder="please enter your account..."
+          class="block mt-2 w-full placeholder-gray-400/70 dark:placeholder-gray-500 rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:focus:border-blue-300"
+          v-model="form.userAccount"
         />
-      </a-form-item>
+      </div>
+      <div class="my-4">
+        <label
+          for="password"
+          class="block text-sm text-left text-gray-500 dark:text-gray-300"
+          >Password</label
+        >
 
-      <a-form-item field="password" label="Password">
-        <a-input-password
-          v-model="form.userPassword"
-          placeholder="please enter your password"
-        />
-      </a-form-item>
-      <a-form-item field="checkPassword" label="CheckPassword">
-        <a-input-password
-          v-model="form.checkPassword"
-          placeholder="please enter your password here again"
-        />
-      </a-form-item>
+        <div class="relative flex items-center mt-2">
+          <button
+            class="absolute right-0 focus:outline-none"
+            @click="showPasswordMode = !showPasswordMode"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              class="w-6 h-6 mx-4 text-gray-400 transition-colors duration-300 dark:text-gray-500 hover:text-gray-500 dark:hover:text-gray-400"
+            >
+              <path d="M12 15a3 3 0 100-6 3 3 0 000 6z" />
+              <path
+                fill-rule="evenodd"
+                d="M1.323 11.447C2.811 6.976 7.028 3.75 12.001 3.75c4.97 0 9.185 3.223 10.675 7.69.12.362.12.752 0 1.113-1.487 4.471-5.705 7.697-10.677 7.697-4.97 0-9.186-3.223-10.675-7.69a1.762 1.762 0 010-1.113zM17.25 12a5.25 5.25 0 11-10.5 0 5.25 5.25 0 0110.5 0z"
+                clip-rule="evenodd"
+              />
+            </svg>
+          </button>
 
-      <a-form-item>
-        <a-button type="outline" long @click="handleSubmit">Submit</a-button>
-      </a-form-item>
-    </a-form>
+          <input
+            :type="showPasswordMode ? 'text' : 'password'"
+            placeholder="please enter your password"
+            class="block w-full py-2.5 text-gray-700 placeholder-gray-400/70 bg-white border border-gray-200 rounded-lg pl-5 pr-11 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
+            v-model="form.userPassword"
+          />
+        </div>
+      </div>
+      <div class="my-4">
+        <label
+          for="password"
+          class="block text-sm text-left text-gray-500 dark:text-gray-300"
+          >CheckPassword</label
+        >
+
+        <div class="relative flex items-center mt-2">
+          <button
+            class="absolute right-0 focus:outline-none"
+            @click="showPasswordMode = !showPasswordMode"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              class="w-6 h-6 mx-4 text-gray-400 transition-colors duration-300 dark:text-gray-500 hover:text-gray-500 dark:hover:text-gray-400"
+            >
+              <path d="M12 15a3 3 0 100-6 3 3 0 000 6z" />
+              <path
+                fill-rule="evenodd"
+                d="M1.323 11.447C2.811 6.976 7.028 3.75 12.001 3.75c4.97 0 9.185 3.223 10.675 7.69.12.362.12.752 0 1.113-1.487 4.471-5.705 7.697-10.677 7.697-4.97 0-9.186-3.223-10.675-7.69a1.762 1.762 0 010-1.113zM17.25 12a5.25 5.25 0 11-10.5 0 5.25 5.25 0 0110.5 0z"
+                clip-rule="evenodd"
+              />
+            </svg>
+          </button>
+
+          <input
+            :type="showCheckPasswordMode ? 'text' : 'password'"
+            placeholder="please enter your password here again"
+            class="block w-full py-2.5 text-gray-700 placeholder-gray-400/70 bg-white border border-gray-200 rounded-lg pl-5 pr-11 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
+            v-model="form.checkPassword"
+          />
+        </div>
+      </div>
+      <button
+        class="w-full py-2 my-4 h-10 font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-lg hover:bg-blue-400 focus:outline-none focus:ring focus:ring-blue-200 focus:ring-opacity-80"
+        @click="handleSubmit"
+      >
+        Submit
+      </button>
+    </div>
 
     <div class="grid gap-4 [&:not(:last-child)]:mb-6">
       <RouterLink to="/user/login">
@@ -48,7 +114,7 @@
 import { RouterLink } from "vue-router";
 import { Message } from "@arco-design/web-vue";
 import { useRouter } from "vue-router";
-import { reactive } from "vue";
+import { reactive, ref } from "vue";
 import { UserRegister } from "@/services/user";
 
 const router = useRouter();
@@ -72,4 +138,8 @@ const handleSubmit = async () => {
     Message.error(`注册失败, ${message}`);
   }
 };
+
+// Password Eye Event
+const showPasswordMode = ref(false);
+const showCheckPasswordMode = ref(false);
 </script>
