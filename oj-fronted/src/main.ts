@@ -7,13 +7,13 @@ import router from "./router";
 // CSS
 import "virtual:uno.css";
 import "normalize.css";
+import "./assets/basic.css";
 import "@arco-design/web-vue/dist/arco.css";
 
 // Plugins
 import "@/utils/axios";
 import Particles from "@tsparticles/vue3";
 import { loadSlim } from "@tsparticles/slim";
-// import "@/access";
 
 const pinia = createPinia();
 
