@@ -6,105 +6,111 @@
       Create an account
     </h1>
     <!-- 表单 -->
-    <div class="w-full">
-      <div class="my-4">
-        <label class="block text-sm text-left text-gray-500 dark:text-gray-300"
-          >Account</label
-        >
 
-        <input
-          type="text"
-          placeholder="please enter your account..."
-          class="block mt-2 w-full placeholder-gray-400/70 dark:placeholder-gray-500 rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:focus:border-blue-300"
-          v-model="form.userAccount"
-        />
-      </div>
-      <div class="my-4">
-        <label
-          for="password"
-          class="block text-sm text-left text-gray-500 dark:text-gray-300"
-          >Password</label
-        >
-
-        <div class="relative flex items-center mt-2">
-          <button
-            class="absolute right-0 focus:outline-none"
-            @click="showPasswordMode = !showPasswordMode"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="currentColor"
-              class="w-4 h-4 mx-4 text-gray-400 transition-colors duration-300 dark:text-gray-500 hover:text-gray-500 dark:hover:text-gray-400"
+    <div
+      class="flex min-h-full flex-1 flex-col justify-center px-2 py-4 lg:px-8"
+    >
+      <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+        <div class="space-y-6">
+          <div>
+            <label
+              for="Account"
+              class="block text-sm/6 text-left font-medium text-gray-900"
+              >Account</label
             >
-              <path d="M12 15a3 3 0 100-6 3 3 0 000 6z" />
-              <path
-                fill-rule="evenodd"
-                d="M1.323 11.447C2.811 6.976 7.028 3.75 12.001 3.75c4.97 0 9.185 3.223 10.675 7.69.12.362.12.752 0 1.113-1.487 4.471-5.705 7.697-10.677 7.697-4.97 0-9.186-3.223-10.675-7.69a1.762 1.762 0 010-1.113zM17.25 12a5.25 5.25 0 11-10.5 0 5.25 5.25 0 0110.5 0z"
-                clip-rule="evenodd"
+            <div class="mt-2">
+              <input
+                type="text"
+                placeholder="please enter your account..."
+                v-model="form.userAccount"
+                class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-blue-600 sm:text-sm/6"
               />
-            </svg>
-          </button>
+            </div>
+          </div>
 
-          <input
-            :type="showPasswordMode ? 'text' : 'password'"
-            placeholder="please enter your password"
-            class="block w-full py-2.5 text-gray-700 placeholder-gray-400/70 bg-white border border-gray-200 rounded-lg pl-5 pr-11 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
-            v-model="form.userPassword"
-          />
-        </div>
-      </div>
-      <div class="my-4">
-        <label
-          for="password"
-          class="block text-sm text-left text-gray-500 dark:text-gray-300"
-          >CheckPassword</label
-        >
+          <div>
+            <div class="flex items-center justify-between">
+              <label
+                for="password"
+                class="block text-sm/6 font-medium text-gray-900"
+                >Password</label
+              >
+            </div>
+            <div class="mt-2 relative flex items-center">
+              <button
+                class="absolute right-0 focus:outline-none"
+                @click="showPasswordMode = !showPasswordMode"
+              >
+                <div
+                  class="w-4 h-4 mx-4 text-gray-400 transition-colors duration-300 dark:text-gray-500 hover:text-gray-500 dark:hover:text-gray-400"
+                >
+                  <i
+                    v-if="showPasswordMode"
+                    class="i-tabler:eye-off w-4 h-4"
+                  ></i>
+                  <i v-else class="i-tabler:eye w-4 h-4"></i>
+                </div>
+              </button>
 
-        <div class="relative flex items-center mt-2">
-          <button
-            class="absolute right-0 focus:outline-none"
-            @click="showPasswordMode = !showPasswordMode"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="currentColor"
-              class="w-4 h-4 mx-4 text-gray-400 transition-colors duration-300 dark:text-gray-500 hover:text-gray-500 dark:hover:text-gray-400"
+              <input
+                :type="showPasswordMode ? 'text' : 'password'"
+                placeholder="please enter your password"
+                v-model="form.userPassword"
+                class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-blue-600 sm:text-sm/6"
+              />
+            </div>
+          </div>
+
+          <div>
+            <div class="flex items-center justify-between">
+              <label
+                for="password"
+                class="block text-sm/6 font-medium text-gray-900"
+                >CheckPassword</label
+              >
+            </div>
+            <div class="mt-2 relative flex items-center">
+              <button
+                class="absolute right-0 focus:outline-none"
+                @click="showCheckPasswordMode = !showCheckPasswordMode"
+              >
+                <div
+                  class="w-4 h-4 mx-4 text-gray-400 transition-colors duration-300 dark:text-gray-500 hover:text-gray-500 dark:hover:text-gray-400"
+                >
+                  <i
+                    v-if="showCheckPasswordMode"
+                    class="i-tabler:eye-off w-4 h-4"
+                  ></i>
+                  <i v-else class="i-tabler:eye w-4 h-4"></i>
+                </div>
+              </button>
+
+              <input
+                :type="showCheckPasswordMode ? 'text' : 'password'"
+                placeholder="please enter your password"
+                v-model="form.checkPassword"
+                class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-blue-600 sm:text-sm/6"
+              />
+            </div>
+          </div>
+          <div>
+            <button
+              @click="handleSubmit"
+              class="flex w-full justify-center rounded-md bg-blue-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
             >
-              <path d="M12 15a3 3 0 100-6 3 3 0 000 6z" />
-              <path
-                fill-rule="evenodd"
-                d="M1.323 11.447C2.811 6.976 7.028 3.75 12.001 3.75c4.97 0 9.185 3.223 10.675 7.69.12.362.12.752 0 1.113-1.487 4.471-5.705 7.697-10.677 7.697-4.97 0-9.186-3.223-10.675-7.69a1.762 1.762 0 010-1.113zM17.25 12a5.25 5.25 0 11-10.5 0 5.25 5.25 0 0110.5 0z"
-                clip-rule="evenodd"
-              />
-            </svg>
-          </button>
-
-          <input
-            :type="showCheckPasswordMode ? 'text' : 'password'"
-            placeholder="please enter your password here again"
-            class="block w-full py-2.5 text-gray-700 placeholder-gray-400/70 bg-white border border-gray-200 rounded-lg pl-5 pr-11 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
-            v-model="form.checkPassword"
-          />
+              Submit
+            </button>
+          </div>
         </div>
+        <p class="mt-10 text-center text-sm/6 text-gray-500">
+          <RouterLink
+            to="/user/login"
+            class="font-semibold text-blue-600 hover:text-blue-500"
+          >
+            Already have an account?</RouterLink
+          >
+        </p>
       </div>
-      <button
-        class="w-full py-2 my-4 h-10 font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-lg hover:bg-blue-400 focus:outline-none focus:ring focus:ring-blue-200 focus:ring-opacity-80"
-        @click="handleSubmit"
-      >
-        Submit
-      </button>
-    </div>
-
-    <div class="grid gap-4 [&:not(:last-child)]:mb-6">
-      <RouterLink to="/user/login">
-        <button
-          class="bg-blue-500 w-full text-white font-semibold py-3 px-6 rounded-lg shadow-sm transition duration-300 ease-in-out hover:bg-blue-600 active:bg-blue-700 scale-95"
-        >
-          Sign up
-        </button>
-      </RouterLink>
     </div>
   </div>
 </template>
