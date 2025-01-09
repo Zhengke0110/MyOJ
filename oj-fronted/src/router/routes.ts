@@ -4,6 +4,18 @@ import { LayoutMenu } from "@/config";
 
 export const routes: RouteRecordRaw[] = [
   {
+    path: "/",
+    redirect: "/home",
+  },
+  {
+    path: "/login",
+    redirect: "/user/login",
+  },
+  {
+    path: "/register",
+    redirect: "/user/register",
+  },
+  {
     path: "/user",
     name: "用户",
     component: () => import("@/layouts/UserLayout"),
@@ -12,18 +24,14 @@ export const routes: RouteRecordRaw[] = [
       {
         path: "/user/login",
         name: "用户登录",
-        component: () => import("@/views/Login.vue"),
+        component: () => import("@/views/user/Login.vue"),
       },
       {
         path: "/user/register",
         name: "用户注册",
-        component: () => import("@/views/Register.vue"),
+        component: () => import("@/views/user/Register.vue"),
       },
     ],
-  },
-  {
-    path: "/",
-    redirect: "/home",
   },
   {
     path: "/home",
@@ -35,13 +43,41 @@ export const routes: RouteRecordRaw[] = [
     path: "/topics",
     name: "浏览题目",
     meta: { layout: LayoutMenu.BasicLayout },
-    component: () => import("@/views/Home.vue"),
+    component: () => import("@/views/question/Question.vue"),
   },
   {
     path: "/about",
     name: "关于我的",
     meta: { layout: LayoutMenu.BasicLayout },
     component: () => import("@/views/Home.vue"),
+  },
+
+  {
+    path: "/add/question",
+    name: "创建题目",
+    component: () => import("@/views/question/AddQuestionView.vue"),
+    meta: {
+      access: ACCESSENUM.ADMIN,
+      layout: LayoutMenu.BasicLayout,
+    },
+  },
+  {
+    path: "/update/question",
+    name: "更新题目",
+    component: () => import("@/views/question/UpdateQuestionView.vue"),
+    meta: {
+      access: ACCESSENUM.ADMIN,
+      layout: LayoutMenu.BasicLayout,
+    },
+  },
+  {
+    path: "/manage/question/",
+    name: "管理题目",
+    component: () => import("@/views/question/ManageQuestionView.vue"),
+    meta: {
+      access: ACCESSENUM.ADMIN,
+      layout: LayoutMenu.BasicLayout,
+    },
   },
   {
     path: "/admin",

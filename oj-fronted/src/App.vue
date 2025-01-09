@@ -7,9 +7,9 @@ import { useRoute } from "vue-router";
 const route = useRoute();
 
 // TODO 全局初始化函数
-setTimeout(() => {
-  userStore.setLoginInfo();
-}, 1000);
+// setTimeout(() => {
+userStore.setLoginInfo();
+// }, 500);
 </script>
 
 <template>
