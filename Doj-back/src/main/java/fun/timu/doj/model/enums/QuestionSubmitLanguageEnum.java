@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
  * 题目提交编程语言枚举
  */
 public enum QuestionSubmitLanguageEnum {
-    JAVA("Java", "Java"), CPLUSPLUS("C++", "C++"), GOLANG("Golang", "Golang");
+    JAVA("Java", "java"), CPLUSPLUS("C++", "c++"), GOLANG("Golang", "golang");
 
     private final String text;
 

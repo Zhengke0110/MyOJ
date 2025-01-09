@@ -3,6 +3,7 @@ import App from "./App.vue";
 import { createPinia } from "pinia";
 import ArcoVue from "@arco-design/web-vue";
 import router from "./router";
+import piniaPluginPersistedstate from "pinia-plugin-persistedstate";
 
 // CSS
 import "virtual:uno.css";
@@ -16,6 +17,7 @@ import Particles from "@tsparticles/vue3";
 import { loadSlim } from "@tsparticles/slim";
 
 const pinia = createPinia();
+pinia.use(piniaPluginPersistedstate);
 
 createApp(App)
   .use(pinia)

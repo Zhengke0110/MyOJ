@@ -4,12 +4,11 @@ import { LayoutMenu } from "@/config";
 import { useUserStore } from "@/store/user";
 const userStore = useUserStore();
 import { useRoute } from "vue-router";
+import { onMounted } from "vue";
 const route = useRoute();
 
 // TODO 全局初始化函数
-// setTimeout(() => {
-userStore.setLoginInfo();
-// }, 500);
+onMounted(() => userStore.setLoginInfo());
 </script>
 
 <template>
