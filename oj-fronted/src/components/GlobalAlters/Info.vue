@@ -28,7 +28,11 @@
 
 <script lang="ts" setup>
 import { ref } from "vue";
-import type { Props } from "./alter-config";
-const { info = "Info", center = true, closable = true } = defineProps<Props>();
+import type { AltersProps } from "./alter-config";
+const {
+  info = "Info",
+  center = true,
+  closable = true,
+} = defineProps<AltersProps>();
 const isVisible = ref<boolean>(true);
 </script>

@@ -1,4 +1,4 @@
-export interface Props {
+export interface AltersProps {
   info?: string;
   center?: boolean;
   closable?: boolean;

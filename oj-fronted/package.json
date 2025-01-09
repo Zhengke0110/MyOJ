@@ -11,10 +11,15 @@
     "generate-api": "openapi --input ./OPENAPI/Doj.openapi.json --output ./src/generated --client axios"
   },
   "dependencies": {
+    "@bytemd/plugin-gfm": "^1.21.0",
+    "@bytemd/plugin-highlight": "^1.21.0",
+    "@bytemd/vue-next": "^1.21.0",
     "@tsparticles/slim": "^3.7.1",
     "@tsparticles/vue3": "^3.0.1",
     "axios": "^1.7.9",
+    "bytemd": "^1.21.0",
     "form-data": "^4.0.1",
+    "juejin-markdown-themes": "^1.34.0",
     "pinia": "^2.3.0",
     "vue": "^3.5.13",
     "vue-router": "4"
