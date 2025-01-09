@@ -33,6 +33,9 @@ importers:
       '@arco-design/web-vue':
         specifier: ^2.56.3
         version: 2.56.3(vue@3.5.13(typescript@5.6.3))
+      '@iconify-json/tabler':
+        specifier: ^1.2.14
+        version: 1.2.14
       '@types/node':
         specifier: ^22.10.2
         version: 22.10.2
@@ -395,6 +398,9 @@ packages:
     engines: {node: '>=18'}
     cpu: [x64]
     os: [win32]
+
+  '@iconify-json/tabler@1.2.14':
+    resolution: {integrity: sha512-X5Li79KW5KilHIaNVFKMuPr0WOA4B/Y/EqkrrZiEihs3Wcq/eIDMDDqGBkmei/8naYyfpkj0LWH7osr+vJYFEA==}
 
   '@iconify/types@2.0.0':
     resolution: {integrity: sha512-+wluvCrRhXrhyOmRDJ3q8mux9JkKy5SJ/v8ol2tu4FVjyYvtEzkc/3pK15ET6RKg4b4w4BmTk1+gsCUhf21Ykg==}
@@ -1520,6 +1526,10 @@ snapshots:
 
   '@esbuild/win32-x64@0.24.2':
     optional: true
+
+  '@iconify-json/tabler@1.2.14':
+    dependencies:
+      '@iconify/types': 2.0.0
 
   '@iconify/types@2.0.0': {}
 
