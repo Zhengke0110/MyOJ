@@ -19,6 +19,7 @@ export type { BaseResponsePageQuestionVO } from './models/BaseResponsePageQuesti
 export type { BaseResponsePageUser } from './models/BaseResponsePageUser';
 export type { BaseResponsePageUserVO } from './models/BaseResponsePageUserVO';
 export type { BaseResponsePostVO } from './models/BaseResponsePostVO';
+export type { BaseResponseQuestionAdminVO } from './models/BaseResponseQuestionAdminVO';
 export type { BaseResponseQuestionVO } from './models/BaseResponseQuestionVO';
 export type { BaseResponseUser } from './models/BaseResponseUser';
 export type { BaseResponseUserVO } from './models/BaseResponseUserVO';
@@ -46,6 +47,7 @@ export type { PostUpdateRequest } from './models/PostUpdateRequest';
 export type { PostVO } from './models/PostVO';
 export type { Question } from './models/Question';
 export type { QuestionAddRequest } from './models/QuestionAddRequest';
+export type { QuestionAdminVO } from './models/QuestionAdminVO';
 export type { QuestionEditRequest } from './models/QuestionEditRequest';
 export type { QuestionQueryRequest } from './models/QuestionQueryRequest';
 export type { QuestionSubmitAddRequest } from './models/QuestionSubmitAddRequest';

@@ -3,7 +3,7 @@
   "info": {
     "title": "Doj",
     "description": "",
-    "version": "1.0.1"
+    "version": "1.0.0"
   },
   "tags": [],
   "paths": {
@@ -1566,9 +1566,9 @@
         "security": []
       }
     },
-    "/question/get/vo": {
+    "/question/get": {
       "get": {
-        "summary": "根据 id 获取",
+        "summary": "根据 id 获取(ADMIN)",
         "deprecated": false,
         "description": "",
         "tags": [],
@@ -1577,7 +1577,80 @@
             "name": "id",
             "in": "query",
             "description": "",
-            "required": true,
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseResponseQuestionAdminVO",
+                  "description": ""
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": {
+                      "code": 0,
+                      "data": {
+                        "id": 0,
+                        "title": "",
+                        "content": "",
+                        "tags": [
+                          ""
+                        ],
+                        "answer": "",
+                        "submitNum": 0,
+                        "acceptedNum": 0,
+                        "judgeConfig": {
+                          "timeLimit": 0,
+                          "memoryLimit": 0,
+                          "stackLimit": 0
+                        },
+                        "judgeCase": "",
+                        "thumbNum": 0,
+                        "favourNum": 0,
+                        "userId": 0,
+                        "createTime": "",
+                        "updateTime": "",
+                        "userVO": {
+                          "id": 0,
+                          "userName": "",
+                          "userAvatar": "",
+                          "userProfile": "",
+                          "userRole": "",
+                          "createTime": ""
+                        }
+                      },
+                      "message": ""
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/question/get/vo": {
+      "get": {
+        "summary": "根据 id 获取(脱敏)",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "",
+            "required": false,
             "schema": {
               "type": "integer"
             }
@@ -2483,9 +2556,8 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "integer",
-            "description": "id",
-            "format": "int64"
+            "type": "string",
+            "description": "id"
           },
           "title": {
             "type": "string",
@@ -2826,6 +2898,76 @@
           }
         }
       },
+      "QuestionAdminVO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "id",
+            "format": "int64"
+          },
+          "title": {
+            "type": "string",
+            "description": "标题"
+          },
+          "content": {
+            "type": "string",
+            "description": "内容"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "标签列表"
+          },
+          "answer": {
+            "type": "string",
+            "description": "题目答案"
+          },
+          "submitNum": {
+            "type": "integer",
+            "description": "题目提交数"
+          },
+          "acceptedNum": {
+            "type": "integer",
+            "description": "题目通过数"
+          },
+          "judgeConfig": {
+            "$ref": "#/components/schemas/JudgeConfig",
+            "description": "判题配置"
+          },
+          "judgeCase": {
+            "type": "string",
+            "description": "判题用例（json 数组）"
+          },
+          "thumbNum": {
+            "type": "integer",
+            "description": "点赞数"
+          },
+          "favourNum": {
+            "type": "integer",
+            "description": "收藏数"
+          },
+          "userId": {
+            "type": "integer",
+            "description": "创建用户 id",
+            "format": "int64"
+          },
+          "createTime": {
+            "type": "string",
+            "description": "创建时间"
+          },
+          "updateTime": {
+            "type": "string",
+            "description": "更新时间"
+          },
+          "userVO": {
+            "$ref": "#/components/schemas/UserVO",
+            "description": "创建人信息"
+          }
+        }
+      },
       "User": {
         "type": "object",
         "properties": {
@@ -2906,6 +3048,23 @@
           },
           "data": {
             "$ref": "#/components/schemas/PageQuestionSubmitVO",
+            "description": ""
+          },
+          "message": {
+            "type": "string",
+            "description": ""
+          }
+        }
+      },
+      "BaseResponseQuestionAdminVO": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "description": ""
+          },
+          "data": {
+            "$ref": "#/components/schemas/QuestionAdminVO",
             "description": ""
           },
           "message": {

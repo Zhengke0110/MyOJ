@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import fun.timu.doj.model.dto.question.QuestionQueryRequest;
 import fun.timu.doj.model.entity.Question;
+import fun.timu.doj.model.vo.QuestionAdminVO;
 import fun.timu.doj.model.vo.QuestionVO;
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -47,4 +48,13 @@ public interface QuestionService extends IService<Question> {
      * @return
      */
     Page<QuestionVO> getQuestionVOPage(Page<Question> questionPage, HttpServletRequest request);
+
+    /**
+     * 获取题目原始信息 未脱敏
+     * @param question
+     * @param request
+     * @return
+     */
+    QuestionAdminVO getQuestionAdminVo(Question question, HttpServletRequest request);
+
 }

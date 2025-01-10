@@ -14,6 +14,7 @@ import type { BaseResponsePageQuestionVO } from "../models/BaseResponsePageQuest
 import type { BaseResponsePageUser } from "../models/BaseResponsePageUser";
 import type { BaseResponsePageUserVO } from "../models/BaseResponsePageUserVO";
 import type { BaseResponsePostVO } from "../models/BaseResponsePostVO";
+import type { BaseResponseQuestionAdminVO } from "../models/BaseResponseQuestionAdminVO";
 import type { BaseResponseQuestionVO } from "../models/BaseResponseQuestionVO";
 import type { BaseResponseUser } from "../models/BaseResponseUser";
 import type { BaseResponseUserVO } from "../models/BaseResponseUserVO";
@@ -486,13 +487,30 @@ export class DefaultService {
     });
   }
   /**
-   * 根据 id 获取
+   * 根据 id 获取(ADMIN)
+   * @param id
+   * @returns BaseResponseQuestionAdminVO
+   * @throws ApiError
+   */
+  public static getQuestionGet(
+    id?: string
+  ): CancelablePromise<BaseResponseQuestionAdminVO> {
+    return __request(OpenAPI, {
+      method: "GET",
+      url: "/question/get",
+      query: {
+        id: id,
+      },
+    });
+  }
+  /**
+   * 根据 id 获取(脱敏)
    * @param id
    * @returns BaseResponseQuestionVO
    * @throws ApiError
    */
   public static getQuestionGetVo(
-    id: string
+    id?: string
   ): CancelablePromise<BaseResponseQuestionVO> {
     return __request(OpenAPI, {
       method: "GET",

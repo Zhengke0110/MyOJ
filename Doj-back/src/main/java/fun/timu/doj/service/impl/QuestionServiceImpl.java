@@ -13,6 +13,7 @@ import fun.timu.doj.common.ErrorCode;
 import fun.timu.doj.model.dto.question.QuestionQueryRequest;
 import fun.timu.doj.model.entity.Question;
 import fun.timu.doj.model.entity.User;
+import fun.timu.doj.model.vo.QuestionAdminVO;
 import fun.timu.doj.model.vo.QuestionVO;
 import fun.timu.doj.model.vo.UserVO;
 import fun.timu.doj.service.QuestionService;
@@ -150,6 +151,22 @@ public class QuestionServiceImpl extends ServiceImpl<QuestionMapper, Question> i
         questionVOPage.setRecords(questionVOList);
         return questionVOPage;
     }
+
+    @Override
+    public QuestionAdminVO getQuestionAdminVo(Question question, HttpServletRequest request) {
+        QuestionAdminVO questionVO = QuestionAdminVO.objToVo(question);
+        // 1. 关联查询用户信息
+        Long userId = question.getUserId();
+        User user = null;
+        if (userId != null && userId > 0) {
+            user = userService.getById(userId);
+        }
+        UserVO userVO = userService.getUserVO(user);
+        questionVO.setUserVO(userVO);
+        return questionVO;
+    }
+
+
 }
 
 

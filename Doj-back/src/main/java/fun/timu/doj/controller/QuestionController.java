@@ -13,6 +13,7 @@ import fun.timu.doj.exception.ThrowUtils;
 import fun.timu.doj.model.dto.question.*;
 import fun.timu.doj.model.entity.Question;
 import fun.timu.doj.model.entity.User;
+import fun.timu.doj.model.vo.QuestionAdminVO;
 import fun.timu.doj.model.vo.QuestionVO;
 import fun.timu.doj.service.QuestionService;
 import fun.timu.doj.service.UserService;
@@ -156,7 +157,26 @@ public class QuestionController {
     }
 
     /**
-     * 根据 id 获取
+     * 根据 id 获取(ADMIN)
+     *
+     * @param id
+     * @param request
+     * @return
+     */
+    @GetMapping("/get")
+    @AuthCheck(mustRole = UserConstant.ADMIN_ROLE)
+    public BaseResponse<QuestionAdminVO> getQuestionById(long id, HttpServletRequest request) {
+        if (id <= 0) {
+            throw new BusinessException(ErrorCode.PARAMS_ERROR);
+        }
+        Question question = questionService.getById(id);
+        if (question == null) {
+            throw new BusinessException(ErrorCode.NOT_FOUND_ERROR);
+        }
+        return ResultUtils.success(questionService.getQuestionAdminVo(question, request));
+    }
+    /**
+     * 根据 id 获取(脱敏)
      *
      * @param id
      * @param request

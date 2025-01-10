@@ -8,7 +8,7 @@ export type QuestionUpdateRequest = {
     /**
      * id
      */
-    id?: number;
+    id?: string;
     /**
      * 标题
      */

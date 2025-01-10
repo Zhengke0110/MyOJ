@@ -21,7 +21,7 @@ export type OpenAPIConfig = {
 
 export const OpenAPI: OpenAPIConfig = {
   BASE: "http://127.0.0.1:8080/api",
-  VERSION: "1.0.1",
+  VERSION: "1.0.0",
   WITH_CREDENTIALS: true,
   CREDENTIALS: "include",
   TOKEN: undefined,
