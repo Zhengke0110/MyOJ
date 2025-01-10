@@ -40,7 +40,6 @@ onMounted(() => {
 });
 
 onUnmounted(() => {
-  console.log("Code Editor组件卸载");
   // 检查 editor 是否已初始化
   if (codeEditor.value) codeEditor.value.dispose(); // 清理 editor 资源，避免内存泄漏
 });

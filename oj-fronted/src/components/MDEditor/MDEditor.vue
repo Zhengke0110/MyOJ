@@ -12,7 +12,7 @@ import gfm from "@bytemd/plugin-gfm";
 import highlight from "@bytemd/plugin-highlight";
 import { Editor, Viewer } from "@bytemd/vue-next";
 import "bytemd/dist/index.css";
-import "juejin-markdown-themes/dist/juejin.min.css"; // 掘金同款样式
+// import "juejin-markdown-themes/dist/juejin.min.css"; // 掘金同款样式
 
 /**
  * 定义组件属性类型
@@ -43,5 +43,8 @@ const {
 <style>
 .bytemd-toolbar-icon.bytemd-tippy.bytemd-tippy-right:last-child {
   display: none;
+}
+.bytemd {
+  width: 90vw !important;
 }
 </style>

@@ -55,7 +55,7 @@ export const routes: RouteRecordRaw[] = [
   {
     path: "/add/question",
     name: "创建题目",
-    component: () => import("@/views/question/AddQuestionView.vue"),
+    component: () => import("@/views/question/QuestionView.vue"),
     meta: {
       access: ACCESSENUM.ADMIN,
       layout: LayoutMenu.BasicLayout,
@@ -64,7 +64,7 @@ export const routes: RouteRecordRaw[] = [
   {
     path: "/update/question",
     name: "更新题目",
-    component: () => import("@/views/question/UpdateQuestionView.vue"),
+    component: () => import("@/views/question/QuestionView.vue"),
     meta: {
       access: ACCESSENUM.ADMIN,
       layout: LayoutMenu.BasicLayout,
