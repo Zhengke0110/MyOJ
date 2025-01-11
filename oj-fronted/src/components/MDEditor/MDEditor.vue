@@ -1,10 +1,5 @@
 <template>
-  <Editor
-    :value="value"
-    :mode="mode"
-    :plugins="plugins"
-    @change="handleChange"
-  />
+  <Editor :value="value" :mode="mode" :plugins="plugins" @change="handleChange" />
 </template>
 
 <script setup lang="ts">
@@ -41,10 +36,12 @@ const {
 </script>
 
 <style>
-.bytemd-toolbar-icon.bytemd-tippy.bytemd-tippy-right:last-child {
+.bytemd-toolbar-icon.bytemd-tippy.bytemd-tippy-right:nth-last-child(-n+2) {
   display: none;
 }
+
 .bytemd {
   width: 65vw !important;
+  min-height: 480px !important;
 }
 </style>

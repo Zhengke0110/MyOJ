@@ -190,18 +190,18 @@ const doUpdateSubmit = async () => {
   if (code === 0 && data) Message.success(`修改题目成功`);
   else Message.error(`修改题目失败, 原因: ${message}`);
 };
+
 watch(
   () => route.path,
   (newValue) => {
-    console.log("route.path", newValue);
-    LoadQuestionInfo();
+    console.log("watch router=>>>", newValue);
+    if (route.path.includes("update") && route.query.id)
+      LoadQuestionInfo(route.query.id as string);
   }
 );
 
 // TODO id需要重传
-const LoadQuestionInfo = async () => {
-  let id = "1877753623343509505";
-
+const LoadQuestionInfo = async (id: string) => {
   const { data, message, code } = await AdminGetQuestionById(id);
   if (code === 0 && data) {
     const mappedData: QuestionInterface = {
@@ -234,6 +234,7 @@ const LoadQuestionInfo = async () => {
 };
 
 onMounted(() => {
-  if (route.path.includes("update")) LoadQuestionInfo();
+  if (route.path.includes("update") && route.query.id)
+    LoadQuestionInfo(route.query.id as string);
 });
 </script>

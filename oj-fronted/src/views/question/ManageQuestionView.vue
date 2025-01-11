@@ -30,13 +30,13 @@
             class="inline-flex items-center gap-x-1.5 rounded-md bg-indigo-600 px-2.5 py-1.5 mx-1 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
           >
             详情
-
             <i class="i-tabler:list-details size-5" />
           </button>
 
           <button
             type="button"
             class="inline-flex items-center gap-x-1.5 rounded-md bg-green-600 px-2.5 py-1.5 mx-1 text-sm font-semibold text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600"
+            @click="editorQuestionAction(record.id as string)"
           >
             编辑
             <i class="i-tabler:edit size-5" />
@@ -58,6 +58,7 @@
 <script setup lang="ts">
 import { onMounted, ref, watchEffect } from "vue";
 import { Message } from "@arco-design/web-vue";
+import { useRouter } from "vue-router";
 import { type QuestionInterface, QuestionAdminTableColumns } from "@/config";
 import { GetQuestionsAdmin } from "@/services/question";
 import Badges from "@/components/Badges";
@@ -68,7 +69,7 @@ const isLoading = ref<boolean>(true);
 // 分页请求数据
 const PageInfo = ref<{ current: number; pageSize: number }>({
   current: 1,
-  pageSize: 2,
+  pageSize: 20,
 });
 const QuestionInfo = ref<QuestionInterface[]>([]);
 
@@ -94,13 +95,21 @@ const LoadQuestionsInfo = async () => {
   isLoading.value = false;
 };
 const onPageChange = (page: number) => {
-  console.log("page", page);
   PageInfo.value = {
     ...PageInfo.value,
     current: page,
   };
   isLoading.value = true;
 };
+
+const router = useRouter();
+const editorQuestionAction = (id: string) =>
+  router.push({
+    path: "/update/question",
+    query: {
+      id,
+    },
+  });
 
 watchEffect(() => LoadQuestionsInfo());
 
