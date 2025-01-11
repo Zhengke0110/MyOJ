@@ -45,6 +45,6 @@ const {
   display: none;
 }
 .bytemd {
-  width: 90vw !important;
+  width: 65vw !important;
 }
 </style>
