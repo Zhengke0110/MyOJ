@@ -24,7 +24,7 @@ export const JudgeCaseItem = {
 };
 
 // 表格
-export const QuestionTableColumns: {
+export const QuestionAdminTableColumns: {
   title: string;
   dataIndex?: string;
   slotName?: string;
@@ -40,11 +40,20 @@ export const QuestionTableColumns: {
   },
   { title: "题目", dataIndex: "title" },
   { title: "标签", slotName: "tags" },
-  { title: "题解", dataIndex: "answer" },
-  { title: "测试配置", dataIndex: "judgeConfig" },
-  { title: "提交数", dataIndex: "submitNum" },
-  { title: "通过数", dataIndex: "acceptedNum" },
-  { title: "点赞数", dataIndex: "thumbNum" },
-  { title: "喜欢数", dataIndex: "favourNum" },
+  { title: "通过率", slotName: "passing" },
   { title: "操作", slotName: "action" },
+];
+
+// 表格
+export const QuestionTableColumns: {
+  title: string;
+  dataIndex?: string;
+  slotName?: string;
+  sortable?: TableSortable;
+  filterable?: TableFilterable;
+}[] = [
+  { title: "题目", dataIndex: "title" },
+  { title: "标签", slotName: "tags" },
+  { title: "通过率", slotName: "passing" },
+  { title: "前去做题", slotName: "action" },
 ];

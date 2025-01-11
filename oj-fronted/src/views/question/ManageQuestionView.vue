@@ -1,7 +1,18 @@
 <!-- 管理员可见 -->
 <template>
-  <div>
-    <a-table :columns="QuestionTableColumns" :data="QuestionInfo">
+  <div class="w-full">
+    <a-table
+      :columns="QuestionAdminTableColumns"
+      :data="QuestionInfo"
+      :loading="isLoading"
+      :pagination="{
+        showTotal: true,
+        pageSize: PageInfo.pageSize,
+        current: PageInfo.current,
+        total,
+      }"
+      @page-change="onPageChange"
+    >
       <template #tags="{ record }">
         <div>
           <Badges
@@ -18,7 +29,7 @@
             type="button"
             class="inline-flex items-center gap-x-1.5 rounded-md bg-indigo-600 px-2.5 py-1.5 mx-1 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
           >
-            查看详情
+            详情
 
             <i class="i-tabler:list-details size-5" />
           </button>
@@ -45,16 +56,19 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from "vue";
+import { onMounted, ref, watchEffect } from "vue";
 import { Message } from "@arco-design/web-vue";
-import { type QuestionInterface, QuestionTableColumns } from "@/config";
+import { type QuestionInterface, QuestionAdminTableColumns } from "@/config";
 import { GetQuestionsAdmin } from "@/services/question";
 import Badges from "@/components/Badges";
 
+const total = ref(0); // 题目总数
+const isLoading = ref<boolean>(true);
+
 // 分页请求数据
 const PageInfo = ref<{ current: number; pageSize: number }>({
-  current: 0,
-  pageSize: 20,
+  current: 1,
+  pageSize: 2,
 });
 const QuestionInfo = ref<QuestionInterface[]>([]);
 
@@ -68,6 +82,7 @@ const LoadQuestionsInfo = async () => {
   );
 
   if (code === 0 && data) {
+    total.value = Number(data.total) ?? 0;
     QuestionInfo.value = Array.isArray(data.records)
       ? data.records.map((item: any) => ({
           ...item,
@@ -76,9 +91,18 @@ const LoadQuestionsInfo = async () => {
         }))
       : [];
   } else Message.error(`获取题目失败, 原因: ${message}`);
-
-  console.log(QuestionInfo.value);
+  isLoading.value = false;
 };
+const onPageChange = (page: number) => {
+  console.log("page", page);
+  PageInfo.value = {
+    ...PageInfo.value,
+    current: page,
+  };
+  isLoading.value = true;
+};
+
+watchEffect(() => LoadQuestionsInfo());
 
 onMounted(() => LoadQuestionsInfo());
 </script>

@@ -38,3 +38,7 @@ export const UpdateQuestion = async (form: QuestionInterface, id: string) => {
 export const GetQuestionsAdmin = async (current: number, pageSize: number) => {
   return await DefaultService.postQuestionListPage({ current, pageSize });
 };
+
+export const GetQuestions = async (current: number, pageSize: number) => {
+  return await DefaultService.postQuestionListPageVo({ current, pageSize });
+};

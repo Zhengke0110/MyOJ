@@ -8,8 +8,14 @@ export enum LayoutMenu {
 // Questions
 import {
   type QuestionInterface,
+  QuestionAdminTableColumns,
   QuestionTableColumns,
   JudgeCaseItem,
 } from "./question";
 
-export { QuestionTableColumns, JudgeCaseItem, type QuestionInterface };
+export {
+  QuestionAdminTableColumns,
+  QuestionTableColumns,
+  JudgeCaseItem,
+  type QuestionInterface,
+};
