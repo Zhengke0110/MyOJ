@@ -75,7 +75,7 @@ export const routes: RouteRecordRaw[] = [
     meta: {
       access: ACCESSENUM.ADMIN,
       layout: LayoutMenu.BasicLayout,
-      isShow: true,
+      isShow: false,
     },
   },
   {

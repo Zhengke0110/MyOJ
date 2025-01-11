@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>{{ route.path.includes("update") ? "修改题目" : "创建题目" }}</h2>
+    <h2>{{ isUpdateMode ? "修改题目" : "创建题目" }}</h2>
     <a-form
       :model="form"
       label-align="left"
@@ -78,7 +78,6 @@
             :key="index"
             no-style
           >
-            <!-- <a-space direction="vertical" class="min-w-[480px] m-4"> -->
             <a-col :span="8" class="my-2">
               <a-card hoverable>
                 <a-form-item
@@ -118,7 +117,7 @@
 
       <a-form-item>
         <a-button
-          v-if="route.path.includes('update')"
+          v-if="isUpdateMode"
           type="primary"
           style="min-width: 200px"
           @click="doUpdateSubmit"
@@ -137,7 +136,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref, watch } from "vue";
+import { computed, onMounted, ref, watch } from "vue";
 import { Message } from "@arco-design/web-vue";
 import { type QuestionInterface, JudgeCaseItem } from "@/config";
 import MDEditor from "@/components/MDEditor";
@@ -150,6 +149,7 @@ import { useRoute } from "vue-router";
 const route = useRoute();
 
 const form = ref<QuestionInterface>({
+  id: "",
   title: "",
   tags: [],
   answer: "",
@@ -183,28 +183,48 @@ const doCreateSubmit = async () => {
   if (code === 0 && data) Message.success(`创建题目成功`);
   else Message.error(`创建题目失败, 原因: ${message}`);
 };
-// TODO id需要重传
+
 const doUpdateSubmit = async () => {
-  let id = "1877753623343509505";
-  const { data, message, code } = await UpdateQuestion(form.value, id);
+  if (!form.value.id) {
+    Message.error("题目ID不能为空");
+    return;
+  }
+
+  const { data, message, code } = await UpdateQuestion(
+    form.value,
+    form.value.id
+  );
   if (code === 0 && data) Message.success(`修改题目成功`);
   else Message.error(`修改题目失败, 原因: ${message}`);
 };
 
 watch(
   () => route.path,
-  (newValue) => {
-    console.log("watch router=>>>", newValue);
+  () => {
+    form.value = {
+      id: "",
+      title: "",
+      tags: [],
+      answer: "",
+      content: "",
+      judgeConfig: {
+        memoryLimit: 1000,
+        stackLimit: 1000,
+        timeLimit: 1000,
+      },
+      judgeCase: [JudgeCaseItem],
+    };
     if (route.path.includes("update") && route.query.id)
       LoadQuestionInfo(route.query.id as string);
   }
 );
 
-// TODO id需要重传
+// 根据ID加载数据
 const LoadQuestionInfo = async (id: string) => {
   const { data, message, code } = await AdminGetQuestionById(id);
   if (code === 0 && data) {
     const mappedData: QuestionInterface = {
+      id: String(data.id) || "",
       title: data.title || "",
       tags: data.tags || [],
       answer: data.answer || "",
@@ -237,4 +257,6 @@ onMounted(() => {
   if (route.path.includes("update") && route.query.id)
     LoadQuestionInfo(route.query.id as string);
 });
+
+const isUpdateMode = computed(() => route.path.includes("update"));
 </script>
