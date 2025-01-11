@@ -36,19 +36,25 @@ export const routes: RouteRecordRaw[] = [
   {
     path: "/home",
     name: "首页",
-    meta: { layout: LayoutMenu.BasicLayout },
+    meta: { layout: LayoutMenu.BasicLayout, isShow: true },
     component: () => import("@/views/Home.vue"),
   },
   {
     path: "/topics",
     name: "浏览题目",
-    meta: { layout: LayoutMenu.BasicLayout },
+    meta: { layout: LayoutMenu.BasicLayout, isShow: true },
     component: () => import("@/views/question/Question.vue"),
+  },
+  {
+    path: "/solution",
+    name: "解题",
+    meta: { layout: LayoutMenu.BasicLayout, isShow: false },
+    component: () => import("@/views/question/QuestionsSolution.vue"),
   },
   {
     path: "/about",
     name: "关于我的",
-    meta: { layout: LayoutMenu.BasicLayout },
+    meta: { layout: LayoutMenu.BasicLayout, isShow: true },
     component: () => import("@/views/Home.vue"),
   },
 
@@ -59,6 +65,7 @@ export const routes: RouteRecordRaw[] = [
     meta: {
       access: ACCESSENUM.ADMIN,
       layout: LayoutMenu.BasicLayout,
+      isShow: true,
     },
   },
   {
@@ -68,6 +75,7 @@ export const routes: RouteRecordRaw[] = [
     meta: {
       access: ACCESSENUM.ADMIN,
       layout: LayoutMenu.BasicLayout,
+      isShow: true,
     },
   },
   {
@@ -77,6 +85,17 @@ export const routes: RouteRecordRaw[] = [
     meta: {
       access: ACCESSENUM.ADMIN,
       layout: LayoutMenu.BasicLayout,
+      isShow: true,
+    },
+  },
+  {
+    path: "/detail/question/",
+    name: "题目详情",
+    component: () => import("@/views/question/QuestionDetails.vue"),
+    meta: {
+      access: ACCESSENUM.ADMIN,
+      layout: LayoutMenu.BasicLayout,
+      isShow: false,
     },
   },
   {
@@ -85,13 +104,14 @@ export const routes: RouteRecordRaw[] = [
     meta: {
       access: ACCESSENUM.ADMIN,
       layout: LayoutMenu.BasicLayout,
+      isShow: true,
     },
     component: () => import("@/views/Admin.vue"),
   },
   {
     path: "/noauth",
     name: "NoAuth",
-    meta: { layout: LayoutMenu.UserLayout },
+    meta: { layout: LayoutMenu.UserLayout, isShow: false },
     component: () => import("@/views/NoAuth.vue"),
   },
   {

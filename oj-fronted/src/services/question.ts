@@ -42,3 +42,7 @@ export const GetQuestionsAdmin = async (current: number, pageSize: number) => {
 export const GetQuestions = async (current: number, pageSize: number) => {
   return await DefaultService.postQuestionListPageVo({ current, pageSize });
 };
+
+export const DeleteQuestionById = async (id: string) => {
+  return await DefaultService.postQuestionDelete({ id });
+};

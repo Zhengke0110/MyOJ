@@ -47,6 +47,7 @@ const filteredRoutes = computed(() => {
     return (
       !route.redirect &&
       route.meta?.layout === LayoutMenu.BasicLayout &&
+      route.meta?.isShow === true &&
       CheckACCESS(LoginUserInfo.userRole, NeedACCESS)
     ); // 排除包含 redirect 属性的路由和通配符路由
   });
