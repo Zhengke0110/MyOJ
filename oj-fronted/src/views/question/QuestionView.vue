@@ -139,7 +139,7 @@
 <script setup lang="ts">
 import { onMounted, ref, watch } from "vue";
 import { Message } from "@arco-design/web-vue";
-import type { QuestionInterface } from "@/config";
+import { type QuestionInterface, JudgeCaseItem } from "@/config";
 import MDEditor from "@/components/MDEditor";
 import {
   AddQuestion,
@@ -148,7 +148,7 @@ import {
 } from "@/services/question";
 import { useRoute } from "vue-router";
 const route = useRoute();
-console.log("route.path.includes(update)", route.path.includes("update"));
+
 const form = ref<QuestionInterface>({
   title: "",
   tags: [],
@@ -159,12 +159,7 @@ const form = ref<QuestionInterface>({
     stackLimit: 1000,
     timeLimit: 1000,
   },
-  judgeCase: [
-    {
-      input: "",
-      output: "",
-    },
-  ],
+  judgeCase: [JudgeCaseItem],
 });
 
 const onContentChange = (value: string) => (form.value.content = value);
@@ -175,10 +170,7 @@ const onAnswerChange = (value: string) => (form.value.answer = value);
  * 新增判题用例
  */
 const handleAdd = () => {
-  form.value.judgeCase.push({
-    input: "",
-    output: "",
-  });
+  form.value.judgeCase.push(JudgeCaseItem);
 };
 
 const handleDelete = (index: number) => form.value.judgeCase.splice(index, 1);
@@ -191,6 +183,7 @@ const doCreateSubmit = async () => {
   if (code === 0 && data) Message.success(`创建题目成功`);
   else Message.error(`创建题目失败, 原因: ${message}`);
 };
+// TODO id需要重传
 const doUpdateSubmit = async () => {
   let id = "1877753623343509505";
   const { data, message, code } = await UpdateQuestion(form.value, id);
@@ -205,6 +198,7 @@ watch(
   }
 );
 
+// TODO id需要重传
 const LoadQuestionInfo = async () => {
   let id = "1877753623343509505";
 
@@ -227,21 +221,11 @@ const LoadQuestionInfo = async () => {
       try {
         mappedData.judgeCase = JSON.parse(data.judgeCase);
       } catch (error) {
-        console.error("Failed to parse judgeCase JSON:", error);
-        mappedData.judgeCase = [
-          {
-            input: "",
-            output: "",
-          },
-        ];
+        Message.error(`Failed to parse judgeCase JSON:${error}`);
+        mappedData.judgeCase = [JudgeCaseItem];
       }
     } else {
-      mappedData.judgeCase = [
-        {
-          input: "",
-          output: "",
-        },
-      ];
+      mappedData.judgeCase = [JudgeCaseItem];
     }
     form.value = mappedData;
   } else {

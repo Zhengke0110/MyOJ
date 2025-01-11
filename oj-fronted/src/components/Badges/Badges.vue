@@ -1,6 +1,6 @@
 <template>
   <span
-    class="inline-flex items-center rounded-md px-2 py-1 text-xs font-medium m-1"
+    class="inline-flex items-center rounded-md px-1.5 py-0.5 text-xs m-0.5 font-medium"
     :class="[safeColor, safeBgColor]"
     >{{ text }}</span
   >

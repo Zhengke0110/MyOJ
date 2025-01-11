@@ -28,3 +28,13 @@ export const UpdateQuestion = async (form: QuestionInterface, id: string) => {
   form.id = id;
   return await DefaultService.postQuestionUpdate(form);
 };
+
+/**
+ * 获取题目列表(管理员)
+ * @param current
+ * @param pageSize
+ * @returns
+ */
+export const GetQuestionsAdmin = async (current: number, pageSize: number) => {
+  return await DefaultService.postQuestionListPage({ current, pageSize });
+};

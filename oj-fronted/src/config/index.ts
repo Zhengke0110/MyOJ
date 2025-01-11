@@ -5,19 +5,11 @@ export enum LayoutMenu {
   UserLayout = "UserLayout",
 }
 
-export interface QuestionInterface {
-  id?: string;
-  title: string;
-  tags: string[];
-  answer: string;
-  content: string;
-  judgeConfig: {
-    memoryLimit: number;
-    stackLimit: number;
-    timeLimit: number;
-  };
-  judgeCase: {
-    input: string;
-    output: string;
-  }[];
-}
+// Questions
+import {
+  type QuestionInterface,
+  QuestionTableColumns,
+  JudgeCaseItem,
+} from "./question";
+
+export { QuestionTableColumns, JudgeCaseItem, type QuestionInterface };
