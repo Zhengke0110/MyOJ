@@ -28,7 +28,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from "vue";
+import { computed, onMounted, ref } from "vue";
 import { useRouter } from "vue-router";
 import { LogoPath, LayoutMenu } from "@/config";
 import { routes } from "@/router/routes";
@@ -53,10 +53,12 @@ const filteredRoutes = computed(() => {
 });
 
 // 默认主页
-const selectKey = ref<string[]>(["/"]);
+const selectKey = ref<string[]>(["/home"]);
 
 // 路由跳转时，更新选中的菜单项
 const router = useRouter();
 const menuClick = (path: string) => router.push(path);
 router.afterEach((to) => (selectKey.value = [to.path]));
+// 解决 页面刷新时，菜单项未选择的小问题
+onMounted(() => (selectKey.value = [router.currentRoute.value.path]));
 </script>
