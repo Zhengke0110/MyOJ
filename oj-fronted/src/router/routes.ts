@@ -43,13 +43,13 @@ export const routes: RouteRecordRaw[] = [
     path: "/topics",
     name: "浏览题目",
     meta: { layout: LayoutMenu.BasicLayout, isShow: true },
-    component: () => import("@/views/question/Question.vue"),
+    component: () => import("@/views/question/Questions.vue"),
   },
   {
     path: "/solution",
     name: "解题",
     meta: { layout: LayoutMenu.BasicLayout, isShow: false },
-    component: () => import("@/views/question/QuestionsSolution.vue"),
+    component: () => import("@/views/question/QuestionSolution.vue"),
   },
   {
     path: "/about",
