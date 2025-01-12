@@ -23,6 +23,16 @@
         </div>
       </template>
 
+      <template #acceptedRate="{ record }">
+        <div>
+          {{
+            `${
+              record.submitNum ? record.acceptedNum / record.submitNum : "0"
+            }% (${record.acceptedNum}/${record.submitNum})`
+          }}
+        </div>
+      </template>
+
       <template #action="{ record }">
         <div>
           <button

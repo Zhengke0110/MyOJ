@@ -47,7 +47,7 @@ export const QuestionAdminTableColumns: {
   },
   { title: "题目", dataIndex: "title" },
   { title: "标签", slotName: "tags" },
-  { title: "通过率", slotName: "passing" },
+  { title: "通过率", slotName: "acceptedRate" },
   { title: "操作", slotName: "action" },
 ];
 
@@ -61,6 +61,6 @@ export const QuestionTableColumns: {
 }[] = [
   { title: "题目", dataIndex: "title" },
   { title: "标签", slotName: "tags" },
-  { title: "通过率", slotName: "passing" },
+  { title: "通过率", slotName: "acceptedRate" },
   { title: "前去做题", slotName: "action" },
 ];
