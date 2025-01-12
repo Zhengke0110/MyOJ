@@ -1,5 +1,5 @@
 <template>
-  <div ref="editorRef" class="w-full h-full"></div>
+  <div ref="editorRef" class="w-full h-full min-h-[360px]"></div>
 </template>
 
 <script lang="ts" setup>
@@ -24,6 +24,16 @@ const {
 // 使用 ref 创建一个 DOM 元素的引用
 const editorRef = ref(null);
 
+// 销毁code实例
+const clearEditor = () => {
+  if (codeEditor.value) {
+    console.log("clearEditor 开始清理");
+    codeEditor.value.dispose(); // 清理 editor 资源，避免内存泄漏
+    console.log("clearEditor 清理完毕");
+  }
+};
+defineExpose({ clearEditor });
+
 onMounted(() => {
   // 初始化 Monaco Editor
   if (!editorRef.value) return;
@@ -39,10 +49,7 @@ onMounted(() => {
   });
 });
 
-onUnmounted(() => {
-  // 检查 editor 是否已初始化
-  if (codeEditor.value) codeEditor.value.dispose(); // 清理 editor 资源，避免内存泄漏
-});
+onUnmounted(() => clearEditor());
 
 // 解决爆内存问题
 self.MonacoEnvironment = {

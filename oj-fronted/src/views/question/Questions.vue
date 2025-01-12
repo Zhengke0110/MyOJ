@@ -1,4 +1,4 @@
-<!-- 非管理员可见 -->
+<!-- 浏览题目 - 非管理员可见 -->
 <template>
   <div class="w-full">
     <a-table

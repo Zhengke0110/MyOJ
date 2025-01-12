@@ -11,11 +11,15 @@ import {
   QuestionAdminTableColumns,
   QuestionTableColumns,
   JudgeCaseItem,
+  DefaultLanguage,
+  type QuestionSolutionInterface,
 } from "./question";
 
 export {
   QuestionAdminTableColumns,
   QuestionTableColumns,
   JudgeCaseItem,
+  DefaultLanguage,
   type QuestionInterface,
+  type QuestionSolutionInterface,
 };

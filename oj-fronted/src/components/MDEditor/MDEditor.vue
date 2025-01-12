@@ -1,11 +1,18 @@
 <template>
-  <Editor :value="value" :mode="mode" :plugins="plugins" @change="handleChange" />
+  <Editor
+    :value="value"
+    :mode="mode"
+    :plugins="plugins"
+    @change="handleChange"
+    :locale="zhHans"
+  />
 </template>
 
 <script setup lang="ts">
 import gfm from "@bytemd/plugin-gfm";
 import highlight from "@bytemd/plugin-highlight";
 import { Editor, Viewer } from "@bytemd/vue-next";
+import zhHans from "bytemd/lib/locales/zh_Hans.json";
 import "bytemd/dist/index.css";
 // import "juejin-markdown-themes/dist/juejin.min.css"; // 掘金同款样式
 
@@ -15,7 +22,7 @@ import "bytemd/dist/index.css";
 interface Props {
   value: string;
   mode?: string;
-  handleChange: (v: string) => void;
+  handleChange?: (v: string) => void;
 }
 
 const plugins = [
@@ -36,7 +43,7 @@ const {
 </script>
 
 <style>
-.bytemd-toolbar-icon.bytemd-tippy.bytemd-tippy-right:nth-last-child(-n+2) {
+.bytemd-toolbar-icon.bytemd-tippy.bytemd-tippy-right:nth-last-child(-n + 2) {
   display: none;
 }
 

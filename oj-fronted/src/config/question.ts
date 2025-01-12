@@ -5,18 +5,25 @@ export interface QuestionInterface {
   id?: string;
   title: string;
   tags: string[];
-  answer: string;
+  answer?: string;
   content: string;
   judgeConfig: {
     memoryLimit: number;
     stackLimit: number;
     timeLimit: number;
   };
-  judgeCase: {
+  judgeCase?: {
     input: string;
     output: string;
   }[];
 }
+
+export interface QuestionSolutionInterface {
+  language: string;
+  code: string;
+  questionId: string;
+}
+export const DefaultLanguage = "java";
 
 export const JudgeCaseItem = {
   input: "",

@@ -10,7 +10,16 @@ export function CreateEditor(
 export enum LanguageEnum {
   Java = "java",
   Cpp = "c++",
-  GoLang = "golang",
+  Go = "go",
+}
+export const languageMap: { [key: string]: LanguageEnum } = {
+  java: LanguageEnum.Java,
+  cpp: LanguageEnum.Cpp,
+  go: LanguageEnum.Go,
+};
+
+export function getLanguageEnum(language: string): LanguageEnum {
+  return languageMap[language] || LanguageEnum.Java;
 }
 
 export const DefaultOptions: monaco.editor.IStandaloneEditorConstructionOptions =
@@ -20,10 +29,13 @@ export const DefaultOptions: monaco.editor.IStandaloneEditorConstructionOptions 
     readOnly: false, // 控制编辑器是否只读
     autoClosingOvertype: "auto", // 自动闭合括号或引号
     autoIndent: "full", // 自动缩进
+    minimap: {
+      enabled: false,
+    },
     theme: "vs", // 主题
     fontSize: 16,
-    folding: true, // 是否折叠
-    foldingHighlight: true, // 折叠等高线
+    folding: false, // 是否折叠
+    foldingHighlight: false, // 折叠等高线
     foldingStrategy: "indentation", // 折叠方式  auto | indentation
     showFoldingControls: "mouseover", // 是否一直显示折叠 always | mouseover
     disableLayerHinting: true, // 等宽优化
