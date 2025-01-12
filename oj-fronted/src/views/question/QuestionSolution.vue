@@ -38,13 +38,34 @@
       <!-- Right -->
 
       <a-col :md="12" :xs="24">
-        <div
+        <!-- <div
           class="text-xl font-bold tracking-tight text-gray-900 sm:text-2xl lg:text-3xl mb-2 text-center"
         >
           Using Language: Java
-        </div>
+        </div> -->
+        <a-form :model="QuestionSolutionForm" layout="inline">
+          <a-form-item
+            field="language"
+            label="编程语言"
+            style="min-width: 240px"
+          >
+            <a-select
+              v-model="QuestionSolutionForm.language"
+              :style="{ width: '320px' }"
+              placeholder="选择编程语言"
+            >
+              <a-option
+                v-for="(item, index) in LanguageEnum"
+                :key="index"
+                :value="item"
+              >
+                {{ item }}
+              </a-option>
+            </a-select>
+          </a-form-item>
+        </a-form>
+
         <CodeEditor
-          ref="CoderEditorRef"
           :value="QuestionSolutionForm.code as string"
           :language="QuestionSolutionForm.language"
           :handle-change="changeCode"
@@ -80,7 +101,7 @@ import {
 import { Message } from "@arco-design/web-vue";
 import MDViewer from "@/components/MDViewer";
 import Badges from "@/components/Badges";
-import CodeEditor from "@/components/CodeEditor";
+import CodeEditor, { LanguageEnum } from "@/components/CodeEditor";
 import { useTimeoutFn } from "@vueuse/core";
 
 const QuestionSolutionForm = ref<QuestionSolutionInterface>({
@@ -123,17 +144,10 @@ const doSubmit = async () => {
     questionId: QuestionInfo.value.id,
   };
 
-  // const { data, code, message } = await SetQuestionSubmit(form);
-  // if (code === 0 && data) Message.success(`提交成功`);
-  // else Message.error(`提交失败, 原因: ${message}`);
-  switchRoute();
-};
-const CoderEditorRef = ref();
-const switchRoute = () => {
-  if (CoderEditorRef.value) {
-    CoderEditorRef.value.clearEditor();
-  }
-  // useTimeoutFn(() => router.push("/question/list"), 1000);
+  const { data, code, message } = await SetQuestionSubmit(form);
+  if (code === 0 && data) Message.success(`提交成功, 即将跳转到题目列表`);
+  else Message.error(`提交失败, 原因: ${message}`);
+  useTimeoutFn(() => router.push("/topics"), 500);
 };
 
 const route = useRoute();

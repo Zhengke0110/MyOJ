@@ -1,5 +1,5 @@
-import CodeEditor from "./CodeEditor.vue";
+import CodeEditor from "./NewCodeEditor.vue";
 export default CodeEditor;
 
-import { LanguageEnum, languageMap } from "./code-editor.config";
-export { LanguageEnum, languageMap };
+import { LanguageEnum } from "./code-editor.config";
+export { LanguageEnum };
