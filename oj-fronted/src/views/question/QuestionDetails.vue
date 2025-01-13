@@ -37,14 +37,12 @@
               no-style
             >
               <a-col :span="8" class="my-2">
-                <a-card>
-                  <a-form-item :label="`输入用例-${index}`" :key="index">
-                    <a-input disabled :placeholder="judgeCaseItem.input" />
-                  </a-form-item>
-                  <a-form-item :label="`输出用例-${index}`" :key="index">
-                    <a-input disabled :placeholder="judgeCaseItem.output" />
-                  </a-form-item>
-                </a-card>
+                <JudgeCaseItem
+                  :index="index"
+                  :input="judgeCaseItem.input || ''"
+                  :output="judgeCaseItem.output || ''"
+                  :isAdd="false"
+                />
               </a-col>
             </a-form-item>
           </a-row>
@@ -88,7 +86,7 @@
 import { onMounted, ref } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import {
-  JudgeCaseItem,
+  JudgeCaseItemInfo,
   type QuestionInterface,
   type UserInterface,
 } from "@/config";
@@ -96,18 +94,7 @@ import { Message } from "@arco-design/web-vue";
 import { AdminGetQuestionById } from "@/services/question";
 import Badges from "@/components/Badges";
 import MDViewer from "@/components/MDViewer";
-
-const people = [
-  {
-    name: "Lindsay Walton",
-    role: "Front-end Developer",
-    imageUrl:
-      "https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80",
-    xUrl: "#",
-    linkedinUrl: "#",
-  },
-  // More people...
-];
+import JudgeCaseItem from "@/components/JudgeCaseItem";
 
 const router = useRouter();
 const route = useRoute();
@@ -146,10 +133,10 @@ const LoadQuestionInfo = async (id: string) => {
         mappedData.judgeCase = JSON.parse(data.judgeCase);
       } catch (error) {
         Message.error(`Failed to parse judgeCase JSON:${error}`);
-        mappedData.judgeCase = [JudgeCaseItem];
+        mappedData.judgeCase = [JudgeCaseItemInfo];
       }
     } else {
-      mappedData.judgeCase = [JudgeCaseItem];
+      mappedData.judgeCase = [JudgeCaseItemInfo];
     }
 
     QuestionInfo.value = mappedData;

@@ -18,7 +18,7 @@ import {
   type QuestionInterface,
   QuestionAdminTableColumns,
   QuestionTableColumns,
-  JudgeCaseItem,
+  JudgeCaseItemInfo,
   DefaultLanguage,
   type QuestionSolutionInterface,
 } from "./question";
@@ -26,7 +26,7 @@ import {
 export {
   QuestionAdminTableColumns,
   QuestionTableColumns,
-  JudgeCaseItem,
+  JudgeCaseItemInfo,
   DefaultLanguage,
   type QuestionInterface,
   type QuestionSolutionInterface,

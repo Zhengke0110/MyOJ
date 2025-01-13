@@ -82,7 +82,7 @@
             no-style
           >
             <a-col :span="8" class="my-2">
-              <a-card hoverable>
+              <!-- <a-card hoverable>
                 <a-form-item
                   :field="`form.judgeCase[${index}].input`"
                   :label="`输入用例-${index}`"
@@ -106,9 +106,16 @@
                 <a-button status="danger" @click="handleDelete(index)">
                   删除
                 </a-button>
-              </a-card>
+              </a-card> -->
+              <JudgeCaseItem
+                :index="index"
+                :input="judgeCaseItem.input"
+                :output="judgeCaseItem.output"
+                :isAdd="true"
+                @onUpdateItem="handleUpdateItem(index, $event)"
+                @onDeleteItem="handleDelete(index)"
+              />
             </a-col>
-            <!-- </a-space> -->
           </a-form-item>
         </a-row>
         <div style="margin-top: 32px">
@@ -141,7 +148,7 @@
 <script setup lang="ts">
 import { computed, onMounted, ref, watch } from "vue";
 import { Message } from "@arco-design/web-vue";
-import { type QuestionInterface, JudgeCaseItem } from "@/config";
+import { type QuestionInterface, JudgeCaseItemInfo } from "@/config";
 import MDEditor from "@/components/MDEditor";
 import {
   AddQuestion,
@@ -149,6 +156,7 @@ import {
   AdminGetQuestionById,
 } from "@/services/question";
 import { useRoute } from "vue-router";
+import JudgeCaseItem from "@/components/JudgeCaseItem";
 const route = useRoute();
 
 const form = ref<QuestionInterface>({
@@ -162,20 +170,37 @@ const form = ref<QuestionInterface>({
     stackLimit: 1000,
     timeLimit: 1000,
   },
+  judgeCase: [JudgeCaseItemInfo],
 });
 
 const onContentChange = (value: string) => (form.value.content = value);
 
 const onAnswerChange = (value: string) => (form.value.answer = value);
 
+// 处理更新测试用例的方法
+const handleUpdateItem = (
+  index: number,
+  updatedItem: { input: string; output: string }
+) => {
+  if (
+    form.value.judgeCase &&
+    index >= 0 &&
+    index < form.value.judgeCase.length
+  ) {
+    form.value.judgeCase[index] = updatedItem;
+  } else {
+    Message.error("无效的索引或测试用例为空");
+  }
+};
+
 /**
  * 新增判题用例
  */
 const handleAdd = () => {
   if (Array.isArray(form.value.judgeCase)) {
-    form.value.judgeCase.push({ ...JudgeCaseItem });
+    form.value.judgeCase.push({ ...JudgeCaseItemInfo });
   } else {
-    form.value.judgeCase = [{ ...JudgeCaseItem }];
+    form.value.judgeCase = [{ ...JudgeCaseItemInfo }];
   }
 };
 
@@ -228,7 +253,7 @@ watch(
         stackLimit: 1000,
         timeLimit: 1000,
       },
-      judgeCase: [JudgeCaseItem],
+      judgeCase: [JudgeCaseItemInfo],
     };
     if (route.path.includes("update") && route.query.id)
       LoadQuestionInfo(route.query.id as string);
@@ -258,10 +283,10 @@ const LoadQuestionInfo = async (id: string) => {
         mappedData.judgeCase = JSON.parse(data.judgeCase);
       } catch (error) {
         Message.error(`Failed to parse judgeCase JSON:${error}`);
-        mappedData.judgeCase = [JudgeCaseItem];
+        mappedData.judgeCase = [JudgeCaseItemInfo];
       }
     } else {
-      mappedData.judgeCase = [JudgeCaseItem];
+      mappedData.judgeCase = [JudgeCaseItemInfo];
     }
     form.value = mappedData;
   } else {

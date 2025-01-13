@@ -25,7 +25,7 @@ export interface QuestionSolutionInterface {
 }
 export const DefaultLanguage = "java";
 
-export const JudgeCaseItem = {
+export const JudgeCaseItemInfo = {
   input: "",
   output: "",
 };
