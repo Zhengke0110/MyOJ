@@ -38,11 +38,6 @@
       <!-- Right -->
 
       <a-col :md="12" :xs="24">
-        <!-- <div
-          class="text-xl font-bold tracking-tight text-gray-900 sm:text-2xl lg:text-3xl mb-2 text-center"
-        >
-          Using Language: Java
-        </div> -->
         <a-form :model="QuestionSolutionForm" layout="inline">
           <a-form-item
             field="language"
@@ -75,7 +70,7 @@
         <div class="w-full flex justify-end">
           <button
             type="button"
-            class="inline-flex items-center min-w-[120px] flex justify-center gap-x-1.5 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            class="inline-flex items-center min-w-[120px] flex justify-center gap-x-1.5 rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-green-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600"
             @click="doSubmit"
           >
             提交运行

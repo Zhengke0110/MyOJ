@@ -5,6 +5,14 @@ export enum LayoutMenu {
   UserLayout = "UserLayout",
 }
 
+export interface UserInterface {
+  id?: string;
+  userName: string;
+  userAvatar: string;
+  userRole: string;
+  userProfile: string;
+}
+
 // Questions
 import {
   type QuestionInterface,

@@ -98,16 +98,16 @@ export const routes: RouteRecordRaw[] = [
       isShow: false,
     },
   },
-  {
-    path: "/admin",
-    name: "Admin",
-    meta: {
-      access: ACCESSENUM.ADMIN,
-      layout: LayoutMenu.BasicLayout,
-      isShow: true,
-    },
-    component: () => import("@/views/Admin.vue"),
-  },
+  // {
+  //   path: "/admin",
+  //   name: "Admin",
+  //   meta: {
+  //     access: ACCESSENUM.ADMIN,
+  //     layout: LayoutMenu.BasicLayout,
+  //     isShow: true,
+  //   },
+  //   component: () => import("@/views/Admin.vue"),
+  // },
   {
     path: "/noauth",
     name: "NoAuth",

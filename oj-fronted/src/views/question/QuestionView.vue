@@ -20,7 +20,10 @@
       </a-form-item>
 
       <a-form-item field="answer" label="答案">
-        <MDEditor :value="form.answer" :handle-change="onAnswerChange" />
+        <MDEditor
+          :value="form.answer ? form.answer : ''"
+          :handle-change="onAnswerChange"
+        />
       </a-form-item>
 
       <a-form-item label="判题配置" :content-flex="false" :merge-props="false">
@@ -159,7 +162,6 @@ const form = ref<QuestionInterface>({
     stackLimit: 1000,
     timeLimit: 1000,
   },
-  judgeCase: [JudgeCaseItem],
 });
 
 const onContentChange = (value: string) => (form.value.content = value);
@@ -170,10 +172,24 @@ const onAnswerChange = (value: string) => (form.value.answer = value);
  * 新增判题用例
  */
 const handleAdd = () => {
-  form.value.judgeCase.push(JudgeCaseItem);
+  if (Array.isArray(form.value.judgeCase)) {
+    form.value.judgeCase.push({ ...JudgeCaseItem });
+  } else {
+    form.value.judgeCase = [{ ...JudgeCaseItem }];
+  }
 };
 
-const handleDelete = (index: number) => form.value.judgeCase.splice(index, 1);
+const handleDelete = (index: number) => {
+  if (
+    form.value.judgeCase &&
+    index >= 0 &&
+    index < form.value.judgeCase.length
+  ) {
+    form.value.judgeCase.splice(index, 1);
+  } else {
+    Message.error("无效的索引或测试用例为空");
+  }
+};
 
 /**
  * 提交
