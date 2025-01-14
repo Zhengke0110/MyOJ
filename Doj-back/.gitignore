@@ -31,3 +31,8 @@ build/
 
 ### VS Code ###
 .vscode/
+
+**/tmpCode/
+
+# 忽略 doj-sandbox 子目录下的 tmpCode 文件夹及其内容
+/doj-sandbox/**/tmpCode/

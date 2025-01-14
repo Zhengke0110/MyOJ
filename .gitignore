@@ -29,6 +29,7 @@ HELP.md
 target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
+!**/src/main/**/testCode/
 !**/src/test/**/target/
 
 ### STS ###
@@ -58,3 +59,7 @@ build/
 
 ### VS Code ###
 .vscode/
+*.class
+
+# 忽略 doj-back 子目录下的 tmpCode 文件夹及其内容
+/doj-back/**/tmpCode/
