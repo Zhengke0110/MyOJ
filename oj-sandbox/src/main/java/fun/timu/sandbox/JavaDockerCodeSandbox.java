@@ -161,7 +161,7 @@ public class JavaDockerCodeSandbox implements CodeSandbox {
 
                 @Override
                 public void onNext(Statistics statistics) {
-                    System.out.println("内存占用：" + statistics.getMemoryStats().getUsage());
+                    logger.info("内存占用:{}", statistics.getMemoryStats().getUsage());
                     maxMemory[0] = Math.max(statistics.getMemoryStats().getUsage(), maxMemory[0]);
                 }
 
@@ -190,7 +190,7 @@ public class JavaDockerCodeSandbox implements CodeSandbox {
 
             try {
                 stopWatch.start();
-                dockerClient.execStartCmd(execId).exec(execStartResultCallback).awaitCompletion();
+                dockerClient.execStartCmd(execId).exec(execStartResultCallback).awaitCompletion(TIME_OUT, TimeUnit.MILLISECONDS);// TODO 这里如果设置为TimeUnit.MICROSECONDS 直接null（单位错了 踩坑）
                 stopWatch.stop();
                 time = stopWatch.getLastTaskTimeMillis();
                 statsCmd.close();
@@ -243,9 +243,8 @@ public class JavaDockerCodeSandbox implements CodeSandbox {
         }
 
         // 删除容器
-        logger.info("删除容器 ID:{}", containerId);
         dockerClient.removeContainerCmd(containerId).withForce(true).exec();
-
+        logger.debug("容器ID: {}, 已删除", containerId);
         return executeCodeResponse;
     }
 
