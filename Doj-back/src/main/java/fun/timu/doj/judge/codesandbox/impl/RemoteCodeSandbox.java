@@ -27,7 +27,7 @@ public class RemoteCodeSandbox implements CodeSandbox {
         log.info("执行远程代码沙箱");
         String json = JSONUtil.toJsonStr(executeCodeRequest);
 
-        String responseStr = HttpUtil.createPost(UrlDocker).header(AUTH_REQUEST_HEADER, AUTH_REQUEST_SECRET).body(json).execute().body();
+        String responseStr = HttpUtil.createPost(Url).header(AUTH_REQUEST_HEADER, AUTH_REQUEST_SECRET).body(json).execute().body();
         if (StringUtils.isBlank(responseStr)) {
             throw new BusinessException(ErrorCode.API_REQUEST_ERROR, "executeCode remoteSandbox error, message = " + responseStr);
         }

@@ -21,19 +21,12 @@ public class JudgeManager {
      * @return 评判结果信息
      */
     JudgeInfo doJudge(JudgeContext judgeContext) {
-        // 获取提交的编程语言
         QuestionSubmit questionSubmit = judgeContext.getQuestionSubmit();
         String language = questionSubmit.getLanguage();
-
-        // 初始化默认评判策略
         JudgeStrategy judgeStrategy = new DefaultJudgeStrategy();
-
-        // 根据编程语言选择对应的评判策略
         if ("java".equals(language)) {
             judgeStrategy = new JavaLanguageJudgeStrategy();
         }
-
-        // 使用选定的评判策略执行评判并返回结果
         return judgeStrategy.doJudge(judgeContext);
     }
 }

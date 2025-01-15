@@ -48,7 +48,11 @@ export const routes: RouteRecordRaw[] = [
   {
     path: "/solution",
     name: "解题",
-    meta: { layout: LayoutMenu.BasicLayout, isShow: false },
+    meta: {
+      access: ACCESSENUM.USER,
+      layout: LayoutMenu.BasicLayout,
+      isShow: false,
+    },
     component: () => import("@/views/question/QuestionSolution.vue"),
   },
   {
