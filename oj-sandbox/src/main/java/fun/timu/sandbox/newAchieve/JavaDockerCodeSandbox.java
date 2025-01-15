@@ -1,5 +1,6 @@
 package fun.timu.sandbox.newAchieve;
 
+import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.io.resource.ResourceUtil;
 import cn.hutool.core.util.ArrayUtil;
 import com.github.dockerjava.api.DockerClient;
@@ -175,6 +176,10 @@ public class JavaDockerCodeSandbox extends JavaCodeSandboxTemplate {
             executeMessageList.add(executeMessage);
             statsCmd.close();
         }
+
+        // 删除容器
+        dockerClient.removeContainerCmd(containerId).withForce(true).exec();
+        log.debug("容器ID: {}, 已删除", containerId);
         return executeMessageList;
     }
 
