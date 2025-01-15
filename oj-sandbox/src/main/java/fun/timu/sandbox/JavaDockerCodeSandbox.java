@@ -193,6 +193,7 @@ public class JavaDockerCodeSandbox implements CodeSandbox {
                 dockerClient.execStartCmd(execId).exec(execStartResultCallback).awaitCompletion();
                 stopWatch.stop();
                 time = stopWatch.getLastTaskTimeMillis();
+                statsCmd.close();
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
@@ -202,6 +203,7 @@ public class JavaDockerCodeSandbox implements CodeSandbox {
             executeMessage.setTime(time);
             executeMessage.setMemory(maxMemory[0]);
             executeMessageList.add(executeMessage);
+            statsCmd.close();
         }
 
 
