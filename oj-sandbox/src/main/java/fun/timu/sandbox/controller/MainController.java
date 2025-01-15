@@ -1,33 +1,67 @@
 package fun.timu.sandbox.controller;
 
-import com.github.dockerjava.api.DockerClient;
-import com.github.dockerjava.api.model.Info;
-import com.github.dockerjava.core.DefaultDockerClientConfig;
-import com.github.dockerjava.core.DockerClientBuilder;
-import com.github.dockerjava.core.DockerClientConfig;
-import com.github.dockerjava.core.DockerClientImpl;
-import com.github.dockerjava.httpclient5.ApacheDockerHttpClient;
-import com.github.dockerjava.transport.DockerHttpClient;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import cn.hutool.json.JSONUtil;
+import fun.timu.sandbox.model.ExecuteCodeRequest;
+import fun.timu.sandbox.model.ExecuteCodeResponse;
+import fun.timu.sandbox.newAchieve.JavaDockerCodeSandbox;
+import fun.timu.sandbox.newAchieve.JavaNativeCodeSandbox;
+import org.springframework.web.bind.annotation.*;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 @RestController
 @RequestMapping("/code")
 public class MainController {
-    @GetMapping("/health")
-    public String healthCheck() {
-//        DockerClient dockerClient = DockerClientBuilder.getInstance().build();
+    // 定义鉴权请求头和密钥
+    private static final String AUTH_REQUEST_HEADER = "auth";
 
-        DockerClientConfig config = DefaultDockerClientConfig.createDefaultConfigBuilder().build();
-        DockerHttpClient httpClient = new ApacheDockerHttpClient.Builder()
-                .dockerHost(config.getDockerHost())
-                .build();
+    private static final String AUTH_REQUEST_SECRET = "secretKey";
 
-        DockerClient dockerClient = DockerClientImpl.getInstance(config, httpClient);
 
-        return null;
+    @Resource
+    private JavaNativeCodeSandbox javaNativeCodeSandbox;
+    @Resource
+    private JavaDockerCodeSandbox javaDockerCodeSandbox;
 
+
+    /**
+     * 执行代码 原生沙箱
+     *
+     * @param executeCodeRequest
+     * @return
+     */
+    @PostMapping("/executeCode")
+    ExecuteCodeResponse executeCode(@RequestBody ExecuteCodeRequest executeCodeRequest, HttpServletRequest request, HttpServletResponse response) {
+        // 基本的认证
+        String authHeader = request.getHeader(AUTH_REQUEST_HEADER);
+        if (!AUTH_REQUEST_SECRET.equals(authHeader)) {
+            response.setStatus(403);
+            return null;
+        }
+        if (executeCodeRequest == null) {
+            throw new RuntimeException("请求参数为空");
+        }
+        return javaNativeCodeSandbox.executeCode(executeCodeRequest);
+    }
+
+    /**
+     * 执行代码 Docker沙箱
+     *
+     * @param executeCodeRequest
+     * @return
+     */
+    @PostMapping("/executeDockerCode")
+    ExecuteCodeResponse executeDockerCode(@RequestBody ExecuteCodeRequest executeCodeRequest, HttpServletRequest request, HttpServletResponse response) {
+        // 基本的认证
+        String authHeader = request.getHeader(AUTH_REQUEST_HEADER);
+        if (!AUTH_REQUEST_SECRET.equals(authHeader)) {
+            response.setStatus(403);
+            return null;
+        }
+        if (executeCodeRequest == null) {
+            throw new RuntimeException("请求参数为空");
+        }
+        return javaDockerCodeSandbox.executeCode(executeCodeRequest);
     }
 }

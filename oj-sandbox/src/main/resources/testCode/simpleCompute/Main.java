@@ -7,6 +7,6 @@ public class Main
     {
         Scanner cin=new Scanner(System.in);
         int a=cin.nextInt(),b=cin.nextInt();
-        System.out.println(a+b);
+        System.out.print(a+b);
     }
 }

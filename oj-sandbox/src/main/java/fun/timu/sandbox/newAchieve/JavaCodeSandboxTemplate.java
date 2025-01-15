@@ -17,6 +17,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.ExecutorService;
@@ -149,6 +150,7 @@ public class JavaCodeSandboxTemplate implements CodeSandbox {
         }
     }
 
+
     /**
      * 3. 运行指定的用户代码文件，并返回执行结果的列表(Docker版本 需要修改此方法)
      * 该方法使用单线程执行器来运行每个输入参数对应的进程，并限制每个进程的执行时间
@@ -159,70 +161,54 @@ public class JavaCodeSandboxTemplate implements CodeSandbox {
      * @throws RuntimeException 如果执行过程中发生任何异常，则抛出运行时异常
      */
     public List<ExecuteMessage> runFile(File userCodeFile, List<String> inputList) {
-        // 如果输入列表为空或为null，则直接返回一个空列表
         if (inputList == null || inputList.isEmpty()) {
             return new ArrayList<>();
         }
 
-        // 确保用户代码文件存在且有效
         if (!userCodeFile.exists() || !userCodeFile.isFile()) {
             throw new RuntimeException("用户代码文件不存在或无效");
         }
-
-        // 获取用户代码文件所在目录的绝对路径
         String userCodeParentPath = userCodeFile.getParentFile().getAbsolutePath();
         List<ExecuteMessage> executeMessageList = new ArrayList<>();
         ExecutorService executorService = Executors.newSingleThreadExecutor();
-
-        // 遍历输入参数列表，为每个参数运行一个新的进程
         for (String inputArgs : inputList) {
+            String runCmd = String.format("java -Xmx256m -cp %s Main %s", userCodeParentPath, inputArgs);
             try {
-                // 构建进程以运行用户代码
-                ProcessBuilder runProcessBuilder = new ProcessBuilder("java", "-Xmx256m", "-cp", userCodeParentPath, "Main", inputArgs);
+                ProcessBuilder runProcessBuilder = new ProcessBuilder(runCmd.split(" "));
                 runProcessBuilder.directory(new File(userCodeParentPath));
                 Process runProcess = runProcessBuilder.start();
 
-                // 提交任务到执行器，监控进程的执行并限制其执行时间
                 executorService.submit(() -> {
                     try {
                         if (!runProcess.waitFor(TIME_OUT, TimeUnit.MILLISECONDS)) {
-                            System.out.println("超时了，中断");
+                            log.info("超时了，中断");
                             runProcess.destroyForcibly();
                         }
                     } catch (InterruptedException e) {
                         Thread.currentThread().interrupt();
-                        System.err.println("线程被中断: " + e.getMessage());
                     }
                 });
-
-                // 运行进程并获取执行结果
                 ExecuteMessage executeMessage = ProcessUtils.runProcessAndGetMessage(runProcess, "运行");
+                log.debug("执行代码, 返回 executeMessage对象:{}", executeMessage);
                 executeMessageList.add(executeMessage);
-
-                // 确保进程资源被正确释放
-                runProcess.getInputStream().close();
-                runProcess.getOutputStream().close();
-                runProcess.getErrorStream().close();
             } catch (Exception e) {
                 throw new RuntimeException("执行错误", e);
             }
         }
-
-        // 关闭执行器，不再接受新的任务
         executorService.shutdown();
 
-        // 等待所有任务完成或超时
-        try {
-            if (!executorService.awaitTermination(TIME_OUT, TimeUnit.MILLISECONDS)) {
-                executorService.shutdownNow();
-            }
-        } catch (InterruptedException e) {
-            executorService.shutdownNow();
-            Thread.currentThread().interrupt();
+        return executeMessageList;
+
+    }
+
+    private static class ExecutionException extends RuntimeException {
+        public ExecutionException(String message) {
+            super(message);
         }
 
-        // 返回执行结果列表
-        return executeMessageList;
+        public ExecutionException(String message, Throwable cause) {
+            super(message, cause);
+        }
     }
 
     /**

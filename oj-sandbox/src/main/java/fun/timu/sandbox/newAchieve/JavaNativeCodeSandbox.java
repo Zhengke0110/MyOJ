@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Java 原生代码沙箱实现（直接复用模板方法）
@@ -26,7 +27,9 @@ public class JavaNativeCodeSandbox extends JavaCodeSandboxTemplate {
     public static void main(String[] args) {
         fun.timu.sandbox.oldAchieve.JavaNativeCodeSandbox javaNativeCodeSandbox = new fun.timu.sandbox.oldAchieve.JavaNativeCodeSandbox();
         ExecuteCodeRequest executeCodeRequest = new ExecuteCodeRequest();
-        executeCodeRequest.setInputList(Arrays.asList("1 2", "2 3"));
+//        executeCodeRequest.setInputList(Arrays.asList("1 2", "2 3"));
+        List<String> inputList = Arrays.asList("1 2", "3 4");
+        executeCodeRequest.setInputList(inputList);
         String code = ResourceUtil.readStr("testCode/simpleComputeArgs/Main.java", StandardCharsets.UTF_8);
 
         executeCodeRequest.setCode(code);
