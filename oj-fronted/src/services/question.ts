@@ -71,7 +71,7 @@ export const DeleteQuestionById = async (id: string) => {
  * @returns
  */
 export const SetQuestionSubmit = async (form: QuestionSolutionInterface) => {
-  return await DefaultService.postQuestionSubmit({
+  return await DefaultService.postQuestionQuestionSubmitDo({
     language: form.language,
     code: form.code,
     questionId: form.questionId,

@@ -590,12 +590,12 @@ export class DefaultService {
    * @returns BaseResponseLong
    * @throws ApiError
    */
-  public static postQuestionSubmit(
+  public static postQuestionQuestionSubmitDo(
     requestBody?: QuestionSubmitAddRequest
   ): CancelablePromise<BaseResponseLong> {
     return __request(OpenAPI, {
       method: "POST",
-      url: "/question_submit/",
+      url: "/question/question_submit/do",
       body: requestBody,
       mediaType: "application/json",
     });
@@ -606,12 +606,12 @@ export class DefaultService {
    * @returns BaseResponsePageQuestionSubmitVO
    * @throws ApiError
    */
-  public static postQuestionSubmitListPage(
+  public static postQuestionQuestionSubmitListPage(
     requestBody?: QuestionSubmitQueryRequest
   ): CancelablePromise<BaseResponsePageQuestionSubmitVO> {
     return __request(OpenAPI, {
       method: "POST",
-      url: "/question_submit/list/page",
+      url: "/question/question_submit/list/page",
       body: requestBody,
       mediaType: "application/json",
     });

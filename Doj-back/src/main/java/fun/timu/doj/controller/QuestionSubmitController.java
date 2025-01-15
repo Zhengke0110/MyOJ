@@ -26,7 +26,8 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @Slf4j
 @RestController
-@RequestMapping("/question_submit")
+//@RequestMapping("/question_submit")
+@Deprecated
 public class QuestionSubmitController {
 
     @Resource

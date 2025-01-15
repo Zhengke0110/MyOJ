@@ -33,6 +33,9 @@ public class MainController {
      */
     @PostMapping("/executeCode")
     ExecuteCodeResponse executeCode(@RequestBody ExecuteCodeRequest executeCodeRequest, HttpServletRequest request, HttpServletResponse response) {
+        String code = executeCodeRequest.getCode();
+        System.out.println("----->" + code);
+
         // 基本的认证
         String authHeader = request.getHeader(AUTH_REQUEST_HEADER);
         if (!AUTH_REQUEST_SECRET.equals(authHeader)) {

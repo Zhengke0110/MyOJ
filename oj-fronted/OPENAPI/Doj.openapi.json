@@ -2010,7 +2010,7 @@
         "security": []
       }
     },
-    "/question_submit/": {
+    "/question/question_submit/do": {
       "post": {
         "summary": "提交题目",
         "deprecated": false,
@@ -2054,7 +2054,7 @@
         "security": []
       }
     },
-    "/question_submit/list/page": {
+    "/question/question_submit/list/page": {
       "post": {
         "summary": "分页获取题目提交列表（除了管理员外，普通用户只能看到非答案、提交代码等公开信息）",
         "deprecated": false,
@@ -2556,8 +2556,9 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "string",
-            "description": "id"
+            "type": "integer",
+            "description": "id",
+            "format": "int64"
           },
           "title": {
             "type": "string",

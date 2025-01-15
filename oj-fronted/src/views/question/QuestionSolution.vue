@@ -135,7 +135,7 @@ const doSubmit = async () => {
   }
   const form: QuestionSolutionInterface = {
     language: QuestionSolutionForm.value.language ?? DefaultLanguage,
-    code: JSON.stringify(QuestionSolutionForm.value.code),
+    code: QuestionSolutionForm.value.code,
     questionId: QuestionInfo.value.id,
   };
 
