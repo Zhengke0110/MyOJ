@@ -77,3 +77,23 @@ export const SetQuestionSubmit = async (form: QuestionSolutionInterface) => {
     questionId: form.questionId,
   });
 };
+
+/**
+ * 获取问题提交列表
+ *
+ * 该函数通过调用DefaultService中的postQuestionQuestionSubmitListPage方法，来获取问题提交的分页列表
+ * 主要用于在前端展示问题提交的列表，可以根据当前页码和每页大小来获取数据
+ *
+ * @param current 当前页码，用于指定从哪一页开始获取数据
+ * @param pageSize 每页大小，用于指定每页显示的数据条数
+ * @returns 返回一个Promise对象，解析后包含问题提交列表的响应数据
+ */
+export const GetQuestionSubmitList = async (
+  current: number,
+  pageSize: number
+) => {
+  return await DefaultService.postQuestionQuestionSubmitListPage({
+    current,
+    pageSize,
+  });
+};

@@ -22,6 +22,7 @@ import {
   JudgeCaseItemInfo,
   DefaultLanguage,
   type QuestionSolutionInterface,
+  type SubmitRecordInterface,
 } from "./question";
 
 export {
@@ -31,4 +32,5 @@ export {
   DefaultLanguage,
   type QuestionInterface,
   type QuestionSolutionInterface,
+  type SubmitRecordInterface,
 };

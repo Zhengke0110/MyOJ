@@ -30,7 +30,6 @@ export const useUserStore = defineStore("user", {
       this.loginInfo.userName = username;
     },
     async setLoginInfo() {
-      // TODO 获取用户信息
       const { code, data } = await GetLoginInfoUser();
       if (code === 0 && data) {
         this.loginInfo.userName = data.userName as string;

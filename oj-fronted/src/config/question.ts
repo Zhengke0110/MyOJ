@@ -64,3 +64,25 @@ export const QuestionTableColumns: {
   { title: "通过率", slotName: "acceptedRate" },
   { title: "前去做题", slotName: "action" },
 ];
+
+export interface SubmitRecordInterface {
+  id: string;
+  language: string;
+  // code?: string;
+  question: {
+    id: string;
+    title: string;
+    tags: string[];
+  };
+  judgeInfo: {
+    memory: number;
+    time: number;
+    message: string;
+  };
+  submitter: {
+    userId?: string;
+    userName: string;
+    userAvatar: string;
+  };
+  createTime: string;
+}

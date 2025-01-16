@@ -29,7 +29,7 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps, onMounted, ref, watch } from "vue";
+import { onMounted, ref, watch } from "vue";
 
 interface Props {
   index: number;

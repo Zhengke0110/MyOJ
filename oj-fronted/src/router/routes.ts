@@ -46,6 +46,16 @@ export const routes: RouteRecordRaw[] = [
     component: () => import("@/views/question/Questions.vue"),
   },
   {
+    path: "/list",
+    name: "提交记录",
+    meta: {
+      access: ACCESSENUM.USER,
+      layout: LayoutMenu.BasicLayout,
+      isShow: true,
+    },
+    component: () => import("@/views/question/QuestionSubmitList.vue"),
+  },
+  {
     path: "/solution",
     name: "解题",
     meta: {
@@ -55,13 +65,6 @@ export const routes: RouteRecordRaw[] = [
     },
     component: () => import("@/views/question/QuestionSolution.vue"),
   },
-  {
-    path: "/about",
-    name: "关于我的",
-    meta: { layout: LayoutMenu.BasicLayout, isShow: true },
-    component: () => import("@/views/Home.vue"),
-  },
-
   {
     path: "/add/question",
     name: "创建题目",
@@ -102,16 +105,12 @@ export const routes: RouteRecordRaw[] = [
       isShow: false,
     },
   },
-  // {
-  //   path: "/admin",
-  //   name: "Admin",
-  //   meta: {
-  //     access: ACCESSENUM.ADMIN,
-  //     layout: LayoutMenu.BasicLayout,
-  //     isShow: true,
-  //   },
-  //   component: () => import("@/views/Admin.vue"),
-  // },
+  {
+    path: "/about",
+    name: "关于我的",
+    meta: { layout: LayoutMenu.BasicLayout, isShow: true },
+    component: () => import("@/views/Home.vue"),
+  },
   {
     path: "/noauth",
     name: "NoAuth",
