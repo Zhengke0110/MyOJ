@@ -95,12 +95,19 @@
         </div>
       </li>
     </ul>
-    <Pagination />
+    <Pagination
+      :total="Total"
+      :current="PageInfo.current"
+      :page-size="PageInfo.pageSize"
+      @previous="PreviousHandle"
+      @next="NextHandle"
+      @select-page="SelectPageHandle"
+    />
   </div>
 </template>
 
 <script lang="ts" setup>
-import { computed, onMounted, ref } from "vue";
+import { computed, ref, watchEffect } from "vue";
 import { DefaultUserAvatar, type SubmitRecordInterface } from "@/config";
 import { GetQuestionSubmitList } from "@/services/question";
 import { Message } from "@arco-design/web-vue";
@@ -114,6 +121,15 @@ const PageInfo = ref<{ current: number; pageSize: number }>({
   current: 1,
   pageSize: 20,
 });
+
+const PreviousHandle = (current: number) => {
+  if (current > 1) PageInfo.value = { ...PageInfo.value, current: current };
+};
+
+const NextHandle = (current: number) =>
+  (PageInfo.value = { ...PageInfo.value, current: current });
+const SelectPageHandle = (current: number) =>
+  (PageInfo.value = { ...PageInfo.value, current: current });
 
 const SubmitList = ref<SubmitRecordInterface[]>([]);
 const Total = ref<number>(0);
@@ -129,7 +145,7 @@ const LoadQuestionSubmitList = async () => {
 
     if (code === 0 && data) {
       const { records, total } = data;
-      Total.value = total ?? 0;
+      Total.value = Number(total) ?? 0;
       records?.forEach((item) => {
         let newData: SubmitRecordInterface = {
           id: item.id ? String(item.id) : "",
@@ -160,14 +176,6 @@ const LoadQuestionSubmitList = async () => {
   }
 };
 
-const onPageChange = (page: number) => {
-  PageInfo.value = {
-    ...PageInfo.value,
-    current: page,
-  };
-  isLoading.value = true;
-};
-
 // 动态的显示当前页展示的列表
 const currentShowList = computed(() => {
   return SubmitList.value.slice(
@@ -176,5 +184,5 @@ const currentShowList = computed(() => {
   );
 });
 
-onMounted(() => LoadQuestionSubmitList());
+watchEffect(() => LoadQuestionSubmitList());
 </script>
