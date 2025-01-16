@@ -8,6 +8,7 @@ import fun.timu.doj.model.entity.Question;
 import fun.timu.doj.model.enums.JudgeInfoMessageEnum;
 
 import java.util.List;
+import java.util.Optional;
 
 public class JavaLanguageJudgeStrategy implements JudgeStrategy {
     @Override
@@ -19,8 +20,8 @@ public class JavaLanguageJudgeStrategy implements JudgeStrategy {
      */ public JudgeInfo doJudge(JudgeContext judgeContext) {
         // 获取判题基本信息
         JudgeInfo judgeInfo = judgeContext.getJudgeInfo();
-        Long memory = judgeInfo.getMemory();
-        Long time = judgeInfo.getTime();
+        Long memory = Optional.ofNullable(judgeInfo.getMemory()).orElse(0L);
+        Long time = Optional.ofNullable(judgeInfo.getTime()).orElse(0L);
         List<String> inputList = judgeContext.getInputList();
         List<String> outputList = judgeContext.getOutputList();
         Question question = judgeContext.getQuestion();
