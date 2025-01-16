@@ -1,4 +1,5 @@
 export const LogoPath = "/src/assets/dog.svg";
+export const DefaultUserAvatar = "/src/assets/defaultUserAvatar.png";
 
 export enum LayoutMenu {
   BasicLayout = "BasicLayout",

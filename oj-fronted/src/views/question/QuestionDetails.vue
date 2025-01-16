@@ -49,7 +49,7 @@
         </a-form>
       </a-tab-pane>
 
-      <a-tab-pane key="user" title="题目所属者">
+      <a-tab-pane key="user" title="题目创建者">
         <div
           class="mx-auto mt-20 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-3"
         >
@@ -57,14 +57,9 @@
             <!-- TODO： userAvatar为空时，使用默认 -->
             <img
               class="aspect-3/2 w-full rounded-2xl object-cover"
-              :src="CreateUserInfo?.userAvatar"
+              :src="CreateUserInfo?.userAvatar ?? DefaultUserAvatar"
               alt=""
             />
-            <h3
-              class="mt-6 text-lg/8 font-semibold tracking-tight text-gray-900"
-            >
-              用户角色: {{ CreateUserInfo?.userRole }}
-            </h3>
           </div>
 
           <div class="mx-auto max-w-2xl lg:mx-0">
@@ -87,6 +82,7 @@
 import { onMounted, ref } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import {
+  DefaultUserAvatar,
   JudgeCaseItemInfo,
   type QuestionInterface,
   type UserInterface,
