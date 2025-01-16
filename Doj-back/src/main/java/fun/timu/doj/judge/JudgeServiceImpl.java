@@ -59,6 +59,7 @@ public class JudgeServiceImpl implements JudgeService {
         }
 
         Long questionId = questionSubmit.getQuestionId();
+        Long submitId = questionSubmit.getId();
         Question question = questionService.getById(questionId);
         if (question == null) {
             throw new BusinessException(ErrorCode.NOT_FOUND_ERROR, "题目不存在");
@@ -109,7 +110,7 @@ public class JudgeServiceImpl implements JudgeService {
         if (!update) {
             throw new BusinessException(ErrorCode.SYSTEM_ERROR, "题目状态更新错误");
         }
-        QuestionSubmit questionSubmitResult = questionSubmitService.getById(questionId);
+        QuestionSubmit questionSubmitResult = questionSubmitService.getById(submitId);
         return questionSubmitResult;
     }
 }
