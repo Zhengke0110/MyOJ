@@ -15,6 +15,8 @@ import fun.timu.doj.model.entity.User;
 import fun.timu.doj.model.enums.QuestionSubmitLanguageEnum;
 import fun.timu.doj.model.enums.QuestionSubmitStatusEnum;
 import fun.timu.doj.model.vo.QuestionSubmitVO;
+import fun.timu.doj.model.vo.QuestionVO;
+import fun.timu.doj.model.vo.UserVO;
 import fun.timu.doj.service.QuestionService;
 import fun.timu.doj.common.ErrorCode;
 import fun.timu.doj.service.QuestionSubmitService;
@@ -48,7 +50,6 @@ public class QuestionSubmitServiceImpl extends ServiceImpl<QuestionSubmitMapper,
     @Resource
     @Lazy
     private JudgeService judgeService;
-
 
     @Override
     public long doQuestionSubmit(QuestionSubmitAddRequest questionSubmitAddRequest, User loginUser) {
@@ -128,6 +129,18 @@ public class QuestionSubmitServiceImpl extends ServiceImpl<QuestionSubmitMapper,
     public QuestionSubmitVO getQuestionSubmitVO(QuestionSubmit questionSubmit, User loginUser) {
         QuestionSubmitVO questionSubmitVO = QuestionSubmitVO.objToVo(questionSubmit);
         long userId = loginUser.getId();
+
+        // 获取题目信息
+        Question question = questionService.getById(questionSubmitVO.getQuestionId());
+        QuestionVO questionVO = questionService.getQuestionVO(question);
+        questionSubmitVO.setQuestionVO(questionVO);
+
+        // 获取提交者信息
+        User submitterUser = userService.getById(questionSubmitVO.getUserId());
+        UserVO submitterUserVO = userService.getUserVO(submitterUser);
+        questionSubmitVO.setUserVO(submitterUserVO);
+
+
         // 处理脱敏
         if (userId != questionSubmit.getUserId() && !userService.isAdmin(loginUser)) {
             questionSubmitVO.setCode(null);
@@ -149,7 +162,11 @@ public class QuestionSubmitServiceImpl extends ServiceImpl<QuestionSubmitMapper,
         if (CollectionUtils.isEmpty(questionSubmitList)) {
             return questionSubmitVOPage;
         }
+
+
         List<QuestionSubmitVO> questionSubmitVOList = questionSubmitList.stream().map(questionSubmit -> getQuestionSubmitVO(questionSubmit, loginUser)).collect(Collectors.toList());
+
+
         questionSubmitVOPage.setRecords(questionSubmitVOList);
         return questionSubmitVOPage;
     }

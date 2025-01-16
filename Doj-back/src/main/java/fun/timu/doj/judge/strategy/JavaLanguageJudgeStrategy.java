@@ -1,5 +1,6 @@
 package fun.timu.doj.judge.strategy;
 
+import cn.hutool.core.util.ObjUtil;
 import cn.hutool.json.JSONUtil;
 import fun.timu.doj.model.dto.question.JudgeCase;
 import fun.timu.doj.model.dto.question.JudgeConfig;
@@ -18,17 +19,24 @@ public class JavaLanguageJudgeStrategy implements JudgeStrategy {
      * @param judgeContext 判题上下文，包含判题所需的信息和配置
      * @return 返回判题结果信息
      */ public JudgeInfo doJudge(JudgeContext judgeContext) {
+        // 初始化判题结果为通过
+        JudgeInfoMessageEnum judgeInfoMessageEnum = JudgeInfoMessageEnum.ACCEPTED;
+        JudgeInfo judgeInfoResponse = new JudgeInfo();
+
         // 获取判题基本信息
         JudgeInfo judgeInfo = judgeContext.getJudgeInfo();
+        if(ObjUtil.isEmpty(judgeInfo)){
+            judgeInfoMessageEnum = JudgeInfoMessageEnum.COMPILE_ERROR;
+            judgeInfoResponse.setMessage(judgeInfoMessageEnum.getValue());
+            return judgeInfoResponse;
+        }
         Long memory = Optional.ofNullable(judgeInfo.getMemory()).orElse(0L);
         Long time = Optional.ofNullable(judgeInfo.getTime()).orElse(0L);
         List<String> inputList = judgeContext.getInputList();
         List<String> outputList = judgeContext.getOutputList();
         Question question = judgeContext.getQuestion();
         List<JudgeCase> judgeCaseList = judgeContext.getJudgeCaseList();
-        // 初始化判题结果为通过
-        JudgeInfoMessageEnum judgeInfoMessageEnum = JudgeInfoMessageEnum.ACCEPTED;
-        JudgeInfo judgeInfoResponse = new JudgeInfo();
+
         judgeInfoResponse.setMemory(memory);
         judgeInfoResponse.setTime(time);
         // 先判断沙箱执行的结果输出数量是否和预期输出数量相等

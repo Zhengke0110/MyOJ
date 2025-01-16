@@ -129,6 +129,12 @@ public class QuestionServiceImpl extends ServiceImpl<QuestionMapper, Question> i
     }
 
     @Override
+    public QuestionVO getQuestionVO(Question question) {
+        QuestionVO questionVO = QuestionVO.objToVo(question);
+        return questionVO;
+    }
+
+    @Override
     public Page<QuestionVO> getQuestionVOPage(Page<Question> questionPage, HttpServletRequest request) {
         List<Question> questionList = questionPage.getRecords();
         Page<QuestionVO> questionVOPage = new Page<>(questionPage.getCurrent(), questionPage.getSize(), questionPage.getTotal());

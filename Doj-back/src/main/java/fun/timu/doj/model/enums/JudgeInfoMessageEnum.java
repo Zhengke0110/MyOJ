@@ -11,18 +11,17 @@ import java.util.stream.Collectors;
  * 用于定义判断结果的各种状态及其对应的文本说明
  */
 public enum JudgeInfoMessageEnum {
-    // 成功
-    ACCEPTED("成功", "Accepted"), // 答案错误
-    WRONG_ANSWER("答案错误", "Wrong Answer"), // 编译错误
-    COMPILE_ERROR("Compile Error", "编译错误"), // 内存溢出
-    MEMORY_LIMIT_EXCEEDED("", "内存溢出"), // 超时
-    TIME_LIMIT_EXCEEDED("Time Limit Exceeded", "超时"), // 展示错误
-    PRESENTATION_ERROR("Presentation Error", "展示错误"), // 等待中
-    WAITING("Waiting", "等待中"), // 输出溢出
-    OUTPUT_LIMIT_EXCEEDED("Output Limit Exceeded", "输出溢出"), // 危险操作
-    DANGEROUS_OPERATION("Dangerous Operation", "危险操作"), // 运行错误
-    RUNTIME_ERROR("Runtime Error", "运行错误"), // 系统错误
-    SYSTEM_ERROR("System Error", "系统错误");
+    ACCEPTED("成功", "Accepted"),
+    WRONG_ANSWER("答案错误", "Wrong Answer"),
+    COMPILE_ERROR("编译错误", "Compile Error"),
+    MEMORY_LIMIT_EXCEEDED("内存溢出", "Memory Overflow"),
+    TIME_LIMIT_EXCEEDED("超时", "Time Limit Exceeded"),
+    PRESENTATION_ERROR("展示错误", "Presentation Error"),
+    WAITING("等待中", "Waiting"),
+    OUTPUT_LIMIT_EXCEEDED("输出溢出", "Output Limit Exceeded"),
+    DANGEROUS_OPERATION("危险操作", "Dangerous Operation"),
+    RUNTIME_ERROR("运行错误", "Runtime Error"),
+    SYSTEM_ERROR("系统错误", "System Error");
 
     // 枚举项的文本说明
     private final String text;
