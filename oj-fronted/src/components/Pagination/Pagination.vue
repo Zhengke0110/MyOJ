@@ -57,7 +57,7 @@ const {
 const pageCount = computed(() => Math.ceil(total / pageSize));
 const emits = defineEmits(["previous", "next", "selectPage"]);
 const PreviousHandle = () => {
-  if (current >= 1) emits("previous", current - 1);
+  if (current > 1) emits("previous", current - 1);
 };
 const NextHandle = () => {
   if (current + 1 <= Math.ceil(total / pageSize)) emits("next", current + 1);
