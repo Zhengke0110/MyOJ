@@ -26,9 +26,18 @@
         </router-link>
       </div>
       <div class="hidden lg:flex lg:flex-1 lg:justify-end">
-        <router-link class="text-base/6 font-semibold text-gray-900" to="login"
+        <router-link
+          v-if="userStore.getUserRole == ACCESSENUM.NOLOGIN"
+          class="text-base/6 font-semibold text-gray-900"
+          to="login"
           >Log in <span aria-hidden="true">&rarr;</span></router-link
         >
+        <Avatar
+          v-else
+          :userName="userStore.getUserName"
+          :userRole="userStore.getUserRole"
+          :userAvatar="userStore.getUserAvatar"
+        ></Avatar>
       </div>
     </nav>
   </header>
@@ -41,6 +50,7 @@ import { LogoPath, LayoutMenu } from "@/config";
 import { routes } from "@/router/routes";
 import { useUserStore } from "@/store/user";
 import { ACCESSENUM, CheckACCESS } from "@/access";
+import Avatar from "../Avatar";
 
 // 状态管理 Pinia
 const userStore = useUserStore();
