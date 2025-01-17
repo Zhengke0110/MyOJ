@@ -170,7 +170,7 @@ const form = ref<QuestionInterface>({
     stackLimit: 1000,
     timeLimit: 1000,
   },
-  judgeCase: [JudgeCaseItemInfo],
+  judgeCase: [],
   acceptedNum: 0,
   submitNum: 0,
 });
@@ -255,7 +255,7 @@ watch(
         stackLimit: 1000,
         timeLimit: 1000,
       },
-      judgeCase: [JudgeCaseItemInfo],
+      judgeCase: [],
       acceptedNum: 0,
       submitNum: 0,
     };
