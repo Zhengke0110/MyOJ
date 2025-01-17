@@ -1,5 +1,7 @@
 <template>
-  <div class="overflow-hidden rounded-lg bg-gray-50">
+  <div
+    class="overflow-hidden rounded-md bg-gray-50/2 border-gray-100 border border-dashed"
+  >
     <div class="px-4 py-5 sm:p-6">
       <div>
         <label class="block text-sm/6 font-medium text-gray-900"

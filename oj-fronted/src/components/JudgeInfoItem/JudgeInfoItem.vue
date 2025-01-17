@@ -1,7 +1,11 @@
 <template>
-  <div class="overflow-hidden rounded-md bg-gray-50 shadow-sm inline-flex">
+  <div
+    class="overflow-hidden rounded-md bg-gray-50/2 border-gray-100 border border-dashed inline-flex"
+  >
     <div class="px-4 py-5 sm:p-6">
-      <label class="block mb-1 text-sm text-slate-600">{{ lable }}</label>
+      <label class="block text-sm/6 mb-2 font-medium text-gray-900">{{
+        lable
+      }}</label>
 
       <div class="flex justify-center items-center">
         <input
