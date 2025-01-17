@@ -14,6 +14,7 @@
     "@bytemd/plugin-gfm": "^1.21.0",
     "@bytemd/plugin-highlight": "^1.21.0",
     "@bytemd/vue-next": "^1.21.0",
+    "@headlessui/vue": "^1.7.23",
     "@tsparticles/slim": "^3.7.1",
     "@tsparticles/vue3": "^3.0.1",
     "@vueuse/core": "^12.4.0",

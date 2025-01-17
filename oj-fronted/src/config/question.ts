@@ -6,6 +6,8 @@ export interface QuestionInterface {
   title: string;
   tags: string[];
   answer?: string;
+  acceptedNum: number;
+  submitNum: number;
   content: string;
   judgeConfig: {
     memoryLimit: number;
@@ -30,25 +32,39 @@ export const JudgeCaseItemInfo = {
   output: "",
 };
 
-// 表格
+// // 表格
+// export const QuestionAdminTableColumns: {
+//   title: string;
+//   dataIndex?: string;
+//   slotName?: string;
+//   sortable?: TableSortable;
+//   filterable?: TableFilterable;
+// }[] = [
+//   {
+//     title: "ID",
+//     dataIndex: "id",
+//     sortable: {
+//       sortDirections: ["ascend", "descend"],
+//     },
+//   },
+//   { title: "题目", dataIndex: "title" },
+//   { title: "标签", slotName: "tags" },
+//   { title: "通过率", slotName: "acceptedRate" },
+//   { title: "操作", slotName: "action" },
+// ];
+
 export const QuestionAdminTableColumns: {
   title: string;
-  dataIndex?: string;
-  slotName?: string;
-  sortable?: TableSortable;
-  filterable?: TableFilterable;
 }[] = [
   {
     title: "ID",
-    dataIndex: "id",
-    sortable: {
-      sortDirections: ["ascend", "descend"],
-    },
   },
-  { title: "题目", dataIndex: "title" },
-  { title: "标签", slotName: "tags" },
-  { title: "通过率", slotName: "acceptedRate" },
-  { title: "操作", slotName: "action" },
+  { title: "Title" },
+  { title: "Tags" },
+  { title: "Passing Rate" },
+  { title: "Detail" },
+  { title: "Edit" },
+  { title: "Delete" },
 ];
 
 // 表格
