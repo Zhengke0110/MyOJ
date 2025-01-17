@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full">
+  <div class="w-full animated animated-duration-500 animated-fade-in">
     <a-tabs default-active-key="question">
       <a-tab-pane key="question" title="题目">
         <a-card v-if="QuestionInfo" :title="QuestionInfo.title">
