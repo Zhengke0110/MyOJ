@@ -171,6 +171,8 @@ const form = ref<QuestionInterface>({
     timeLimit: 1000,
   },
   judgeCase: [JudgeCaseItemInfo],
+  acceptedNum: 0,
+  submitNum: 0,
 });
 
 const onContentChange = (value: string) => (form.value.content = value);
@@ -254,6 +256,8 @@ watch(
         timeLimit: 1000,
       },
       judgeCase: [JudgeCaseItemInfo],
+      acceptedNum: 0,
+      submitNum: 0,
     };
     if (route.path.includes("update") && route.query.id)
       LoadQuestionInfo(route.query.id as string);
@@ -276,6 +280,8 @@ const LoadQuestionInfo = async (id: string) => {
         timeLimit: Number(data.judgeConfig?.timeLimit) || 0,
       },
       judgeCase: [],
+      acceptedNum: Number(data.acceptedNum) || 0, // 添加缺失的属性
+      submitNum: Number(data.submitNum) || 0, // 添加缺失的属性
     };
 
     if (typeof data.judgeCase === "string" && data.judgeCase.trim() !== "") {

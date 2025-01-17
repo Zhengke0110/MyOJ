@@ -122,6 +122,8 @@ const LoadQuestionInfo = async (id: string) => {
         stackLimit: Number(data.judgeConfig?.stackLimit) || 0,
         timeLimit: Number(data.judgeConfig?.timeLimit) || 0,
       },
+      acceptedNum: Number(data.acceptedNum) || 0, // 添加缺失的属性
+      submitNum: Number(data.submitNum) || 0, // 添加缺失的属性
     };
 
     QuestionInfo.value = mappedData;
