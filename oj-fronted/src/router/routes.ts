@@ -43,7 +43,7 @@ export const routes: RouteRecordRaw[] = [
     path: "/topics",
     name: "浏览题目",
     meta: { layout: LayoutMenu.BasicLayout, isShow: true },
-    component: () => import("@/views/question/Questions.vue"),
+    component: () => import("@/views/question/QuestionList.vue"),
   },
   {
     path: "/list",
@@ -88,7 +88,7 @@ export const routes: RouteRecordRaw[] = [
   {
     path: "/manage/question/",
     name: "管理题目",
-    component: () => import("@/views/question/ManageQuestionView.vue"),
+    component: () => import("@/views/question/ManageQuestionList.vue"),
     meta: {
       access: ACCESSENUM.ADMIN,
       layout: LayoutMenu.BasicLayout,

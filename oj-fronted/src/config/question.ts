@@ -32,27 +32,6 @@ export const JudgeCaseItemInfo = {
   output: "",
 };
 
-// // 表格
-// export const QuestionAdminTableColumns: {
-//   title: string;
-//   dataIndex?: string;
-//   slotName?: string;
-//   sortable?: TableSortable;
-//   filterable?: TableFilterable;
-// }[] = [
-//   {
-//     title: "ID",
-//     dataIndex: "id",
-//     sortable: {
-//       sortDirections: ["ascend", "descend"],
-//     },
-//   },
-//   { title: "题目", dataIndex: "title" },
-//   { title: "标签", slotName: "tags" },
-//   { title: "通过率", slotName: "acceptedRate" },
-//   { title: "操作", slotName: "action" },
-// ];
-
 export const QuestionAdminTableColumns: {
   title: string;
 }[] = [
@@ -70,15 +49,11 @@ export const QuestionAdminTableColumns: {
 // 表格
 export const QuestionTableColumns: {
   title: string;
-  dataIndex?: string;
-  slotName?: string;
-  sortable?: TableSortable;
-  filterable?: TableFilterable;
 }[] = [
-  { title: "题目", dataIndex: "title" },
-  { title: "标签", slotName: "tags" },
-  { title: "通过率", slotName: "acceptedRate" },
-  { title: "前去做题", slotName: "action" },
+  { title: "Title" },
+  { title: "Tags" },
+  { title: "Passing Rate" },
+  { title: "Solution" },
 ];
 
 export interface SubmitRecordInterface {
