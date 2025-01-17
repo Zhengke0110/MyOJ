@@ -28,11 +28,7 @@
             ></Badges>
           </td>
           <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-            {{
-              `${item.submitNum ? item.acceptedNum / item.submitNum : "0"}% (${
-                item.acceptedNum
-              }/${item.submitNum})`
-            }}
+            {{ item.passing }}
           </td>
           <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
             <button
@@ -64,7 +60,7 @@ import { useRouter } from "vue-router";
 import { type QuestionInterface, QuestionTableColumns } from "@/config";
 import { GetQuestions } from "@/services/question";
 import { Message } from "@arco-design/web-vue";
-import { onMounted, ref, watchEffect } from "vue";
+import { ref, watchEffect } from "vue";
 import Pagination from "@/components/Pagination";
 import Badges from "@/components/Badges";
 const total = ref(0); // 题目总数
@@ -85,7 +81,11 @@ const NextHandle = (current: number) =>
 
 const SelectPageHandle = (current: number) =>
   (PageInfo.value = { ...PageInfo.value, current: current });
-
+const passRate = (item: { acceptedNum: number; submitNum: number }) => {
+  if (item.submitNum === 0) return "0";
+  const rate = (item.acceptedNum / item.submitNum) * 100;
+  return rate.toFixed(2); // 保留两位小数
+};
 /**
  * 加载题目信息
  */
@@ -100,7 +100,8 @@ const LoadQuestionsInfo = async () => {
     QuestionInfo.value = Array.isArray(data.records)
       ? data.records.map((item: any) => ({
           ...item,
-          id: item.id !== undefined ? String(item.id) : undefined,
+          id: item.id !== undefined ? String(item.id) : "",
+          passing: passRate(item),
         }))
       : [];
   } else Message.error(`获取题目失败, 原因: ${message}`);
@@ -110,6 +111,5 @@ const LoadQuestionsInfo = async () => {
 const go2Solution = (id: string) => {
   router.push({ path: "/solution", query: { id } });
 };
-onMounted(() => LoadQuestionsInfo());
 watchEffect(() => LoadQuestionsInfo());
 </script>

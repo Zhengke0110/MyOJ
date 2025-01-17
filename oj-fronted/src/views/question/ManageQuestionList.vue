@@ -31,11 +31,7 @@
             ></Badges>
           </td>
           <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-            {{
-              `${item.submitNum ? item.acceptedNum / item.submitNum : "0"}% (${
-                item.acceptedNum
-              }/${item.submitNum})`
-            }}
+            {{ item.passing }}
           </td>
           <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
             <button
@@ -119,6 +115,11 @@ const NextHandle = (current: number) =>
 const SelectPageHandle = (current: number) =>
   (PageInfo.value = { ...PageInfo.value, current: current });
 
+const passRate = (item: { acceptedNum: number; submitNum: number }) => {
+  if (item.submitNum === 0) return "0";
+  const rate = (item.acceptedNum / item.submitNum) * 100;
+  return rate.toFixed(2); // 保留两位小数
+};
 /**
  * 加载题目信息
  */
@@ -134,8 +135,9 @@ const LoadQuestionsInfo = async () => {
     QuestionInfo.value = Array.isArray(data.records)
       ? data.records.map((item: any) => ({
           ...item,
-          id: item.id !== undefined ? String(item.id) : undefined,
+          id: item.id !== undefined ? String(item.id) : "",
           tags: item.tags !== undefined ? JSON.parse(item.tags) : [],
+          passing: passRate(item),
         }))
       : [];
   } else Message.error(`获取题目失败, 原因: ${message}`);

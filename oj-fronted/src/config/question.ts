@@ -1,5 +1,3 @@
-import type { TableFilterable, TableSortable } from "@arco-design/web-vue";
-
 // Question Interface
 export interface QuestionInterface {
   id?: string;
@@ -9,6 +7,7 @@ export interface QuestionInterface {
   acceptedNum: number;
   submitNum: number;
   content: string;
+  passing?: number;
   judgeConfig: {
     memoryLimit: number;
     stackLimit: number;
