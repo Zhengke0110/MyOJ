@@ -109,7 +109,7 @@ export const routes: RouteRecordRaw[] = [
     path: "/about",
     name: "关于我的",
     meta: { layout: LayoutMenu.BasicLayout, isShow: true },
-    component: () => import("@/views/Home.vue"),
+    component: () => import("@/views/About.vue"),
   },
   {
     path: "/noauth",

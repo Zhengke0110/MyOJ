@@ -1,5 +1,8 @@
 export const LogoPath = "/src/assets/dog.svg";
 export const DefaultUserAvatar = "/src/assets/defaultUserAvatar.png";
+export const DockerLogo = "/src/assets/docker-logo.png";
+export const CodeAddress = "https://github.com/ZhengKe996/MyOJ";
+export const BlogAddress = "http://timu.fun";
 
 export enum LayoutMenu {
   BasicLayout = "BasicLayout",
