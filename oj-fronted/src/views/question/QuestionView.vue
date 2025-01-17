@@ -12,7 +12,12 @@
       </a-form-item>
 
       <a-form-item field="tags" label="标签">
-        <a-input-tag v-model="form.tags" placeholder="请选择标签" allow-clear />
+        <TagsInput
+          class="w-full"
+          :tags="form.tags"
+          @remove="removeTag"
+          @add="addTag"
+        />
       </a-form-item>
 
       <a-form-item field="content" label="题目内容">
@@ -113,6 +118,7 @@ import {
 import { useRoute } from "vue-router";
 import JudgeCaseItem from "@/components/JudgeCaseItem";
 import JudgeInfoItem from "@/components/JudgeInfoItem";
+import TagsInput from "@/components/TagsInput";
 
 const route = useRoute();
 
@@ -131,6 +137,9 @@ const form = ref<QuestionInterface>({
   acceptedNum: 0,
   submitNum: 0,
 });
+
+const addTag = (value: string) => form.value.tags.push(value);
+const removeTag = (index: number) => form.value.tags.splice(index, 1);
 
 const onContentChange = (value: string) => (form.value.content = value);
 

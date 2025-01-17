@@ -101,7 +101,6 @@ const LoadQuestionInfo = async (id: string) => {
   const { data, code, message } = await AdminGetQuestionById(id);
 
   if (code === 0 && data) {
-    console.log(data.userVO);
     // 确保 userVO 存在并转换为 UserInterface 类型
     CreateUserInfo.value = data.userVO
       ? {

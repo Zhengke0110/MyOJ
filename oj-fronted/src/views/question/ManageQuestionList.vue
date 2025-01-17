@@ -179,7 +179,6 @@ const deleteQuestionAction = (id: string, title: string) => {
 // 删除弹窗
 const cancelHandle = () => (deleteModalDialogsInfo.value.visible = false);
 const confirmHandle = async () => {
-  console.log("confirm");
   if (!deleteInfo.value?.id) {
     Message.error("无效的题目ID");
     deleteModalDialogsInfo.value.visible = false;
