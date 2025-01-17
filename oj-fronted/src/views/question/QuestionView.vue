@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="w-full animated animated-duration-500 animated-fade-in">
     <h2 class="my-4 text-2xl">{{ isUpdateMode ? "修改题目" : "创建题目" }}</h2>
     <a-form
       :model="form"

@@ -1,6 +1,6 @@
 <!-- 浏览题目 - 非管理员可见 -->
 <template>
-  <div class="w-full">
+  <div class="w-full animated animated-duration-500 animated-fade-in">
     <table class="min-w-full divide-y divide-gray-300">
       <thead>
         <tr>

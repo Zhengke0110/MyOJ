@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full">
+  <div class="w-full animated animated-duration-500 animated-fade-in">
     <ul role="list" class="divide-y divide-gray-100">
       <li
         v-for="item in SubmitList"
