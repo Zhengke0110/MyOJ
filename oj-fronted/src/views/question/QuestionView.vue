@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>{{ isUpdateMode ? "修改题目" : "创建题目" }}</h2>
+    <h2 class="my-4 text-2xl">{{ isUpdateMode ? "修改题目" : "创建题目" }}</h2>
     <a-form
       :model="form"
       label-align="left"
@@ -27,47 +27,27 @@
       </a-form-item>
 
       <a-form-item label="判题配置" :content-flex="false" :merge-props="false">
-        <a-row :gutter="20">
-          <a-col :span="8">
-            <a-card hoverable>
-              <a-form-item field="judgeConfig.timeLimit" label="时间限制">
-                <a-input-number
-                  v-model="form.judgeConfig.timeLimit"
-                  placeholder="请输入时间限制"
-                  mode="button"
-                  :min="0"
-                  size="large"
-                />
-              </a-form-item>
-            </a-card>
-          </a-col>
-          <a-col :span="8">
-            <a-card hoverable>
-              <a-form-item field="judgeConfig.memoryLimit" label="内存限制">
-                <a-input-number
-                  v-model="form.judgeConfig.memoryLimit"
-                  placeholder="请输入内存限制"
-                  mode="button"
-                  :min="0"
-                  size="large"
-                />
-              </a-form-item>
-            </a-card>
-          </a-col>
-          <a-col :span="8">
-            <a-card hoverable>
-              <a-form-item field="judgeConfig.stackLimit" label="堆栈限制">
-                <a-input-number
-                  v-model="form.judgeConfig.stackLimit"
-                  placeholder="请输入堆栈限制"
-                  mode="button"
-                  :min="0"
-                  size="large"
-                />
-              </a-form-item>
-            </a-card>
-          </a-col>
-        </a-row>
+        <JudgeInfoItem
+          class="mr-2"
+          lable="时间限制"
+          :value="form.judgeConfig.timeLimit"
+          @increased="form.judgeConfig.timeLimit++"
+          @decreased="form.judgeConfig.timeLimit--"
+        />
+        <JudgeInfoItem
+          lable="内存限制"
+          class="mx-2"
+          :value="form.judgeConfig.memoryLimit"
+          @increased="form.judgeConfig.memoryLimit++"
+          @decreased="form.judgeConfig.memoryLimit--"
+        />
+        <JudgeInfoItem
+          lable="时间限制"
+          class="ml-2"
+          :value="form.judgeConfig.stackLimit"
+          @increased="form.judgeConfig.stackLimit++"
+          @decreased="form.judgeConfig.stackLimit--"
+        />
       </a-form-item>
 
       <a-form-item
@@ -82,31 +62,6 @@
             no-style
           >
             <a-col :span="8" class="my-2">
-              <!-- <a-card hoverable>
-                <a-form-item
-                  :field="`form.judgeCase[${index}].input`"
-                  :label="`输入用例-${index}`"
-                  :key="index"
-                >
-                  <a-input
-                    v-model="judgeCaseItem.input"
-                    placeholder="请输入测试输入用例"
-                  />
-                </a-form-item>
-                <a-form-item
-                  :field="`form.judgeCase[${index}].output`"
-                  :label="`输出用例-${index}`"
-                  :key="index"
-                >
-                  <a-input
-                    v-model="judgeCaseItem.output"
-                    placeholder="请输入测试输出用例"
-                  />
-                </a-form-item>
-                <a-button status="danger" @click="handleDelete(index)">
-                  删除
-                </a-button>
-              </a-card> -->
               <JudgeCaseItem
                 :index="index"
                 :input="judgeCaseItem.input"
@@ -157,6 +112,8 @@ import {
 } from "@/services/question";
 import { useRoute } from "vue-router";
 import JudgeCaseItem from "@/components/JudgeCaseItem";
+import JudgeInfoItem from "@/components/JudgeInfoItem";
+
 const route = useRoute();
 
 const form = ref<QuestionInterface>({
