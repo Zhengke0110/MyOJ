@@ -2,7 +2,7 @@
   <div class="w-full">
     <ul role="list" class="divide-y divide-gray-100">
       <li
-        v-for="item in currentShowList"
+        v-for="item in SubmitList"
         :key="item.id"
         class="relative flex justify-between py-5"
       >
@@ -107,7 +107,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, ref, watchEffect } from "vue";
+import { ref, watchEffect } from "vue";
 import { DefaultUserAvatar, type SubmitRecordInterface } from "@/config";
 import { GetQuestionSubmitList } from "@/services/question";
 import { Message } from "@arco-design/web-vue";
@@ -146,48 +146,34 @@ const LoadQuestionSubmitList = async () => {
     if (code === 0 && data) {
       const { records, total } = data;
       Total.value = Number(total) ?? 0;
-      records?.forEach((item) => {
-        let newData: SubmitRecordInterface = {
-          id: item.id ? String(item.id) : "",
-          language: item.language ?? "",
-          question: {
-            id: item.questionId ? String(item.questionId) : "",
-            title: item.questionVO?.title ?? "",
-            tags: item.questionVO?.tags ? item.questionVO?.tags : [],
-          },
-          judgeInfo: {
-            memory: item.judgeInfo?.memory ?? 0,
-            time: item.judgeInfo?.time ?? 0,
-            message: item.judgeInfo?.message ?? "",
-          },
-          submitter: {
-            userName: item.userVO?.userName ?? "",
-            userAvatar: item.userVO?.userAvatar ?? "",
-          },
-          createTime:
-            dayjs(item.createTime).format("YYYY-MM-DD HH:mm:ss") ?? "",
-        };
-        SubmitList.value.push(newData);
-      });
+      SubmitList.value = Array.isArray(records)
+        ? records.map((item) => ({
+            id: item.id ? String(item.id) : "",
+            language: item.language ?? "",
+            question: {
+              id: item.questionId ? String(item.questionId) : "",
+              title: item.questionVO?.title ?? "",
+              tags: item.questionVO?.tags ?? [],
+            },
+            judgeInfo: {
+              memory: item.judgeInfo?.memory ?? 0,
+              time: item.judgeInfo?.time ?? 0,
+              message: item.judgeInfo?.message ?? "",
+            },
+            submitter: {
+              userName: item.userVO?.userName ?? "",
+              userAvatar: item.userVO?.userAvatar ?? DefaultUserAvatar,
+            },
+            createTime:
+              dayjs(item.createTime).format("YYYY-MM-DD HH:mm:ss") ?? "",
+          }))
+        : [];
     } else Message.error("获取提交列表失败");
   } catch (error) {
   } finally {
     isLoading.value = false;
   }
-
-  // 去重
-  SubmitList.value = SubmitList.value.filter(
-    (item, index, self) => index === self.findIndex((t) => t.id === item.id)
-  );
 };
-
-// 动态的显示当前页展示的列表
-const currentShowList = computed(() => {
-  return SubmitList.value.slice(
-    (PageInfo.value.current - 1) * PageInfo.value.pageSize,
-    PageInfo.value.current * PageInfo.value.pageSize
-  );
-});
 
 watchEffect(() => LoadQuestionSubmitList());
 </script>
