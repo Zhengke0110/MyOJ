@@ -26,13 +26,6 @@
         @click="SelectPageHandle(i)"
         >{{ i }}</a
       >
-      <!-- Current: "border-indigo-500 text-indigo-600", Default: "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300" -->
-      <!-- <a
-        href="#"
-        class="inline-flex items-center border-t-2 border-indigo-500 px-4 pt-4 text-sm font-medium text-indigo-600"
-        aria-current="page"
-        >2</a
-      > -->
     </div>
     <div class="-mt-px flex w-0 flex-1 justify-end">
       <a
@@ -63,8 +56,12 @@ const {
 
 const pageCount = computed(() => Math.ceil(total / pageSize));
 const emits = defineEmits(["previous", "next", "selectPage"]);
-const PreviousHandle = () => emits("previous", current - 1);
-const NextHandle = () => emits("next", current + 1);
+const PreviousHandle = () => {
+  if (current >= 1) emits("previous", current - 1);
+};
+const NextHandle = () => {
+  if (current + 1 <= Math.ceil(total / pageSize)) emits("next", current + 1);
+};
 const SelectPageHandle = (page: number) => emits("selectPage", page);
 </script>
 

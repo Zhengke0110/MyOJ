@@ -122,12 +122,12 @@ const PageInfo = ref<{ current: number; pageSize: number }>({
   pageSize: 20,
 });
 
-const PreviousHandle = (current: number) => {
-  if (current > 1) PageInfo.value = { ...PageInfo.value, current: current };
-};
-
-const NextHandle = (current: number) =>
+const PreviousHandle = (current: number) =>
   (PageInfo.value = { ...PageInfo.value, current: current });
+
+const NextHandle = (current: number) => {
+  PageInfo.value = { ...PageInfo.value, current: current };
+};
 const SelectPageHandle = (current: number) =>
   (PageInfo.value = { ...PageInfo.value, current: current });
 
@@ -174,6 +174,11 @@ const LoadQuestionSubmitList = async () => {
   } finally {
     isLoading.value = false;
   }
+
+  // 去重
+  SubmitList.value = SubmitList.value.filter(
+    (item, index, self) => index === self.findIndex((t) => t.id === item.id)
+  );
 };
 
 // 动态的显示当前页展示的列表
