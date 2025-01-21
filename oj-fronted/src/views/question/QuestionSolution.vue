@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="animated animated-duration-500 animated-fade-in">
     <a-row :gutter="[24, 24]">
       <!-- Left -->
       <a-col :md="12" :xs="24">

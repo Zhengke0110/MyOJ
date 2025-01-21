@@ -54,7 +54,7 @@ import Avatar from "../Avatar";
 
 // 状态管理 Pinia
 const userStore = useUserStore();
-const LoginUserInfo = userStore.getLoginInfo;
+const LoginUserInfo = computed(() => userStore.getLoginInfo);
 
 // filter routes
 const filteredRoutes = computed(() => {
@@ -65,7 +65,7 @@ const filteredRoutes = computed(() => {
       !route.redirect &&
       route.meta?.layout === LayoutMenu.BasicLayout &&
       route.meta?.isShow === true &&
-      CheckACCESS(LoginUserInfo.userRole, NeedACCESS)
+      CheckACCESS(LoginUserInfo.value.userRole, NeedACCESS)
     ); // 排除包含 redirect 属性的路由和通配符路由
   });
 });
