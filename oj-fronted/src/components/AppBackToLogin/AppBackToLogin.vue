@@ -8,7 +8,7 @@
       ><div
         class="relative z-10 flex items-center gap-2 min-h-[20px] transition duration-200"
       >
-        <icon-left class="text-xl" :style="{ strokeWidth: 5 }" />
+        <i class="i-tabler:chevron-left size-5"></i>
         {{ currentPath.text }}
       </div>
     </RouterLink>
@@ -16,7 +16,6 @@
 </template>
 
 <script setup lang="ts">
-import { IconLeft } from "@arco-design/web-vue/es/icon";
 import { reactive, watch, onMounted } from "vue";
 import { useRoute } from "vue-router";
 
